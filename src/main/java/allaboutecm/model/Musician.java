@@ -38,6 +38,11 @@ public class Musician extends Entity {
     {
         notNull(musicianName);
         notBlank(musicianName);
+        String[] names = musicianName.split(" ");
+        if(names.length<2)
+        {
+            throw new IllegalArgumentException("Please input first name and last name.");
+        }
         this.name=musicianName;
     }
 

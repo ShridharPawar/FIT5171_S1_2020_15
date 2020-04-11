@@ -38,6 +38,21 @@ public class MusicianUnitTest {
         assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"Mike", "Chester"})
+    @DisplayName("Musician name should contain atleast 2 parts separated by a space.")
+    public void musicianNameShouldHaveTwoParts(String arg) {
+        assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Mike Shinoda", "Chester Bennington"})
+    @DisplayName("A valid musician name.")
+    public void validMusicianName(String arg) {
+        musician.setName(arg);
+        assertEquals(musician.getName(),arg);
+    }
+
     @Test
     @DisplayName("URL cannot be null")
     public void urlCannotBeNull()
