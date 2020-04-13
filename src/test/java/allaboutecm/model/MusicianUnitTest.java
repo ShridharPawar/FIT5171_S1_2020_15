@@ -6,12 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import javax.sound.midi.Instrument;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,20 +17,33 @@ public class MusicianUnitTest {
     private Musician musician;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp()
+    {
         musician = new Musician("Guitar");
     }
 
     @Test
+<<<<<<< Updated upstream
     @DisplayName("Musician name cannot be null.")
     public void musicianNameCannotBeNull() {
+=======
+    @DisplayName("Musician name cannot be null")
+    public void musicianNameCannotBeNull()
+    {
+>>>>>>> Stashed changes
         assertThrows(NullPointerException.class, () -> musician.setName(null));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
+<<<<<<< Updated upstream
     @DisplayName("Musician name cannot be empty or blank.")
     public void musicianNameCannotBeEmptyOrBlank(String arg) {
+=======
+    @DisplayName("Musician name cannot be empty or blank")
+    public void musicianNameCannotBeEmptyOrBlank(String arg)
+    {
+>>>>>>> Stashed changes
         assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
     }
 
@@ -61,9 +70,16 @@ public class MusicianUnitTest {
     }
 
     @ParameterizedTest
+<<<<<<< Updated upstream
     @ValueSource(strings = {"https://google.com"})
     @DisplayName("URL should atleast contain 'https://' and 'ecm'")
     public void invalidURL(String arg) throws MalformedURLException {
+=======
+    @ValueSource(strings = {"https://"})
+    @DisplayName("URL should at least contains 'https://'")
+    public void urlCannotBeEmptyOrBlank(String arg) throws MalformedURLException
+    {
+>>>>>>> Stashed changes
         java.net.URL url = new java.net.URL(arg);
         assertThrows(IllegalArgumentException.class,()->musician.setMusicianUrl(url));
     }
@@ -79,6 +95,7 @@ public class MusicianUnitTest {
 
     @Test
     @DisplayName("Musician albums cannot be null.")
+<<<<<<< Updated upstream
     public void musicianAlbumsCannotBeNull(){
          assertThrows(NullPointerException.class,()->musician.setAlbums(null));
     }
@@ -94,6 +111,17 @@ public class MusicianUnitTest {
     @Test
     @DisplayName("Positive test for musician albums.")
     public void positiveMusicianAlbums(){
+=======
+    public void musicianAlbumsCannotBeNull()
+    {
+        assertThrows(NullPointerException.class,()->musician.setAlbums(null));
+    }
+
+    @Test
+    @DisplayName("Valid instruments.")
+    public void validMusicianAlbums()
+    {
+>>>>>>> Stashed changes
         Set<Album> musicianAlbums = new HashSet<>();
         Album album = new Album(2019,"ECM 339","Meteora");
         musicianAlbums.add(album);

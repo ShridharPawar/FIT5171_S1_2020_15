@@ -6,9 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import javax.sound.midi.Instrument;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +19,8 @@ class AlbumUnitTest {
     private Album album;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp()
+    {
         album = new Album(1975, "ECM 1064/65", "The Köln Concert");
     }
 
@@ -34,7 +33,8 @@ class AlbumUnitTest {
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Album name cannot be empty or blank")
-    public void albumNameCannotBeEmptyOrBlank(String arg) {
+    public void albumNameCannotBeEmptyOrBlank(String arg)
+    {
         assertThrows(IllegalArgumentException.class, () -> album.setAlbumName(arg));
     }
 
@@ -43,11 +43,12 @@ class AlbumUnitTest {
     @DisplayName("Check if it is setting the valid album name.")
     public void positiveAlbumName(String arg) {
         album.setAlbumName(arg);
-        assertEquals(album.getAlbumName(),arg);
+        assertEquals(album.getAlbumName(), arg);
     }
 
     @Test
-    public void sameNameAndNumberMeansSameAlbum() {
+    public void sameNameAndNumberMeansSameAlbum()
+    {
         Album album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
         assertEquals(album, album1);
     }
@@ -55,55 +56,72 @@ class AlbumUnitTest {
     @ParameterizedTest
     @ValueSource(ints = {20212,2021,-2020,1499,1499,2021})
     @DisplayName("Release year should be between 1500 and 2020.")
-    public void releaseYearShouldBeValid(int arg){
+    public void releaseYearShouldBeValid(int arg)
+    {
        assertThrows(IllegalArgumentException.class,()->album.setReleaseYear(arg));
     }
 
     @ParameterizedTest
     @ValueSource(ints = {2020,1994,1501,2019,1500})
     @DisplayName("Check if it is setting the valid year input.")
+<<<<<<< Updated upstream
     public void positiveReleaseYear(int arg){
+=======
+    public void validReleaseYear(int arg)
+    {
+>>>>>>> Stashed changes
         album.setReleaseYear(arg);
         assertEquals(album.getReleaseYear(),arg);
     }
 
     @Test
     @DisplayName("Record number cannot be null")
-    public void recordNumberCannotBeNull(){
+    public void recordNumberCannotBeNull()
+    {
         assertThrows(NullPointerException.class,()->album.setRecordNumber(null));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Record number cannot be empty or blank.")
-    public void recordNumberCannotBeEmptyOrBlank(String arg){
+    public void recordNumberCannotBeEmptyOrBlank(String arg)
+    {
         assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"EC23", "909", "23ECM"})
     @DisplayName("Record number should start with ECM.")
-    public void recordNumberShouldStartWithECM(String arg){
+    public void recordNumberShouldStartWithECM(String arg)
+    {
         assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"ECM 2021", "ECM 435"})
     @DisplayName("Check if it is setting the valid record number.")
-    public void validRecordNumber(String arg){
+    public void validRecordNumber(String arg)
+    {
         album.setRecordNumber(arg);
         assertEquals(album.getRecordNumber(),arg);
     }
 
     @Test
     @DisplayName("Musicians of an album cannot be null.")
-    public void featuredMusiciansCannotBeNull(){
+    public void featuredMusiciansCannotBeNull()
+    {
          assertThrows(NullPointerException.class,()->album.setFeaturedMusicians(null));
     }
 
     @Test
+<<<<<<< Updated upstream
     @DisplayName("Check if any object within the set is null.")
     public void nullObjectInFeaturedMusicians(){
+=======
+    @DisplayName("Valid musicians.")
+    public void validFeaturedMusicians()
+    {
+>>>>>>> Stashed changes
         Set<Musician> musicians = new HashSet<>();
         musicians.add(null);
         assertThrows(NullPointerException.class,()->album.setFeaturedMusicians(musicians));
@@ -121,11 +139,13 @@ class AlbumUnitTest {
 
     @Test
     @DisplayName("Musician instruments cannot be null.")
-    public void musicianInstrumentsCannotBeNull(){
+    public void musicianInstrumentsCannotBeNull()
+    {
         assertThrows(NullPointerException.class,()->album.setInstruments(null));
     }
 
     @Test
+<<<<<<< Updated upstream
     @DisplayName("Check if any object within the set is null.")
     public void nullObjectInMusicianInstruments(){
         Set<MusicianInstrument> instruments = new HashSet<>();
@@ -136,6 +156,11 @@ class AlbumUnitTest {
     @Test
     @DisplayName("Positive test to check if the Musicianinstrument is valid.")
     public void positiveMusicianInstruments(){
+=======
+    @DisplayName("Valid instruments.")
+    public void validMusicianInstruments()
+    {
+>>>>>>> Stashed changes
         Set<MusicianInstrument> instruments = new HashSet<>();
         Musician musician = new Musician("Chester Bennington");
         MusicalInstrument musicalInstrument = new MusicalInstrument("Guitar");
@@ -154,8 +179,13 @@ class AlbumUnitTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"https://"})
+<<<<<<< Updated upstream
     @DisplayName("URL should atleast contains 'https://','ecm'")
     public void invalidURL(String arg) throws MalformedURLException {
+=======
+    @DisplayName("URL should at least contains 'https://','ecm'")
+    public void urlCannotBeEmptyOrBlank(String arg) throws MalformedURLException {
+>>>>>>> Stashed changes
         java.net.URL url = new java.net.URL(arg);
         assertThrows(IllegalArgumentException.class,()->album.setAlbumURL(url));
     }
@@ -191,7 +221,5 @@ class AlbumUnitTest {
         album.setTracks(tracks);
         assertEquals(album.getTracks(),tracks);
     }
-
-
 
 }

@@ -19,7 +19,7 @@ public class MusicalInstrument extends Entity {
     }
 
     public void setName(String name) {
-        notNull(name);
+        notNull(name);// if(name == null){throw new NullPointerException();}
         notBlank(name);
         this.name = name;
     }

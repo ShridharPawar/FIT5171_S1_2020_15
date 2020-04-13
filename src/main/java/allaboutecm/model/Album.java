@@ -2,8 +2,6 @@ package allaboutecm.model;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.sun.deploy.security.SelectableSecurityManager;
-import sun.security.x509.OtherName;
 
 import java.net.URL;
 import java.util.List;
