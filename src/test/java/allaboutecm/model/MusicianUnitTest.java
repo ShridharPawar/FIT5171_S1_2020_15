@@ -71,6 +71,7 @@ public class MusicianUnitTest {
     @Test
     @DisplayName("Musician albums cannot be null.")
     public void musicianAlbumsCannotBeNull(){
+
         assertThrows(NullPointerException.class,()->musician.setAlbums(null));
     }
 

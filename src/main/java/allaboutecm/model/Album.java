@@ -72,6 +72,13 @@ public class Album extends Entity {
 
     public void setFeaturedMusicians(Set<Musician> featuredMusicians) {
         notNull(featuredMusicians);
+        for(Musician mus:featuredMusicians)
+        {
+             if(mus.equals(null))
+             {
+                 throw new IllegalArgumentException("Object within the set should not be null");
+             }
+        }
         this.featuredMusicians = featuredMusicians;
      }
 
@@ -82,6 +89,13 @@ public class Album extends Entity {
     public void setInstruments(Set<MusicianInstrument> instruments)
     {
         notNull(instruments);
+        for(MusicianInstrument musins:instruments)
+        {
+            if(musins.equals(null))
+            {
+                throw new IllegalArgumentException("Object within the set should not be null");
+            }
+        }
         this.instruments = instruments;
     }
 
@@ -106,6 +120,13 @@ public class Album extends Entity {
     public void setTracks(List<String> tracks)
     {
         notNull(tracks);
+        for(String track:tracks)
+        {
+            if(track.equals(null))
+            {
+                throw new IllegalArgumentException("Track should not be null.");
+            }
+        }
         this.tracks = tracks;
     }
 

@@ -51,7 +51,7 @@ public class Musician extends Entity {
     }
 
     public void setAlbums(Set<Album> albums) {
-
+        notNull(albums);
         this.albums = albums;
     }
 

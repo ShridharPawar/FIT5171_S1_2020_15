@@ -41,7 +41,7 @@ class AlbumUnitTest {
     @ParameterizedTest
     @ValueSource(strings = {"Meteora", "Minutes to Midnight"})
     @DisplayName("Check if it is setting the valid album name.")
-    public void validAlbumName(String arg) {
+    public void positiveAlbumName(String arg) {
         album.setAlbumName(arg);
         assertEquals(album.getAlbumName(),arg);
     }
@@ -53,16 +53,16 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {20212,2021,-2020})
+    @ValueSource(ints = {20212,2021,-2020,1499,1499,2021})
     @DisplayName("Release year should be between 1500 and 2020.")
     public void releaseYearShouldBeValid(int arg){
        assertThrows(IllegalArgumentException.class,()->album.setReleaseYear(arg));
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {2020,1994})
+    @ValueSource(ints = {2020,1994,1501,2019,1500})
     @DisplayName("Check if it is setting the valid year input.")
-    public void validReleaseYear(int arg){
+    public void positiveReleaseYear(int arg){
         album.setReleaseYear(arg);
         assertEquals(album.getReleaseYear(),arg);
     }
@@ -102,9 +102,19 @@ class AlbumUnitTest {
     }
 
     @Test
-    @DisplayName("Valid musicians.")
-    public void validFeaturedMusicians(){
+    @DisplayName("Check if any object within the set is null.")
+    public void nullObjectInFeaturedMusicians(){
         Set<Musician> musicians = new HashSet<>();
+        musicians.add(null);
+        assertThrows(NullPointerException.class,()->album.setFeaturedMusicians(musicians));
+    }
+
+    @Test
+    @DisplayName("Positive test to check if the musicians list has been set.")
+    public void positiveTestFeaturedMusicians(){
+        Set<Musician> musicians = new HashSet<>();
+        Musician musician = new Musician("Mike Shinoda");
+        musicians.add(musician);
         album.setFeaturedMusicians(musicians);
         assertEquals(album.getFeaturedMusicians(),musicians);
     }
@@ -116,9 +126,21 @@ class AlbumUnitTest {
     }
 
     @Test
-    @DisplayName("Valid instruments.")
-    public void validMusicianInstruments(){
+    @DisplayName("Check if any object within the set is null.")
+    public void nullObjectInMusicianInstruments(){
         Set<MusicianInstrument> instruments = new HashSet<>();
+        instruments.add(null);
+        assertThrows(NullPointerException.class,()->album.setInstruments(instruments));
+    }
+
+    @Test
+    @DisplayName("Positive test to check if the Musicianinstrument is valid.")
+    public void positiveMusicianInstruments(){
+        Set<MusicianInstrument> instruments = new HashSet<>();
+        Musician musician = new Musician("Chester Bennington");
+        MusicalInstrument musicalInstrument = new MusicalInstrument("Guitar");
+        MusicianInstrument musicianInstrument = new MusicianInstrument(musician,musicalInstrument);
+        instruments.add(musicianInstrument);
         album.setInstruments(instruments);
         assertEquals(album.getInstruments(),instruments);
     }
@@ -138,6 +160,15 @@ class AlbumUnitTest {
         assertThrows(IllegalArgumentException.class,()->album.setAlbumURL(url));
     }
 
+    @ParameterizedTest
+    @DisplayName("Positive test case for URL.")
+    @ValueSource(strings = {"https://www.ecmrecords.com/catalogue/143038750696/the-koln-concert-keith-jarrett"})
+    public void positiveURL(String arg) throws MalformedURLException{
+        java.net.URL url = new java.net.URL(arg);
+        album.setAlbumURL(url);
+        assertEquals(album.getAlbumURL(),url);
+    }
+
     @Test
     @DisplayName("Albums song track list cannot be null.")
     public void albumTracksCannotBeNull(){
@@ -145,9 +176,18 @@ class AlbumUnitTest {
     }
 
     @Test
-    @DisplayName("Valid album tracks.")
-    public void validTracks(){
+    @DisplayName("Check if any object within the set is null.")
+    public void nullObjectInTracks(){
         List<String> tracks  = new ArrayList<String>();
+        tracks.add(null);
+        assertThrows(NullPointerException.class,()->album.setTracks(tracks));
+    }
+
+    @Test
+    @DisplayName("Valid album tracks.")
+    public void positiveTracks(){
+        List<String> tracks  = new ArrayList<String>();
+        tracks.add("Shadow of the day.");
         album.setTracks(tracks);
         assertEquals(album.getTracks(),tracks);
     }
