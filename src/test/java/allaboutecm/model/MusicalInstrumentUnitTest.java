@@ -34,7 +34,7 @@ public class MusicalInstrumentUnitTest {
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Musical Instrument cannot be empty or blank")
-    public void albumNameCannotBeEmptyOrBlank(String arg) {
+    public void musicalInstrumentCannotBeEmptyOrBlank(String arg) {
         assertThrows(IllegalArgumentException.class, () -> musicalInstrument.setName(arg));
     }
 

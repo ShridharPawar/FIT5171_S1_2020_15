@@ -35,22 +35,22 @@ public class MusicianInstrumentUnitTest {
     }
 
     @Test
-    @DisplayName("Musician cannot be null")
-    public void validMusician() {
-        Musician musician = new Musician("Chester");
+    @DisplayName("Positive test case to set Musician.")
+    public void positiveMusician() {
+        Musician musician = new Musician("Chester Bennington");
         musicianInstrument.setMusician(musician);
         assertEquals(musicianInstrument.getMusician(),musician);
     }
 
     @Test
-    @DisplayName("Musician cannot be null")
+    @DisplayName("Musical instrument cannot be null.")
     public void musicalInstrumentCannotBeNull() {
         assertThrows(NullPointerException.class, () -> musicianInstrument.setMusicalInstrument(null));
     }
 
     @Test
-    @DisplayName("Musician cannot be null")
-    public void validMusicalInstrument() {
+    @DisplayName("Positive test case to set musical instrument.")
+    public void positiveMusicalInstrument() {
         MusicalInstrument musicalInstrument = new MusicalInstrument("Piano");
         musicianInstrument.setMusicalInstrument(musicalInstrument);
         assertEquals(musicianInstrument.getMusicalInstrument(),musicalInstrument);

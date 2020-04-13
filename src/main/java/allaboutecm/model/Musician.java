@@ -52,6 +52,13 @@ public class Musician extends Entity {
 
     public void setAlbums(Set<Album> albums) {
         notNull(albums);
+        for(Album album:albums)
+        {
+            if(album.equals(null))
+            {
+                throw new IllegalArgumentException("Object within the set should not be null");
+            }
+        }
         this.albums = albums;
     }
 
@@ -74,7 +81,7 @@ public class Musician extends Entity {
 
     public void setMusicianUrl(URL musicianUrl) {
         notNull(musicianUrl);
-        if(!musicianUrl.toString().toLowerCase().startsWith("https://"))
+        if(!musicianUrl.toString().toLowerCase().startsWith("https://")||!musicianUrl.toString().toLowerCase().contains("ecm"))
         {
             throw new IllegalArgumentException("Not a valid URL.");
         }

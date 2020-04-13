@@ -155,7 +155,7 @@ class AlbumUnitTest {
     @ParameterizedTest
     @ValueSource(strings = {"https://"})
     @DisplayName("URL should atleast contains 'https://','ecm'")
-    public void urlCannotBeEmptyOrBlank(String arg) throws MalformedURLException {
+    public void invalidURL(String arg) throws MalformedURLException {
         java.net.URL url = new java.net.URL(arg);
         assertThrows(IllegalArgumentException.class,()->album.setAlbumURL(url));
     }

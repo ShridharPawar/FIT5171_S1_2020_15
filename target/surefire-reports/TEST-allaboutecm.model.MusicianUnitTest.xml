@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="allaboutecm.model.MusicianUnitTest" time="0.042" tests="12" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="allaboutecm.model.MusicianUnitTest" time="0.04" tests="14" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -18,7 +18,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_221\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\shrid\AppData\Local\Temp\surefire6088721703701501554\surefirebooter5398130837439780580.jar C:\Users\shrid\AppData\Local\Temp\surefire6088721703701501554 2020-04-13T15-45-07_760-jvmRun1 surefire8612818081071717126tmp surefire_06343541934887801715tmp"/>
+    <property name="sun.java.command" value="C:\Users\shrid\AppData\Local\Temp\surefire5547837322014503229\surefirebooter2829515230071127922.jar C:\Users\shrid\AppData\Local\Temp\surefire5547837322014503229 2020-04-13T16-14-06_345-jvmRun1 surefire840864511600275734tmp surefire_0576928963250384918tmp"/>
     <property name="surefire.test.class.path" value="D:\MonashSem3\SystemValidationAssignment\Assignment1\FIT5171_S1_2020_15\target\test-classes;D:\MonashSem3\SystemValidationAssignment\Assignment1\FIT5171_S1_2020_15\target\classes;C:\Users\shrid\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\shrid\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\shrid\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\shrid\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\shrid\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\shrid\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\shrid\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\shrid\.m2\repository\com\google\guava\guava\28.2-jre\guava-28.2-jre.jar;C:\Users\shrid\.m2\repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar;C:\Users\shrid\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\shrid\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\shrid\.m2\repository\org\checkerframework\checker-qual\2.10.0\checker-qual-2.10.0.jar;C:\Users\shrid\.m2\repository\com\google\errorprone\error_prone_annotations\2.3.4\error_prone_annotations-2.3.4.jar;C:\Users\shrid\.m2\repository\com\google\j2objc\j2objc-annotations\1.3\j2objc-annotations-1.3.jar;C:\Users\shrid\.m2\repository\org\apache\commons\commons-lang3\3.10\commons-lang3-3.10.jar;C:\Users\shrid\.m2\repository\org\apache\commons\commons-csv\1.8\commons-csv-1.8.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\shrid"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\shrid\AppData\Local\Temp\surefire6088721703701501554\surefirebooter5398130837439780580.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\shrid\AppData\Local\Temp\surefire5547837322014503229\surefirebooter2829515230071127922.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_221\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_221\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_221\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_221\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_221\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_221\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_221\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_221\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -62,15 +62,17 @@
     <property name="java.class.version" value="52.0"/>
   </properties>
   <testcase name="musicianNameCannotBeNull" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
-  <testcase name="musicianNameShouldHaveTwoParts(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
-  <testcase name="musicianNameShouldHaveTwoParts(String)[2]" classname="allaboutecm.model.MusicianUnitTest" time="0.005"/>
-  <testcase name="validMusicianName(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
-  <testcase name="validMusicianName(String)[2]" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
-  <testcase name="urlCannotBeNull" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
-  <testcase name="validMusicianAlbums" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
+  <testcase name="invalidURL(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0.003"/>
+  <testcase name="musicianNameShouldHaveTwoParts(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0.002"/>
+  <testcase name="musicianNameShouldHaveTwoParts(String)[2]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
+  <testcase name="positiveMusicianName(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
+  <testcase name="positiveMusicianName(String)[2]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
+  <testcase name="urlCannotBeNull" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
+  <testcase name="positiveURL(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0.002"/>
+  <testcase name="nullObjectInMusicianAlbums" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
+  <testcase name="validMusicianAlbums" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
   <testcase name="musicianNameCannotBeEmptyOrBlank(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="musicianNameCannotBeEmptyOrBlank(String)[2]" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
+  <testcase name="musicianNameCannotBeEmptyOrBlank(String)[2]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
   <testcase name="musicianNameCannotBeEmptyOrBlank(String)[3]" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
-  <testcase name="urlCannotBeEmptyOrBlank(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
-  <testcase name="musicianAlbumsCannotBeNull" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
+  <testcase name="musicianAlbumsCannotBeNull" classname="allaboutecm.model.MusicianUnitTest" time="0.002"/>
 </testsuite>

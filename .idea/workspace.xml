@@ -2,15 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fb2d38b1-ae78-4f33-9700-cac6c7c720b0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/2020-04-13T16-00-50_715.dumpstream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/2020-04-13T16-14-06_345.dumpstream" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Album.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Musician.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Musician.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/allaboutecm/model/AlbumUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/allaboutecm/model/AlbumUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicalInstrumentUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicalInstrumentUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicianInstrumentUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicianInstrumentUnitTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicianUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicianUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/allaboutecm/model/Album.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/allaboutecm/model/Album.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/allaboutecm/model/Musician.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/allaboutecm/model/Musician.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.AlbumUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.AlbumUnitTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicalInstrumentUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicalInstrumentUnitTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianInstrumentUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianInstrumentUnitTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianUnitTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.AlbumUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.AlbumUnitTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicalInstrumentUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicalInstrumentUnitTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianInstrumentUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianInstrumentUnitTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianUnitTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/AlbumUnitTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/AlbumUnitTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicalInstrumentUnitTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicalInstrumentUnitTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicianInstrumentUnitTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicianInstrumentUnitTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicianUnitTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicianUnitTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,8 +66,8 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="JUnit.AlbumUnitTest.positiveURL">
-    <configuration name="AlbumUnitTest.nullObjectInMusicianInstruments" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.MusicianUnitTest.validMusicianAlbums">
+    <configuration name="MusicianUnitTest.invalidURL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="allaboutecm" />
       <extension name="coverage">
         <pattern>
@@ -65,14 +76,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="allaboutecm.model" />
-      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.AlbumUnitTest" />
-      <option name="METHOD_NAME" value="nullObjectInMusicianInstruments" />
+      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianUnitTest" />
+      <option name="METHOD_NAME" value="invalidURL(java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AlbumUnitTest.nullObjectInTracks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MusicianUnitTest.musicianAlbumsCannotBeNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="allaboutecm" />
       <extension name="coverage">
         <pattern>
@@ -81,14 +92,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="allaboutecm.model" />
-      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.AlbumUnitTest" />
-      <option name="METHOD_NAME" value="nullObjectInTracks" />
+      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianUnitTest" />
+      <option name="METHOD_NAME" value="musicianAlbumsCannotBeNull" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AlbumUnitTest.positiveMusicianInstruments" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MusicianUnitTest.nullObjectInMusicianAlbums" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="allaboutecm" />
       <extension name="coverage">
         <pattern>
@@ -97,14 +108,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="allaboutecm.model" />
-      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.AlbumUnitTest" />
-      <option name="METHOD_NAME" value="positiveMusicianInstruments" />
+      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianUnitTest" />
+      <option name="METHOD_NAME" value="nullObjectInMusicianAlbums" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AlbumUnitTest.positiveURL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MusicianUnitTest.positiveURL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="allaboutecm" />
       <extension name="coverage">
         <pattern>
@@ -113,14 +124,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="allaboutecm.model" />
-      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.AlbumUnitTest" />
+      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianUnitTest" />
       <option name="METHOD_NAME" value="positiveURL(java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AlbumUnitTest.validTracks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MusicianUnitTest.validMusicianAlbums" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="allaboutecm" />
       <extension name="coverage">
         <pattern>
@@ -129,8 +140,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="allaboutecm.model" />
-      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.AlbumUnitTest" />
-      <option name="METHOD_NAME" value="validTracks" />
+      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianUnitTest" />
+      <option name="METHOD_NAME" value="validMusicianAlbums" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -138,11 +149,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AlbumUnitTest.positiveURL" />
-        <item itemvalue="JUnit.AlbumUnitTest.validTracks" />
-        <item itemvalue="JUnit.AlbumUnitTest.nullObjectInTracks" />
-        <item itemvalue="JUnit.AlbumUnitTest.nullObjectInMusicianInstruments" />
-        <item itemvalue="JUnit.AlbumUnitTest.positiveMusicianInstruments" />
+        <item itemvalue="JUnit.MusicianUnitTest.validMusicianAlbums" />
+        <item itemvalue="JUnit.MusicianUnitTest.musicianAlbumsCannotBeNull" />
+        <item itemvalue="JUnit.MusicianUnitTest.nullObjectInMusicianAlbums" />
+        <item itemvalue="JUnit.MusicianUnitTest.positiveURL" />
+        <item itemvalue="JUnit.MusicianUnitTest.invalidURL" />
       </list>
     </recent_temporary>
   </component>
@@ -170,7 +181,8 @@
       <workItem from="1586682889568" duration="172000" />
       <workItem from="1586683678177" duration="821000" />
       <workItem from="1586740182025" duration="5961000" />
-      <workItem from="1586753067390" duration="2603000" />
+      <workItem from="1586753067390" duration="4352000" />
+      <workItem from="1586758511291" duration="35000" />
     </task>
     <servers />
   </component>
@@ -194,22 +206,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586740286918" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1586756701678">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1586758459057">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586756701678" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1586756701678">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586758459057" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1586758459057">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586756701678" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1586756701678">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586758459057" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1586758459057">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586756701678" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1586756701678">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586758459057" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1586758459057">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586756701678" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586758459057" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1586749646818">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

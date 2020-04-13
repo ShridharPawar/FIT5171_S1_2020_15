@@ -26,14 +26,14 @@ public class MusicianUnitTest {
     }
 
     @Test
-    @DisplayName("Musician name cannot be null")
+    @DisplayName("Musician name cannot be null.")
     public void musicianNameCannotBeNull() {
         assertThrows(NullPointerException.class, () -> musician.setName(null));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
-    @DisplayName("Musician name cannot be empty or blank")
+    @DisplayName("Musician name cannot be empty or blank.")
     public void musicianNameCannotBeEmptyOrBlank(String arg) {
         assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
     }
@@ -47,8 +47,8 @@ public class MusicianUnitTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"Mike Shinoda", "Chester Bennington"})
-    @DisplayName("A valid musician name.")
-    public void validMusicianName(String arg) {
+    @DisplayName("A positive test case for musician name.")
+    public void positiveMusicianName(String arg) {
         musician.setName(arg);
         assertEquals(musician.getName(),arg);
     }
@@ -61,24 +61,42 @@ public class MusicianUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"https://"})
-    @DisplayName("URL should atleast contains 'https://'")
-    public void urlCannotBeEmptyOrBlank(String arg) throws MalformedURLException {
+    @ValueSource(strings = {"https://google.com"})
+    @DisplayName("URL should atleast contain 'https://' and 'ecm'")
+    public void invalidURL(String arg) throws MalformedURLException {
         java.net.URL url = new java.net.URL(arg);
         assertThrows(IllegalArgumentException.class,()->musician.setMusicianUrl(url));
+    }
+
+    @ParameterizedTest
+    @DisplayName("Positive test case for URL.")
+    @ValueSource(strings = {"https://www.ecmrecords.com/artists/1435045745"})
+    public void positiveURL(String arg) throws MalformedURLException{
+        java.net.URL url = new java.net.URL(arg);
+        musician.setMusicianUrl(url);
+        assertEquals(musician.getMusicianUrl(),url);
     }
 
     @Test
     @DisplayName("Musician albums cannot be null.")
     public void musicianAlbumsCannotBeNull(){
-
-        assertThrows(NullPointerException.class,()->musician.setAlbums(null));
+         assertThrows(NullPointerException.class,()->musician.setAlbums(null));
     }
 
     @Test
-    @DisplayName("Valid instruments.")
-    public void validMusicianAlbums(){
+    @DisplayName("Check if any object within the set is null.")
+    public void nullObjectInMusicianAlbums(){
         Set<Album> musicianAlbums = new HashSet<>();
+        musicianAlbums.add(null);
+        assertThrows(NullPointerException.class,()->musician.setAlbums(musicianAlbums));
+    }
+
+    @Test
+    @DisplayName("Positive test for musician albums.")
+    public void positiveMusicianAlbums(){
+        Set<Album> musicianAlbums = new HashSet<>();
+        Album album = new Album(2019,"ECM 339","Meteora");
+        musicianAlbums.add(album);
         musician.setAlbums(musicianAlbums);
         assertEquals(musician.getAlbums(),musicianAlbums);
     }
