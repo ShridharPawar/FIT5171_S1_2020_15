@@ -6,41 +6,35 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import javax.sound.midi.Instrument;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MusicalInstrumentUnitTest {
       private MusicalInstrument musicalInstrument;
 
     @BeforeEach
-    public void setUp()
-    {
+    public void setUp() {
         musicalInstrument = new MusicalInstrument("Guitar");
     }
 
-    /**
-     * Equivalent class test for name
-     * Case 1: name could not be null
-     */
     @Test
     @DisplayName("Musical Instrument cannot be null")
-    public void musicalInstrumentCannotBeNull()
-    {
+    public void musicalInstrumentCannotBeNull() {
         assertThrows(NullPointerException.class, () -> musicalInstrument.setName(null));
     }
 
-    /**
-     * Equivalent class test for name
-     * Case 2: name could not be empty
-     */
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Musical Instrument cannot be empty or blank")
-<<<<<<< Updated upstream
     public void musicalInstrumentCannotBeEmptyOrBlank(String arg) {
-=======
-    public void albumNameCannotBeEmptyOrBlank(String arg)
-    {
->>>>>>> Stashed changes
         assertThrows(IllegalArgumentException.class, () -> musicalInstrument.setName(arg));
     }
 
