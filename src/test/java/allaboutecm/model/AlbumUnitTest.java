@@ -46,6 +46,13 @@ class AlbumUnitTest {
         assertEquals(album.getAlbumName(),arg);
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"Meteoraffffffffffffffffffefdfddffrfrfrfrf", "fvvfnvfjnvjfnvjffvfjv45fvfv"})
+    @DisplayName("Check the length of the album name.")
+    public void limitedLengthOfAlbumName(String arg) {
+        assertThrows(IllegalArgumentException.class, () -> album.setAlbumName(arg));
+    }
+
     @Test
     public void sameNameAndNumberMeansSameAlbum() {
         Album album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
@@ -53,7 +60,7 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {20212,2021,-2020,1499,1499,2021})
+    @ValueSource(ints = {20212,2021,-2020,1499,2021})
     @DisplayName("Release year should be between 1500 and 2020.")
     public void releaseYearShouldBeValid(int arg){
        assertThrows(IllegalArgumentException.class,()->album.setReleaseYear(arg));

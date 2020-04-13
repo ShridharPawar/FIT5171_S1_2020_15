@@ -39,10 +39,20 @@ public class Musician extends Entity {
         notNull(musicianName);
         notBlank(musicianName);
         String[] names = musicianName.split(" ");
-        if(names.length<2)
+        boolean letter = true;
+        for(String name:names)
+        {
+            if(!name.matches("^[a-zA-Z]*$"))
+            {
+                letter = false;
+                break;
+            }
+        }
+        if(names.length<2 || !letter)
         {
             throw new IllegalArgumentException("Please input first name and last name.");
         }
+
         this.name=musicianName;
     }
 

@@ -151,7 +151,10 @@ public class Album extends Entity {
     public void setAlbumName(String albumName) {
         notNull(albumName);
         notBlank(albumName);
-
+        if(albumName.length()>25)
+        {
+            throw new IllegalArgumentException("Album's length is too big.");
+        }
         this.albumName = albumName;
     }
 

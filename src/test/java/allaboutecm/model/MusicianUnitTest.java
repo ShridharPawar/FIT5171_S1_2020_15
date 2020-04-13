@@ -46,6 +46,13 @@ public class MusicianUnitTest {
     }
 
     @ParameterizedTest
+    @ValueSource(strings = {"Mike5/ Shinoda","Chester*+ Bennington"})
+    @DisplayName("Musician name should not have special characters or numbers.")
+    public void musicianNameShouldNotHaveSpecialCharacters(String arg) {
+        assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
+    }
+
+    @ParameterizedTest
     @ValueSource(strings = {"Mike Shinoda", "Chester Bennington"})
     @DisplayName("A positive test case for musician name.")
     public void positiveMusicianName(String arg) {

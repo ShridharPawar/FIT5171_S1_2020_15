@@ -1,39 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fb2d38b1-ae78-4f33-9700-cac6c7c720b0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/target/surefire-reports/2020-04-13T16-00-50_715.dumpstream" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/surefire-reports/2020-04-13T16-14-06_345.dumpstream" afterDir="false" />
+    <list default="true" id="6c7da794-9eed-44f2-be10-21a3185e9848" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Album.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Musician.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Musician.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/allaboutecm/model/AlbumUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/allaboutecm/model/AlbumUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicalInstrumentUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicalInstrumentUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicianInstrumentUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicianInstrumentUnitTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicianUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicianUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/allaboutecm/model/Musician.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/allaboutecm/model/Musician.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.AlbumUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.AlbumUnitTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicalInstrumentUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicalInstrumentUnitTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianInstrumentUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianInstrumentUnitTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianUnitTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.AlbumUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.AlbumUnitTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicalInstrumentUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicalInstrumentUnitTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianInstrumentUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianInstrumentUnitTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianUnitTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/AlbumUnitTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/AlbumUnitTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicalInstrumentUnitTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicalInstrumentUnitTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicianInstrumentUnitTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicianInstrumentUnitTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicianUnitTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicianUnitTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="CodeInsightWorkspaceSettings">
-    <option name="optimizeImportsOnTheFly" value="true" />
-  </component>
-  <component name="CodeStyleSettingsInfer">
-    <option name="done" value="true" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -56,15 +34,6 @@
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-<<<<<<< Updated upstream
-=======
-  <component name="ProjectCodeStyleSettingsMigration">
-    <option name="version" value="1" />
-  </component>
->>>>>>> Stashed changes
   <component name="ProjectId" id="1ZyUJoskCMfKf1zM0j2x289Zn3c" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -72,30 +41,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-<<<<<<< Updated upstream
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="JUnit.MusicianUnitTest.validMusicianAlbums">
-    <configuration name="MusicianUnitTest.invalidURL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-=======
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
-  </component>
-  <component name="RunManager" selected="JUnit.MusicalInstrumentUnitTest.albumNameCannotBeEmptyOrBlank">
-    <configuration name="AlbumUnitTest.validAlbumName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
->>>>>>> Stashed changes
+  <component name="RunManager" selected="JUnit.AlbumUnitTest.limitedLengthOfAlbumName">
+    <configuration name="AlbumUnitTest.limitedLengthOfAlbumName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="allaboutecm" />
       <extension name="coverage">
         <pattern>
@@ -104,23 +55,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="allaboutecm.model" />
-<<<<<<< Updated upstream
-      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianUnitTest" />
-      <option name="METHOD_NAME" value="invalidURL(java.lang.String)" />
-=======
       <option name="MAIN_CLASS_NAME" value="allaboutecm.model.AlbumUnitTest" />
-      <option name="METHOD_NAME" value="validAlbumName()" />
->>>>>>> Stashed changes
+      <option name="METHOD_NAME" value="limitedLengthOfAlbumName(java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-<<<<<<< Updated upstream
-    <configuration name="MusicianUnitTest.musicianAlbumsCannotBeNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-=======
-    <configuration name="MusicalInstrumentUnitTest.albumNameCannotBeEmptyOrBlank" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
->>>>>>> Stashed changes
+    <configuration name="AlbumUnitTest.releaseYearShouldBeValid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="allaboutecm" />
       <extension name="coverage">
         <pattern>
@@ -129,23 +71,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="allaboutecm.model" />
-<<<<<<< Updated upstream
-      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianUnitTest" />
-      <option name="METHOD_NAME" value="musicianAlbumsCannotBeNull" />
-=======
-      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicalInstrumentUnitTest" />
-      <option name="METHOD_NAME" value="albumNameCannotBeEmptyOrBlank(java.lang.String)" />
->>>>>>> Stashed changes
+      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.AlbumUnitTest" />
+      <option name="METHOD_NAME" value="releaseYearShouldBeValid(int)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-<<<<<<< Updated upstream
-    <configuration name="MusicianUnitTest.nullObjectInMusicianAlbums" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-=======
-    <configuration name="MusicalInstrumentUnitTest.musicalInstrumentCannotBeNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
->>>>>>> Stashed changes
+    <configuration name="MusicianUnitTest.musicianNameShouldHaveTwoParts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="allaboutecm" />
       <extension name="coverage">
         <pattern>
@@ -154,23 +87,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="allaboutecm.model" />
-<<<<<<< Updated upstream
       <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianUnitTest" />
-      <option name="METHOD_NAME" value="nullObjectInMusicianAlbums" />
-=======
-      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicalInstrumentUnitTest" />
-      <option name="METHOD_NAME" value="musicalInstrumentCannotBeNull" />
->>>>>>> Stashed changes
+      <option name="METHOD_NAME" value="musicianNameShouldHaveTwoParts(java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-<<<<<<< Updated upstream
-    <configuration name="MusicianUnitTest.positiveURL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-=======
-    <configuration name="MusicianInstrumentUnitTest.validMusicalInstrument" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
->>>>>>> Stashed changes
+    <configuration name="MusicianUnitTest.musicianNameShouldNotHaveSpecialCharacters" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="allaboutecm" />
       <extension name="coverage">
         <pattern>
@@ -179,58 +103,36 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="allaboutecm.model" />
-<<<<<<< Updated upstream
       <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianUnitTest" />
-      <option name="METHOD_NAME" value="positiveURL(java.lang.String)" />
-=======
-      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianInstrumentUnitTest" />
-      <option name="METHOD_NAME" value="validMusicalInstrument" />
->>>>>>> Stashed changes
+      <option name="METHOD_NAME" value="musicianNameShouldNotHaveSpecialCharacters(java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="[Local] MusicalInstrumentUnitTest.albumNameCannotBeEmptyOrBlank" type="aws.lambda" factoryName="Local" temporary="true" nameIsGenerated="true">
-      <option name="credentialProviderId" />
-      <option name="regionId" value="us-east-1" />
-      <option name="debugHost" value="localhost" />
-      <option name="environmentVariables">
-        <map />
-      </option>
-      <option name="handler" value="allaboutecm.model.MusicalInstrumentUnitTest::albumNameCannotBeEmptyOrBlank" />
-      <option name="logicalFunctionName" />
-      <option name="memorySize" value="128" />
-      <option name="runtime" value="java11" />
-      <option name="templateFile" />
-      <option name="timeout" value="300" />
-      <option name="useTemplate" value="false" />
-      <option name="input" />
-      <option name="inputIsFile" value="false" />
-      <sam>
-        <option name="additionalBuildArgs" />
-        <option name="additionalLocalArgs" />
-        <option name="buildInContainer" value="false" />
-        <option name="dockerNetwork" />
-        <option name="skipImagePull" value="false" />
-      </sam>
-      <method v="2" />
+    <configuration name="MusicianUnitTest.validMusicianName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="allaboutecm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="allaboutecm.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="allaboutecm.model" />
+      <option name="MAIN_CLASS_NAME" value="allaboutecm.model.MusicianUnitTest" />
+      <option name="METHOD_NAME" value="validMusicianName(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
-<<<<<<< Updated upstream
-        <item itemvalue="JUnit.MusicianUnitTest.validMusicianAlbums" />
-        <item itemvalue="JUnit.MusicianUnitTest.musicianAlbumsCannotBeNull" />
-        <item itemvalue="JUnit.MusicianUnitTest.nullObjectInMusicianAlbums" />
-        <item itemvalue="JUnit.MusicianUnitTest.positiveURL" />
-        <item itemvalue="JUnit.MusicianUnitTest.invalidURL" />
-=======
-        <item itemvalue="JUnit.MusicalInstrumentUnitTest.albumNameCannotBeEmptyOrBlank" />
-        <item itemvalue="AWS Lambda.[Local] MusicalInstrumentUnitTest.albumNameCannotBeEmptyOrBlank" />
-        <item itemvalue="JUnit.MusicalInstrumentUnitTest.musicalInstrumentCannotBeNull" />
-        <item itemvalue="JUnit.AlbumUnitTest.validAlbumName" />
-        <item itemvalue="JUnit.MusicianInstrumentUnitTest.validMusicalInstrument" />
->>>>>>> Stashed changes
+        <item itemvalue="JUnit.AlbumUnitTest.limitedLengthOfAlbumName" />
+        <item itemvalue="JUnit.AlbumUnitTest.releaseYearShouldBeValid" />
+        <item itemvalue="JUnit.MusicianUnitTest.musicianNameShouldNotHaveSpecialCharacters" />
+        <item itemvalue="JUnit.MusicianUnitTest.validMusicianName" />
+        <item itemvalue="JUnit.MusicianUnitTest.musicianNameShouldHaveTwoParts" />
       </list>
     </recent_temporary>
   </component>
@@ -250,21 +152,11 @@
       <workItem from="1586300156621" duration="401000" />
       <workItem from="1586316202335" duration="15561000" />
       <workItem from="1586472153489" duration="4680000" />
-<<<<<<< Updated upstream
-      <workItem from="1586586185854" duration="75000" />
-      <workItem from="1586680437902" duration="363000" />
-      <workItem from="1586681061450" duration="411000" />
-      <workItem from="1586681499948" duration="597000" />
-      <workItem from="1586682554005" duration="244000" />
-      <workItem from="1586682889568" duration="172000" />
-      <workItem from="1586683678177" duration="821000" />
-      <workItem from="1586740182025" duration="5961000" />
-      <workItem from="1586753067390" duration="4352000" />
-      <workItem from="1586758511291" duration="35000" />
-=======
-      <workItem from="1586585261573" duration="2034000" />
-      <workItem from="1586756129094" duration="4029000" />
->>>>>>> Stashed changes
+      <workItem from="1586505308038" duration="3959000" />
+      <workItem from="1586585193663" duration="984000" />
+      <workItem from="1586682664333" duration="400000" />
+      <workItem from="1586683084416" duration="98000" />
+      <workItem from="1586773829280" duration="24000" />
     </task>
     <servers />
   </component>
@@ -272,119 +164,54 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="91" key="#Project_Structure" timestamp="1586585698499">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="361" y="91" key="#Project_Structure/0.0.1536.864@0.0.1536.864" timestamp="1586585698499" />
-    <state x="0" y="0" width="752" height="864" key="#[Local]_MusicalInstrumentUnitTest.albumNameCannotBeEmptyOrBlank" timestamp="1586760751841">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="0" y="0" width="752" height="864" key="#[Local]_MusicalInstrumentUnitTest.albumNameCannotBeEmptyOrBlank/0.0.1536.864@0.0.1536.864" timestamp="1586760751841" />
-    <state x="511" y="268" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1586756893938">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="511" y="268" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1536.864@0.0.1536.864" timestamp="1586756893938" />
     <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1586477054291">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1586477054291" />
-<<<<<<< Updated upstream
-    <state x="551" y="281" width="433" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1586682620448">
+    <state width="408" height="466" key="DebuggerActiveHint" timestamp="1586585937668">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="551" y="281" width="433" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1586682620448" />
-    <state width="470" height="466" key="DebuggerActiveHint" timestamp="1586748536984">
+    <state width="408" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1586585937668" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1586586182076">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="470" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1586748536984" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1586740286918">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586586182076" />
+    <state width="1493" height="170" key="GridCell.Tab.0.bottom" timestamp="1586776402842">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586740286918" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1586758459057">
+    <state width="1493" height="170" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586776402842" />
+    <state width="1493" height="170" key="GridCell.Tab.0.center" timestamp="1586776402842">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586758459057" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1586758459057">
+    <state width="1493" height="170" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586776402842" />
+    <state width="1493" height="170" key="GridCell.Tab.0.left" timestamp="1586776402841">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586758459057" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1586758459057">
+    <state width="1493" height="170" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586776402841" />
+    <state width="1493" height="170" key="GridCell.Tab.0.right" timestamp="1586776402842">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586758459057" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1586758459057">
+    <state width="1493" height="170" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586776402842" />
+    <state width="746" height="261" key="GridCell.Tab.1.bottom" timestamp="1586586183599">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586758459057" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1586749646818">
+    <state width="746" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586586183599" />
+    <state width="746" height="261" key="GridCell.Tab.1.center" timestamp="1586586183599">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586749646818" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1586749646818">
-=======
-    <state x="614" y="321" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1586585898217">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="614" y="321" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1536.864@0.0.1536.864" timestamp="1586585898217" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1586418137734">
+    <state width="746" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1586586183599" />
+    <state width="746" height="261" key="GridCell.Tab.1.left" timestamp="1586586183599">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586418137734" />
-    <state width="1493" height="221" key="GridCell.Tab.0.bottom" timestamp="1586760768466">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="168" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586477149501" />
-    <state width="1493" height="221" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1586760768466" />
-    <state width="1493" height="221" key="GridCell.Tab.0.center" timestamp="1586760768466">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="168" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586477149500" />
-    <state width="1493" height="221" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1586760768466" />
-    <state width="1493" height="221" key="GridCell.Tab.0.left" timestamp="1586760768465">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="168" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586477149500" />
-    <state width="1493" height="221" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1586760768465" />
-    <state width="1493" height="221" key="GridCell.Tab.0.right" timestamp="1586760768466">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="168" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586477149501" />
-    <state width="1493" height="221" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1586760768466" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1586441266885">
->>>>>>> Stashed changes
+    <state width="746" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1586586183599" />
+    <state width="746" height="261" key="GridCell.Tab.1.right" timestamp="1586586183599">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1586749646818" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1586749646818">
+    <state width="746" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1586586183599" />
+    <state x="0" y="0" key="com.intellij.ide.util.TipDialog" timestamp="1586585202152">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1586749646818" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1586749646818">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1586749646818" />
-    <state x="277" y="57" key="SettingsEditor" timestamp="1586681373570">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-<<<<<<< Updated upstream
-    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1586681373570" />
-    <state x="0" y="0" key="com.intellij.ide.util.TipDialog" timestamp="1586740199693">
-=======
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1586441266885" />
-    <state x="299" y="87" key="Maven.ArtifactSearchDialog" timestamp="1586585939111">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="299" y="87" key="Maven.ArtifactSearchDialog/0.0.1536.864@0.0.1536.864" timestamp="1586585939111" />
-    <state x="129" y="119" width="996" height="707" key="SettingsEditor" timestamp="1586759310529">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="129" y="119" width="996" height="707" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1586759310529" />
-    <state x="0" y="0" key="com.intellij.ide.util.TipDialog" timestamp="1586124374034">
->>>>>>> Stashed changes
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="0" y="0" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1586740199693" />
+    <state x="0" y="0" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1586585202152" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1586433600834">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
