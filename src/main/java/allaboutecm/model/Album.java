@@ -78,7 +78,7 @@ public class Album extends Entity {
         {
              if(mus.equals(null))
              {
-                 throw new IllegalArgumentException("Object within the set should not be null");
+                 throw new NullPointerException("Object within the set should not be null");
              }
         }
         this.featuredMusicians = featuredMusicians;
@@ -95,7 +95,7 @@ public class Album extends Entity {
         {
             if(musins.equals(null))
             {
-                throw new IllegalArgumentException("Object within the set should not be null");
+                throw new NullPointerException("Object within the set should not be null");
             }
         }
         this.instruments = instruments;
@@ -129,7 +129,7 @@ public class Album extends Entity {
         {
             if(track.equals(null))
             {
-                throw new IllegalArgumentException("Track should not be null.");
+                throw new NullPointerException("Track should not be null.");
             }
         }
         this.tracks = tracks;

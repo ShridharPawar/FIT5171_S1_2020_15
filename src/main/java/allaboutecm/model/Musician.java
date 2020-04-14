@@ -69,7 +69,7 @@ public class Musician extends Entity {
         {
             if(album.equals(null))
             {
-                throw new IllegalArgumentException("Object within the set should not be null");
+                throw new NullPointerException("Object within the set should not be null");
             }
         }
         this.albums = albums;

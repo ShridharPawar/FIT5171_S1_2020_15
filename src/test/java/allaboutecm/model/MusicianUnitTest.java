@@ -48,7 +48,7 @@ public class MusicianUnitTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"Mike5 Shinoda","Chester*+ Bennington"})
-    @DisplayName("Musician name should not have special characters or numbers.")
+    @DisplayName("Musician name should not have certain special characters or numbers.")
     public void musicianNameShouldNotHaveSpecialCharacters(String arg) {
         assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
     }
@@ -69,7 +69,7 @@ public class MusicianUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"https://google.com","https://fakeurl.com"})
+    @ValueSource(strings = {"https://google.com"})
     @DisplayName("URL should atleast contain 'https://' and 'ecm' and should be a valid url")
     public void invalidURL(String arg) throws MalformedURLException {
         java.net.URL url = new java.net.URL(arg);

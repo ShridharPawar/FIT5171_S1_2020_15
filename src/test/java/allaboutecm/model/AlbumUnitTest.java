@@ -69,7 +69,7 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {20212,2021,-2020,1499,2021})
+    @ValueSource(ints = {20212787,2021,-2020,1499})
     @DisplayName("Release year should be between 1500 and 2020.")
     public void releaseYearShouldBeValid(int arg){
        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->album.setReleaseYear(arg));
