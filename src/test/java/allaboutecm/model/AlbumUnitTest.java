@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.sound.midi.Instrument;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"Meteora", "Minutes to Midnight"})
+    @ValueSource(strings = {"Minutes to Midnight"})
     @DisplayName("Check if it is setting the valid album name.")
     public void positiveAlbumName(String arg) {
         album.setAlbumName(arg);
@@ -47,7 +48,7 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"Meteoraffffffffffffffffffefdfddffrfrfrfrf", "fvvfnvfjnvjfnvjffvfjv45fvfv"})
+    @ValueSource(strings = {"Meteoraffffffffffffffffffefdfddffrfrfrfrfdfhdfjdbfhbfhfrfbfrbfrfrfr frn dfnrdbgfhrgfrdjfndfjdf"})
     @DisplayName("Check the length of the album name.")
     public void limitedLengthOfAlbumName(String arg) {
         assertThrows(IllegalArgumentException.class, () -> album.setAlbumName(arg));
@@ -60,10 +61,19 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
+    @ValueSource(strings = {"23de","98er"})
+    @DisplayName("Release year should have just numbers.")
+    public void randomStringReleaseYear(String arg){
+        assertThrows(NumberFormatException.class,()->album.setReleaseYear(Integer.parseInt(arg)));
+        //assertEquals(exception.getMessage(),"Release year should have just numbers.");
+    }
+
+    @ParameterizedTest
     @ValueSource(ints = {20212,2021,-2020,1499,2021})
     @DisplayName("Release year should be between 1500 and 2020.")
     public void releaseYearShouldBeValid(int arg){
-       assertThrows(IllegalArgumentException.class,()->album.setReleaseYear(arg));
+       IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->album.setReleaseYear(arg));
+       assertEquals(exception.getMessage(),"Not a valid year.");
     }
 
     @ParameterizedTest
@@ -160,8 +170,8 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"https://"})
-    @DisplayName("URL should atleast contains 'https://','ecm'")
+    @ValueSource(strings = {"https://google.com","https://fakeurl.com"})
+    @DisplayName("URL should atleast contains 'https://','ecm' and it should not be fake")
     public void invalidURL(String arg) throws MalformedURLException {
         java.net.URL url = new java.net.URL(arg);
         assertThrows(IllegalArgumentException.class,()->album.setAlbumURL(url));
@@ -170,7 +180,7 @@ class AlbumUnitTest {
     @ParameterizedTest
     @DisplayName("Positive test case for URL.")
     @ValueSource(strings = {"https://www.ecmrecords.com/catalogue/143038750696/the-koln-concert-keith-jarrett"})
-    public void positiveURL(String arg) throws MalformedURLException{
+    public void positiveURL(String arg) throws IOException {
         java.net.URL url = new java.net.URL(arg);
         album.setAlbumURL(url);
         assertEquals(album.getAlbumURL(),url);

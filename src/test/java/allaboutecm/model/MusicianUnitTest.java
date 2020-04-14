@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.sound.midi.Instrument;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,23 +39,23 @@ public class MusicianUnitTest {
         assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @ValueSource(strings = {"Mike", "Chester"})
     @DisplayName("Musician name should contain atleast 2 parts separated by a space.")
     public void musicianNameShouldHaveTwoParts(String arg) {
         assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
-    }
+    }*/
 
     @ParameterizedTest
-    @ValueSource(strings = {"Mike5/ Shinoda","Chester*+ Bennington"})
+    @ValueSource(strings = {"Mike5 Shinoda","Chester*+ Bennington"})
     @DisplayName("Musician name should not have special characters or numbers.")
     public void musicianNameShouldNotHaveSpecialCharacters(String arg) {
         assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"Mike Shinoda", "Chester Bennington"})
-    @DisplayName("A positive test case for musician name.")
+    @ValueSource(strings = {"Dénes Várjon","Mike"})
+    @DisplayName("A positive test case for musician name, checking the french letters as well.")
     public void positiveMusicianName(String arg) {
         musician.setName(arg);
         assertEquals(musician.getName(),arg);
@@ -68,8 +69,8 @@ public class MusicianUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"https://google.com"})
-    @DisplayName("URL should atleast contain 'https://' and 'ecm'")
+    @ValueSource(strings = {"https://google.com","https://fakeurl.com"})
+    @DisplayName("URL should atleast contain 'https://' and 'ecm' and should be a valid url")
     public void invalidURL(String arg) throws MalformedURLException {
         java.net.URL url = new java.net.URL(arg);
         assertThrows(IllegalArgumentException.class,()->musician.setMusicianUrl(url));
@@ -78,7 +79,7 @@ public class MusicianUnitTest {
     @ParameterizedTest
     @DisplayName("Positive test case for URL.")
     @ValueSource(strings = {"https://www.ecmrecords.com/artists/1435045745"})
-    public void positiveURL(String arg) throws MalformedURLException{
+    public void positiveURL(String arg) throws IOException {
         java.net.URL url = new java.net.URL(arg);
         musician.setMusicianUrl(url);
         assertEquals(musician.getMusicianUrl(),url);

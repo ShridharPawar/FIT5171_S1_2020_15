@@ -5,6 +5,8 @@ import com.google.common.collect.Sets;
 //import com.sun.deploy.security.SelectableSecurityManager;
 import sun.security.x509.OtherName;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
@@ -103,9 +105,12 @@ public class Album extends Entity {
         return albumURL;
     }
 
-    public void setAlbumURL(URL albumURL) {
+    public void setAlbumURL(URL albumURL) throws IOException {
         notNull(albumURL);
-        if(!albumURL.toString().toLowerCase().startsWith("https://")||!albumURL.toString().toLowerCase().contains("ecm"))
+        HttpURLConnection connectionString = (HttpURLConnection) albumURL.openConnection();
+        connectionString.setRequestMethod("GET");
+        int codeInResponse = connectionString.getResponseCode();
+        if(!albumURL.toString().toLowerCase().startsWith("https://")||!albumURL.toString().toLowerCase().contains("ecm")||!(codeInResponse==200))
         {
             throw new IllegalArgumentException("Not a valid URL.");
         }
@@ -136,6 +141,10 @@ public class Album extends Entity {
 
     public void setReleaseYear(int releaseYear)
     {
+        if(!Integer.toString(releaseYear).matches("[0-9-]+"))
+        {
+            throw new NumberFormatException("Release year should have just numbers.");
+        }
         if(releaseYear>2020 || releaseYear<1500)
         {
             throw new IllegalArgumentException("Not a valid year.");
@@ -151,7 +160,7 @@ public class Album extends Entity {
     public void setAlbumName(String albumName) {
         notNull(albumName);
         notBlank(albumName);
-        if(albumName.length()>25)
+        if(albumName.length()>40)
         {
             throw new IllegalArgumentException("Album's length is too big.");
         }
