@@ -51,7 +51,7 @@ public class Musician extends Entity {
             }
         }
         //if(names.length<2 || !letter)
-        if(!letter)
+        if(!letter || musicianName.length()<3 || musicianName.length()>50)
         {
             throw new IllegalArgumentException("Please input an appropriate name.");
         }

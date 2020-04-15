@@ -23,7 +23,6 @@ public class MusicianUnitTest {
 
     @BeforeEach
     public void setUp() {
-
         musician = new Musician("Chester Bennington");
     }
 
@@ -53,6 +52,14 @@ public class MusicianUnitTest {
     @ValueSource(strings = {"Mike5 Shinoda","Chester*+ Bennington"})
     @DisplayName("Musician name should not have certain special characters or numbers.")
     public void musicianNameShouldNotHaveSpecialCharacters(String arg) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
+        assertEquals(exception.getMessage(),"Please input an appropriate name.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Mi","Mikefgfjgbfjgbjbgjbjfbgjfbgjfbgjbgjjgjgngjnjngjnjnjngjhngjhnjghnfvffgfgfgfgfgfg"})
+    @DisplayName("Musician name length should be between 3 and 50 characters.")
+    public void musicianNameLength(String arg) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
         assertEquals(exception.getMessage(),"Please input an appropriate name.");
     }
