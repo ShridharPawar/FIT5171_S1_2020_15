@@ -69,8 +69,8 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {20212787,2021,-2020,1499})
-    @DisplayName("Release year should be between 1500 and 2020.")
+    @ValueSource(ints = {2021232787,2021,-2020,1499})
+    @DisplayName("Release year should be between 1500 and current year.")
     public void releaseYearShouldBeValid(int arg){
        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->album.setReleaseYear(arg));
        assertEquals(exception.getMessage(),"Not a valid year.");
@@ -98,8 +98,8 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"EC23", "909", "23ECM"})
-    @DisplayName("Record number should start with ECM.")
+    @ValueSource(strings = {"909", "ECM23"})
+    @DisplayName("Record number should start with ECM and should have atleast 2 parts separated by whitespace.")
     public void recordNumberShouldStartWithECM(String arg){
         assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
     }
@@ -197,6 +197,14 @@ class AlbumUnitTest {
     public void nullObjectInTracks(){
         List<String> tracks  = new ArrayList<String>();
         tracks.add(null);
+        assertThrows(NullPointerException.class,()->album.setTracks(tracks));
+    }
+
+    @Test
+    @DisplayName("Check if a blank track is given as an input.")
+    public void emptyTrack(){
+        List<String> tracks  = new ArrayList<String>();
+        tracks.add("      ");
         assertThrows(NullPointerException.class,()->album.setTracks(tracks));
     }
 

@@ -8,9 +8,7 @@ import sun.security.x509.OtherName;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
@@ -37,7 +35,7 @@ public class Album extends Entity {
     private List<String> tracks;
 
     public Album(int releaseYear, String recordNumber, String albumName) {
-        notNull(recordNumber);
+        notNull(recordNumber,"Record number should not be null.");
         notNull(albumName);
 
         notBlank(recordNumber);
@@ -61,7 +59,8 @@ public class Album extends Entity {
     public void setRecordNumber(String recordNumber) {
         notNull(recordNumber);
         notBlank(recordNumber);
-        if(!recordNumber.startsWith("ECM"))
+        String[] recordParts = recordNumber.split(" ");
+        if(!recordNumber.startsWith("ECM") || recordParts.length<2)
         {
             throw new IllegalArgumentException("Record number should start with ECM.");
         }
@@ -127,7 +126,7 @@ public class Album extends Entity {
         notNull(tracks);
         for(String track:tracks)
         {
-            if(track.equals(null))
+            if(track.equals(null) || track.trim().equals(""))
             {
                 throw new NullPointerException("Track should not be null.");
             }
@@ -141,11 +140,12 @@ public class Album extends Entity {
 
     public void setReleaseYear(int releaseYear)
     {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
         if(!Integer.toString(releaseYear).matches("[0-9-]+"))
         {
             throw new NumberFormatException("Release year should have just numbers.");
         }
-        if(releaseYear>2020 || releaseYear<1500)
+        if(releaseYear>year || releaseYear<1500)
         {
             throw new IllegalArgumentException("Not a valid year.");
         }

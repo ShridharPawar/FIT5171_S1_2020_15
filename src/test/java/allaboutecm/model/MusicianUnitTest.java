@@ -23,7 +23,8 @@ public class MusicianUnitTest {
 
     @BeforeEach
     public void setUp() {
-        musician = new Musician("Guitar");
+
+        musician = new Musician("Chester Bennington");
     }
 
     @Test

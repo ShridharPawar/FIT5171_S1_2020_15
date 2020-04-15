@@ -31,6 +31,12 @@ public class MusicalInstrumentUnitTest {
         assertThrows(NullPointerException.class, () -> musicalInstrument.setName(null));
     }
 
+    @Test
+    public void sameNameMeansSameInstrument() {
+        MusicalInstrument musInstrument = new MusicalInstrument("Guitar");
+        assertEquals(musicalInstrument, musInstrument);
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Musical Instrument cannot be empty or blank")

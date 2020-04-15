@@ -35,6 +35,14 @@ public class MusicianInstrumentUnitTest {
     }
 
     @Test
+    public void sameMusicianAndSameMusicianInstrumentPair() {
+        Musician newMusician = new Musician("Mike Shidona");
+        MusicalInstrument newMusicalInstrument = new MusicalInstrument("Guitar");
+        MusicianInstrument newMusicianInstrument = new MusicianInstrument(newMusician,newMusicalInstrument);
+        assertEquals(musicianInstrument, newMusicianInstrument);
+    }
+
+    @Test
     @DisplayName("Positive test case to set Musician.")
     public void positiveMusician() {
         Musician musician = new Musician("Chester Bennington");
