@@ -38,8 +38,8 @@ public class Musician extends Entity {
 
     public void setName(String musicianName)
     {
-        notNull(musicianName);
-        notBlank(musicianName);
+        notNull(musicianName,"Object is null.");
+        notBlank(musicianName,"Name cannot be blank.");
         String[] names = musicianName.split(" ");
         boolean letter = true;
         for(String name:names)

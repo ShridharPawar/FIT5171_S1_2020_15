@@ -30,14 +30,16 @@ public class MusicianUnitTest {
     @Test
     @DisplayName("Musician name cannot be null.")
     public void musicianNameCannotBeNull() {
-        assertThrows(NullPointerException.class, () -> musician.setName(null));
+       NullPointerException exception = assertThrows(NullPointerException.class, () -> musician.setName(null));
+       assertEquals(exception.getMessage(),"Object is null.");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Musician name cannot be empty or blank.")
     public void musicianNameCannotBeEmptyOrBlank(String arg) {
-        assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
+        assertEquals(exception.getMessage(),"Name cannot be blank.");
     }
 
     /*@ParameterizedTest
@@ -51,7 +53,8 @@ public class MusicianUnitTest {
     @ValueSource(strings = {"Mike5 Shinoda","Chester*+ Bennington"})
     @DisplayName("Musician name should not have certain special characters or numbers.")
     public void musicianNameShouldNotHaveSpecialCharacters(String arg) {
-        assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
+        assertEquals(exception.getMessage(),"Please input an appropriate name.");
     }
 
     @ParameterizedTest
@@ -66,7 +69,7 @@ public class MusicianUnitTest {
     @DisplayName("URL cannot be null")
     public void urlCannotBeNull()
     {
-        assertThrows(NullPointerException.class,()->musician.setMusicianUrl(null));
+      assertThrows(NullPointerException.class,()->musician.setMusicianUrl(null));
     }
 
     @ParameterizedTest
@@ -89,7 +92,7 @@ public class MusicianUnitTest {
     @Test
     @DisplayName("Musician albums cannot be null.")
     public void musicianAlbumsCannotBeNull(){
-         assertThrows(NullPointerException.class,()->musician.setAlbums(null));
+        assertThrows(NullPointerException.class,()->musician.setAlbums(null));
     }
 
     @Test

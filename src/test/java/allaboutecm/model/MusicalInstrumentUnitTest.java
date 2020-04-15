@@ -44,4 +44,21 @@ public class MusicalInstrumentUnitTest {
         assertThrows(IllegalArgumentException.class, () -> musicalInstrument.setName(arg));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"Guitar version7465747485748574578754599586758675876857685768568"})
+    @DisplayName("Musical Instrument name length should not be more than 40 characters.")
+    public void musicalInstrumentLength(String arg) {
+        assertThrows(IllegalArgumentException.class, () -> musicalInstrument.setName(arg));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Guitar Version 7"})
+    @DisplayName("Positive test to check instrument name's length.")
+    public void positiveMusicalInstrumentName(String arg) {
+        musicalInstrument.setName(arg);
+        assertEquals(musicalInstrument.getName(),arg);
+    }
+
+
+
 }
