@@ -1,5 +1,6 @@
 package allaboutecm.model;
 
+import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import javax.sound.midi.Instrument;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -150,14 +152,18 @@ class AlbumUnitTest {
         assertThrows(NullPointerException.class,()->album.setInstruments(instruments));
     }
 
+    private MusicianInstrument provideMusicianInstruments(){
+        Musician musician = new Musician("Chester Bennington");
+        MusicalInstrument musicalInstrument = new MusicalInstrument("Guitar");
+        MusicianInstrument musicianInstrument = new MusicianInstrument(musician,musicalInstrument);
+        return musicianInstrument;
+    }
+
     @Test
     @DisplayName("Positive test to check if the Musicianinstrument is valid.")
     public void positiveMusicianInstruments(){
         Set<MusicianInstrument> instruments = new HashSet<>();
-        Musician musician = new Musician("Chester Bennington");
-        MusicalInstrument musicalInstrument = new MusicalInstrument("Guitar");
-        MusicianInstrument musicianInstrument = new MusicianInstrument(musician,musicalInstrument);
-        instruments.add(musicianInstrument);
+        instruments.add(provideMusicianInstruments());
         album.setInstruments(instruments);
         assertEquals(album.getInstruments(),instruments);
     }
@@ -170,11 +176,12 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"https://google.com","https://fakeurl.com"})
-    @DisplayName("URL should atleast contains 'https://','ecm' and it should not be fake")
+    @ValueSource(strings = {"https://www.testfakewebsiteecm.com"})
+    @DisplayName("URL should atleast contain 'ecm' and it should not be fake.")
     public void invalidURL(String arg) throws MalformedURLException {
+        if(!arg.contains("https://")){arg="https://google.com";}
         java.net.URL url = new java.net.URL(arg);
-        assertThrows(IllegalArgumentException.class,()->album.setAlbumURL(url));
+        assertThrows(UnknownHostException.class,()->album.setAlbumURL(url));
     }
 
     @ParameterizedTest
@@ -186,33 +193,28 @@ class AlbumUnitTest {
         assertEquals(album.getAlbumURL(),url);
     }
 
+
     @Test
-    @DisplayName("Albums song track list cannot be null.")
+    @DisplayName("Track set cannot be null.")
     public void albumTracksCannotBeNull(){
         assertThrows(NullPointerException.class,()->album.setTracks(null));
     }
 
+
     @Test
     @DisplayName("Check if any object within the set is null.")
     public void nullObjectInTracks(){
-        List<String> tracks  = new ArrayList<String>();
+        Set<Track> tracks = Sets.newHashSet();
         tracks.add(null);
-        assertThrows(NullPointerException.class,()->album.setTracks(tracks));
-    }
-
-    @Test
-    @DisplayName("Check if a blank track is given as an input.")
-    public void emptyTrack(){
-        List<String> tracks  = new ArrayList<String>();
-        tracks.add("      ");
         assertThrows(NullPointerException.class,()->album.setTracks(tracks));
     }
 
     @Test
     @DisplayName("Valid album tracks.")
     public void positiveTracks(){
-        List<String> tracks  = new ArrayList<String>();
-        tracks.add("Shadow of the day.");
+        Set<Track> tracks = Sets.newHashSet();
+        Track track = new Track("Numb","Rock");
+        tracks.add(track);
         album.setTracks(tracks);
         assertEquals(album.getTracks(),tracks);
     }

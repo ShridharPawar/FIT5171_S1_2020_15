@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,6 +23,8 @@ public class Musician extends Entity {
     private URL musicianUrl;
 
     private Set<Album> albums;
+
+    private Set<Webpage> personalWebpages;
 
     public Musician(String name) {
         notNull(name);
@@ -51,7 +54,7 @@ public class Musician extends Entity {
             }
         }
         //if(names.length<2 || !letter)
-        if(!letter || musicianName.length()<3 || musicianName.length()>50)
+        if(!letter || musicianName.length()<3 || musicianName.length()>40)
         {
             throw new IllegalArgumentException("Please input an appropriate name.");
         }
@@ -94,12 +97,16 @@ public class Musician extends Entity {
 
     public void setMusicianUrl(URL musicianUrl) throws IOException {
         notNull(musicianUrl);
+        if(!(musicianUrl.toString().contains("https://")))
+        {
+            musicianUrl=new URL("https://google.com");
+        }
         HttpURLConnection connectionString = (HttpURLConnection) musicianUrl.openConnection();
         connectionString.setRequestMethod("GET");
         int codeInResponse = connectionString.getResponseCode();
-        if(!musicianUrl.toString().toLowerCase().startsWith("https://")||!musicianUrl.toString().toLowerCase().contains("ecm")||!(codeInResponse==200))
+        if(!musicianUrl.toString().toLowerCase().contains("ecm")||!(codeInResponse==200))
         {
-            throw new IllegalArgumentException("Not a valid URL.");
+            throw new UnknownHostException("Not a valid URL.");
         }
         this.musicianUrl = musicianUrl;
     }

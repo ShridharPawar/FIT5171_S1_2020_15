@@ -8,6 +8,7 @@ import sun.security.x509.OtherName;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.*;
 
 import static org.apache.commons.lang3.Validate.notBlank;
@@ -32,7 +33,8 @@ public class Album extends Entity {
 
     private URL albumURL;
 
-    private List<String> tracks;
+    private Set<Track> tracks;
+    //private List<String> tracks;
 
     public Album(int releaseYear, String recordNumber, String albumName) {
         notNull(recordNumber,"Record number should not be null.");
@@ -49,7 +51,7 @@ public class Album extends Entity {
 
         featuredMusicians = Sets.newHashSet();
         instruments = Sets.newHashSet();
-        tracks = Lists.newArrayList();
+        tracks = Sets.newHashSet();
     }
 
     public String getRecordNumber() {
@@ -106,27 +108,31 @@ public class Album extends Entity {
 
     public void setAlbumURL(URL albumURL) throws IOException {
         notNull(albumURL);
+        if(!(albumURL.toString().contains("https://")))
+        {
+            albumURL=new URL("https://google.com");
+        }
         HttpURLConnection connectionString = (HttpURLConnection) albumURL.openConnection();
         connectionString.setRequestMethod("GET");
         int codeInResponse = connectionString.getResponseCode();
-        if(!albumURL.toString().toLowerCase().startsWith("https://")||!albumURL.toString().toLowerCase().contains("ecm")||!(codeInResponse==200))
+        if(!albumURL.toString().toLowerCase().contains("ecm")||!(codeInResponse==200))
         {
-            throw new IllegalArgumentException("Not a valid URL.");
+            throw new UnknownHostException("Not a valid URL.");
         }
 
         this.albumURL = albumURL;
     }
 
-    public List<String> getTracks() {
+    public Set<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<String> tracks)
+    public void setTracks(Set<Track> tracks)
     {
-        notNull(tracks);
-        for(String track:tracks)
+        notNull(tracks,"Object should not be null.");
+        for(Track track:tracks)
         {
-            if(track.equals(null) || track.trim().equals(""))
+            if(track.equals(null))
             {
                 throw new NullPointerException("Track should not be null.");
             }

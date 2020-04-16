@@ -4,16 +4,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.sound.midi.Instrument;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -57,8 +61,8 @@ public class MusicianUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"Mi","Mikefgfjgbfjgbjbgjbjfbgjfbgjfbgjbgjjgjgngjnjngjnjnjngjhngjhnjghnfvffgfgfgfgfgfg"})
-    @DisplayName("Musician name length should be between 3 and 50 characters.")
+    @ValueSource(strings = {"Mi","fngjfgjfgjfngjkfngkfngkfngkfjghfgjnfkvnfjgnfjgfjkgfkgjfngkfngjfngkfngfjksdcdvffgfgfgfgfg"})
+    @DisplayName("Musician name length should be between 3 and 40 characters.")
     public void musicianNameLength(String arg) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
         assertEquals(exception.getMessage(),"Please input an appropriate name.");
@@ -80,11 +84,12 @@ public class MusicianUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"https://google.com"})
-    @DisplayName("URL should atleast contain 'https://' and 'ecm' and should be a valid url")
+    @ValueSource(strings = {"https://www.testfakewebsiteecm.com"})
+    @DisplayName("URL should atleast contain 'ecm' and should be a valid url.")
     public void invalidURL(String arg) throws MalformedURLException {
+        if(!arg.contains("https://")){arg="https://google.com";}
         java.net.URL url = new java.net.URL(arg);
-        assertThrows(IllegalArgumentException.class,()->musician.setMusicianUrl(url));
+        assertThrows(UnknownHostException.class,()->musician.setMusicianUrl(url));
     }
 
     @ParameterizedTest
@@ -110,7 +115,21 @@ public class MusicianUnitTest {
         assertThrows(NullPointerException.class,()->musician.setAlbums(musicianAlbums));
     }
 
+    private Set<Album> provideMusicianAlbum(){
+        Set<Album> musicianAlbums = new HashSet<>();
+        Album album = new Album(2019,"ECM 339","Meteora");
+        musicianAlbums.add(album);
+        return musicianAlbums;
+    }
+
     @Test
+    @DisplayName("Positive test for musician albums.")
+    public void positiveMusicianAlbums(){
+        Set<Album> musAlbum = provideMusicianAlbum();
+        musician.setAlbums(musAlbum);
+        assertEquals(musician.getAlbums(),musAlbum);
+    }
+    /*@Test
     @DisplayName("Positive test for musician albums.")
     public void positiveMusicianAlbums(){
         Set<Album> musicianAlbums = new HashSet<>();
@@ -118,5 +137,5 @@ public class MusicianUnitTest {
         musicianAlbums.add(album);
         musician.setAlbums(musicianAlbums);
         assertEquals(musician.getAlbums(),musicianAlbums);
-    }
+    }*/
 }
