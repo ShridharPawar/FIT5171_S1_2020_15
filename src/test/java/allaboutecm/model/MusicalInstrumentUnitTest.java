@@ -26,12 +26,13 @@ public class MusicalInstrumentUnitTest {
     }
 
     @Test
-    @DisplayName("Musical Instrument cannot be null")
+    @DisplayName("Musical Instrument cannot be null.")
     public void musicalInstrumentCannotBeNull() {
         assertThrows(NullPointerException.class, () -> musicalInstrument.setName(null));
     }
 
     @Test
+    @DisplayName("Objects are same if the musical instruments are same.")
     public void sameNameMeansSameInstrument() {
         MusicalInstrument musInstrument = new MusicalInstrument("Guitar");
         assertEquals(musicalInstrument, musInstrument);

@@ -57,6 +57,7 @@ class AlbumUnitTest {
     }
 
     @Test
+    @DisplayName("Objects are same if the release year, recordnumber and albumname are same.")
     public void sameNameAndNumberMeansSameAlbum() {
         Album album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
         assertEquals(album, album1);

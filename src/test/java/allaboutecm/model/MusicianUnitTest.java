@@ -45,12 +45,11 @@ public class MusicianUnitTest {
         assertEquals(exception.getMessage(),"Name cannot be blank.");
     }
 
-    /*@ParameterizedTest
-    @ValueSource(strings = {"Mike", "Chester"})
-    @DisplayName("Musician name should contain atleast 2 parts separated by a space.")
-    public void musicianNameShouldHaveTwoParts(String arg) {
-        assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
-    }*/
+    @Test
+    public void sameNameMeansSameMusician() {
+        Musician musician1 = new Musician("Chester Bennington");
+        assertEquals(musician, musician1);
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {"Mike5 Shinoda","Chester*+ Bennington"})

@@ -34,6 +34,13 @@ public class TrackUnitTest {
         assertEquals(exception.getMessage(),"Object is null.");
     }
 
+    @Test
+    @DisplayName("Objects are same if the track name and it's genre are same.")
+    public void sameNameAndGenreMeansSameTrack() {
+        Track track1 = new Track("Numb","Rock");
+        assertEquals(track, track1);
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Track name cannot be empty or blank.")

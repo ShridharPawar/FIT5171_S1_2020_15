@@ -35,6 +35,7 @@ public class MusicianInstrumentUnitTest {
     }
 
     @Test
+    @DisplayName("Objects are same if the musician name and the instrument are same.")
     public void sameMusicianAndSameMusicianInstrumentPair() {
         Musician newMusician = new Musician("Mike Shidona");
         MusicalInstrument newMusicalInstrument = new MusicalInstrument("Guitar");

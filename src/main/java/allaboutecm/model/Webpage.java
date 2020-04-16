@@ -68,6 +68,19 @@ public class Webpage extends Entity{
            this.biography = biography;
       }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Webpage webpage = (Webpage) o;
+        return url.equals(webpage.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url);
+    }
+
 
 
 }

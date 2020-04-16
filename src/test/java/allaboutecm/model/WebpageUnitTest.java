@@ -25,7 +25,7 @@ public class WebpageUnitTest {
     @BeforeEach
     public void setUp() throws MalformedURLException {
         URL url = new URL("https://en.wikipedia.org/wiki/Chester_Bennington");
-        webpage = new Webpage("Chester Bennington",url);
+        webpage = new Webpage("Chester Bennington's Website",url);
     }
 
     @Test
@@ -57,6 +57,14 @@ public class WebpageUnitTest {
     public void positiveWebPageName(String arg){
         webpage.setName(arg);
         assertEquals(webpage.getName(),arg);
+    }
+
+    @Test
+    @DisplayName("Same url means same web page.")
+    public void sameUrlMeansSameWebPage() throws MalformedURLException {
+        URL url = new URL("https://en.wikipedia.org/wiki/Chester_Bennington");
+        Webpage webpage1 = new Webpage("Chester Bennington's Website",url);
+        assertEquals(webpage1, webpage);
     }
 
     @Test
