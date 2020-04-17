@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MusicianUnitTest {
     private Musician musician;
@@ -28,6 +27,13 @@ public class MusicianUnitTest {
     @BeforeEach
     public void setUp() {
         musician = new Musician("Chester Bennington");
+    }
+
+    @Test
+    @DisplayName("Should construct Musician object.")
+    public void shouldConstructMusicianObject()
+    {
+        assertNotNull(musician,"Musician object should not be null.");
     }
 
     @Test

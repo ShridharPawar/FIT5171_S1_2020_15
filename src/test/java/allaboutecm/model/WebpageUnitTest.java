@@ -16,8 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WebpageUnitTest {
     private Webpage webpage;
@@ -26,6 +25,13 @@ public class WebpageUnitTest {
     public void setUp() throws MalformedURLException {
         URL url = new URL("https://en.wikipedia.org/wiki/Chester_Bennington");
         webpage = new Webpage("Chester Bennington's Website",url);
+    }
+
+    @Test
+    @DisplayName("Should construct Webpage object.")
+    public void shouldConstructWebpageObject()
+    {
+        assertNotNull(webpage,"Webpage object should not be null.");
     }
 
     @Test

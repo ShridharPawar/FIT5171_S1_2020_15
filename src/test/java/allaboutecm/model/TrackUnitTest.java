@@ -16,8 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TrackUnitTest {
     private Track track;
@@ -25,6 +24,13 @@ public class TrackUnitTest {
     @BeforeEach
     public void setUp(){
         track = new Track("Numb","Rock");
+    }
+
+    @Test
+    @DisplayName("Should construct Track object.")
+    public void shouldConstructTrackObject()
+    {
+        assertNotNull(track,"Track object should not be null.");
     }
 
     @Test

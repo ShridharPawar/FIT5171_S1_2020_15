@@ -14,8 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MusicianInstrumentUnitTest {
     private MusicianInstrument musicianInstrument;
@@ -26,6 +25,13 @@ public class MusicianInstrumentUnitTest {
         Musician musician = new Musician("Mike Shidona");
         MusicalInstrument musicalInstrument = new MusicalInstrument("Guitar");
         musicianInstrument = new MusicianInstrument(musician,musicalInstrument);
+    }
+
+    @Test
+    @DisplayName("Should construct Musicianinstrument object.")
+    public void shouldConstructMusicianInstrumentObject()
+    {
+        assertNotNull(musicianInstrument,"Musicianinstrument object should not be null.");
     }
 
     @Test

@@ -16,8 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReviewUnitTest {
     private Review review;
@@ -26,6 +25,13 @@ public class ReviewUnitTest {
     public void setUp() throws MalformedURLException {
         URL url = new URL("https://www.imdb.com/title/tt7198138/");
         review = new Review(url,92);
+    }
+
+    @Test
+    @DisplayName("Should construct Review object.")
+    public void shouldConstructReviewObject()
+    {
+        assertNotNull(review,"Review object should not be null.");
     }
 
     @Test

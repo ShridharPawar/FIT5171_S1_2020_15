@@ -14,8 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MusicalInstrumentUnitTest {
       private MusicalInstrument musicalInstrument;
@@ -23,6 +22,13 @@ public class MusicalInstrumentUnitTest {
     @BeforeEach
     public void setUp() {
         musicalInstrument = new MusicalInstrument("Guitar");
+    }
+
+    @Test
+    @DisplayName("Should construct Musical instrument object.")
+    public void shouldConstructMusicalInstrumentObject()
+    {
+        assertNotNull(musicalInstrument,"Musical instrument object should not be null.");
     }
 
     @Test

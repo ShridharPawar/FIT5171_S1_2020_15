@@ -17,8 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AlbumUnitTest {
     private Album album;
@@ -26,6 +25,13 @@ class AlbumUnitTest {
     @BeforeEach
     public void setUp() {
         album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+    }
+
+    @Test
+    @DisplayName("Should construct Album object.")
+    public void shouldConstructAlbumObject()
+    {
+        assertNotNull(album,"Album object should not be null.");
     }
 
     @Test
