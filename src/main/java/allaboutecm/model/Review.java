@@ -18,6 +18,14 @@ public class Review extends Entity{
     {
         notNull(ratingOutOf100);
         notNull(websiteUrl);
+        if(!(Double.toString(ratingOutOf100).matches("[0-9.]+")))
+        {
+            throw new NumberFormatException("Rating should be just in numbers.");
+        }
+        if(ratingOutOf100>100 || ratingOutOf100<1)
+        {
+            throw new IllegalArgumentException("Not a valid rating.");
+        }
         this.websiteUrl = websiteUrl;
         this.ratingOutOf100 = ratingOutOf100;
         review = "The song is nice.";

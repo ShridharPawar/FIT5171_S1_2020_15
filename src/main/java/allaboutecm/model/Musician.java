@@ -26,13 +26,30 @@ public class Musician extends Entity {
 
     private Set<Webpage> personalWebpages;
 
+    private String biography;
+
     public Musician(String name) {
         notNull(name);
         notBlank(name);
+        String[] names = name.split(" ");
+        boolean letter = true;
+        for(String name1:names)
+        {
+            if(!name1.toLowerCase().matches("^[a-záäâèëéàêîïôüùû,/&à]*$")) //covering the french letters as well
+            {
+                letter = false;
+                break;
+            }
+        }
+        if(!letter || name.length()<3 || name.length()>40)
+        {
+            throw new IllegalArgumentException("Please input an appropriate name.");
+        }
         this.name = name;
         this.musicianUrl = null;
-
-        albums = Sets.newLinkedHashSet();
+        this.biography = "I love making songs.";
+        this.personalWebpages = Sets.newLinkedHashSet();
+        this.albums = Sets.newLinkedHashSet();
     }
 
     public String getName() {
@@ -110,4 +127,30 @@ public class Musician extends Entity {
         }
         this.musicianUrl = musicianUrl;
     }
+
+    public String getBiography(){return biography;}
+
+    public void setBiography(String biography)
+    {
+        notNull(biography,"Biography object cannot be null.");
+        this.biography = biography;
+    }
+
+    public Set<Webpage> getWebpages(){return personalWebpages;}
+
+    public void setWebpages(Set<Webpage> personalWebpages) {
+        notNull(personalWebpages);
+        for(Webpage webpage:personalWebpages)
+        {
+            if(webpage.equals(null))
+            {
+                throw new NullPointerException("Object within the set should not be null");
+            }
+        }
+        this.personalWebpages = personalWebpages;
+    }
+
+
+
+
 }

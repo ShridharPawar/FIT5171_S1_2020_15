@@ -28,6 +28,14 @@ class AlbumUnitTest {
     }
 
     @Test
+    @DisplayName("Negative test for the constructor.")
+    public void testConstructorForAlbum()
+    {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Album(1448,"ECM 123","Meteora"));
+        assertEquals(exception.getMessage(),"Not a valid year.");
+    }
+
+    @Test
     @DisplayName("Should construct Album object.")
     public void shouldConstructAlbumObject()
     {
@@ -35,20 +43,21 @@ class AlbumUnitTest {
     }
 
     @Test
-    @DisplayName("Album name cannot be null")
+    @DisplayName("Album name cannot be null.")
     public void albumNameCannotBeNull() {
         assertThrows(NullPointerException.class, () -> album.setAlbumName(null));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
-    @DisplayName("Album name cannot be empty or blank")
+    @DisplayName("Album name cannot be empty or blank.")
     public void albumNameCannotBeEmptyOrBlank(String arg) {
-        assertThrows(IllegalArgumentException.class, () -> album.setAlbumName(arg));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setAlbumName(arg));
+        assertEquals(exception.getMessage(),"Album name cannot be empty.");
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"Minutes to Midnight"})
+    @ValueSource(strings = {"Minutes to Midnight."})
     @DisplayName("Check if it is setting the valid album name.")
     public void positiveAlbumName(String arg) {
         album.setAlbumName(arg);
@@ -59,12 +68,13 @@ class AlbumUnitTest {
     @ValueSource(strings = {"Meteoraffffffffffffffffffefdfddffrfrfrfrfdfhdfjdbfhbfhfrfbfrbfrfrfr frn dfnrdbgfhrgfrdjfndfjdf"})
     @DisplayName("Check the length of the album name.")
     public void limitedLengthOfAlbumName(String arg) {
-        assertThrows(IllegalArgumentException.class, () -> album.setAlbumName(arg));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setAlbumName(arg));
+        assertEquals(exception.getMessage(),"Album's length is too big.");
     }
 
     @Test
     @DisplayName("Objects are same if the release year, recordnumber and albumname are same.")
-    public void sameNameAndNumberMeansSameAlbum() {
+    public void sameYearAndNameAndNumberMeansSameAlbum() {
         Album album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
         assertEquals(album, album1);
     }
@@ -74,8 +84,7 @@ class AlbumUnitTest {
     @DisplayName("Release year should have just numbers.")
     public void randomStringReleaseYear(String arg){
         assertThrows(NumberFormatException.class,()->album.setReleaseYear(Integer.parseInt(arg)));
-        //assertEquals(exception.getMessage(),"Release year should have just numbers.");
-    }
+     }
 
     @ParameterizedTest
     @ValueSource(ints = {2021232787,2021,-2020,1499})
@@ -103,14 +112,15 @@ class AlbumUnitTest {
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Record number cannot be empty or blank.")
     public void recordNumberCannotBeEmptyOrBlank(String arg){
-        assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
+       assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"909", "ECM23"})
     @DisplayName("Record number should start with ECM and should have atleast 2 parts separated by whitespace.")
     public void recordNumberShouldStartWithECM(String arg){
-        assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
+        assertEquals(exception.getMessage(),"Record number should start with ECM.");
     }
 
     @ParameterizedTest
@@ -139,8 +149,7 @@ class AlbumUnitTest {
     @DisplayName("Positive test to check if the musicians list has been set.")
     public void positiveTestFeaturedMusicians(){
         Set<Musician> musicians = new HashSet<>();
-        Musician musician = new Musician("Mike Shinoda");
-        musicians.add(musician);
+        musicians.add(new Musician("Mike Shinoda"));
         album.setFeaturedMusicians(musicians);
         assertEquals(album.getFeaturedMusicians(),musicians);
     }
@@ -159,24 +168,18 @@ class AlbumUnitTest {
         assertThrows(NullPointerException.class,()->album.setInstruments(instruments));
     }
 
-    private MusicianInstrument provideMusicianInstruments(){
-        Musician musician = new Musician("Chester Bennington");
-        MusicalInstrument musicalInstrument = new MusicalInstrument("Guitar");
-        MusicianInstrument musicianInstrument = new MusicianInstrument(musician,musicalInstrument);
-        return musicianInstrument;
-    }
 
     @Test
     @DisplayName("Positive test to check if the Musicianinstrument is valid.")
     public void positiveMusicianInstruments(){
         Set<MusicianInstrument> instruments = new HashSet<>();
-        instruments.add(provideMusicianInstruments());
+        instruments.add(new MusicianInstrument(new Musician("Chester Bennington"),new MusicalInstrument("Guitar")));
         album.setInstruments(instruments);
         assertEquals(album.getInstruments(),instruments);
     }
 
     @Test
-    @DisplayName("URL cannot be null")
+    @DisplayName("URL cannot be null.")
     public void urlCannotBeNull()
     {
         assertThrows(NullPointerException.class,()->album.setAlbumURL(null));
@@ -200,13 +203,11 @@ class AlbumUnitTest {
         assertEquals(album.getAlbumURL(),url);
     }
 
-
     @Test
     @DisplayName("Track set cannot be null.")
     public void albumTracksCannotBeNull(){
         assertThrows(NullPointerException.class,()->album.setTracks(null));
     }
-
 
     @Test
     @DisplayName("Check if any object within the set is null.")
@@ -220,10 +221,116 @@ class AlbumUnitTest {
     @DisplayName("Valid album tracks.")
     public void positiveTracks(){
         Set<Track> tracks = Sets.newHashSet();
-        Track track = new Track("Numb","Rock");
-        tracks.add(track);
+        tracks.add(new Track("Numb",6));
         album.setTracks(tracks);
         assertEquals(album.getTracks(),tracks);
+    }
+
+    @Test
+    @DisplayName("Genre cannot be null.")
+    public void genreCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setGenre(null));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "    \t"})
+    @DisplayName("Genre cannot be empty or blank.")
+    public void genreCannotBeEmptyOrBlank(String arg) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setGenre(arg));
+        assertEquals(exception.getMessage(),"Genre cannot be blank.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Contempoaryffgfg45fnjnjngkrngkngkngkngkntkgnkgjkkntjgn"})
+    @DisplayName("Genre name length should not exceed 30 characters.")
+    public void genreLength(String arg) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setGenre(arg));
+        assertEquals(exception.getMessage(),"Genre should not exceed 30 characters.");
+    }
+
+    @ParameterizedTest
+    @DisplayName("Positive test case for genre.")
+    @ValueSource(strings = {"Contemporary"})
+    public void positiveGenre(String arg){
+        album.setGenre(arg);
+        assertEquals(album.getGenre(),arg);
+    }
+
+    @Test
+    @DisplayName("Style cannot be null.")
+    public void styleCannotBeNull() {
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> album.setStyle(null));
+        assertEquals(exception.getMessage(),"Style cannot be null.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"ContemporaryJazzdfjfnjnjgjfbgbhbbbjnjbgbghnhhjhhjuukikikjkjmjkjhkjkjkjkjkjjgbnjgnbjg"})
+    @DisplayName("Style length should not exceed 30 characters.")
+    public void setStyleLength(String arg) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setStyle(arg));
+        assertEquals(exception.getMessage(),"Style should not exceed 30 characters.");
+    }
+
+    @ParameterizedTest
+    @DisplayName("Positive test case for style.")
+    @ValueSource(strings = {"Contemporary Jazz"})
+    public void positiveStyle(String arg){
+        album.setStyle(arg);
+        assertEquals(album.getStyle(),arg);
+    }
+
+    @Test
+    @DisplayName("Release format cannot be null.")
+    public void releaseFormatCannotBeNull() {
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> album.setReleaseFormat(null));
+        assertEquals(exception.getMessage(),"Release format cannot be null.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "    \t"})
+    @DisplayName("Release format cannot be empty or blank.")
+    public void releaseFormatCannotBeEmptyOrBlank(String arg) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setReleaseFormat(arg));
+        assertEquals(exception.getMessage(),"Release format cannot be blank.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"CDdfjfnjnjgjfbgbhbbbjnjbgbghnhhjhhjuukikikjkjm"})
+    @DisplayName("Release format length should not exceed 20 characters.")
+    public void setReleaseFormatLength(String arg) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setReleaseFormat(arg));
+        assertEquals(exception.getMessage(),"Release format should not exceed 20 characters.");
+    }
+
+    @ParameterizedTest
+    @DisplayName("Positive test case for release format.")
+    @ValueSource(strings = {"CD"})
+    public void positiveReleaseFormat(String arg){
+        album.setReleaseFormat(arg);
+        assertEquals(album.getReleaseFormat(),arg);
+    }
+
+    @Test
+    @DisplayName("Reviews cannot be null.")
+    public void reviewsCannotBeNull(){
+        assertThrows(NullPointerException.class,()->album.setReviews(null));
+    }
+
+    @Test
+    @DisplayName("Check if any object within the Review set is null.")
+    public void nullObjectInReviews(){
+        Set<Review> reviews = new HashSet<>();
+        reviews.add(null);
+        assertThrows(NullPointerException.class,()->album.setReviews(reviews));
+    }
+
+    @Test
+    @DisplayName("Positive test to check if the reviews have been set.")
+    public void positiveTestReviews() throws MalformedURLException {
+        Set<Review> reviews = new HashSet<>();
+        reviews.add(new Review(new URL("https://rottentomatoes.com"),77));
+        album.setReviews(reviews);
+        assertEquals(album.getReviews(),reviews);
     }
 
 

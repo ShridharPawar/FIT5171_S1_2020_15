@@ -32,6 +32,14 @@ public class MusicalInstrumentUnitTest {
     }
 
     @Test
+    @DisplayName("Negative test for the constructor.")
+    public void testConstructorForMusicalInstrument()
+    {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new MusicalInstrument("Guitarfrfvfvffgfgfgfgfgfgfgfgvffg232rfdvdvfvfvfgfvdvfvfgrfvfvfvfv"));
+        assertEquals(exception.getMessage(),"Instrument name length cannot be more than 40 characters.");
+    }
+
+    @Test
     @DisplayName("Musical Instrument cannot be null.")
     public void musicalInstrumentCannotBeNull() {
         assertThrows(NullPointerException.class, () -> musicalInstrument.setName(null));

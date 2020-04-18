@@ -11,6 +11,10 @@ public class MusicalInstrument extends Entity {
     public MusicalInstrument(String name) {
         notNull(name);
         notBlank(name);
+        if(name.length()>40)
+        {
+            throw new IllegalArgumentException("Instrument name length cannot be more than 40 characters.");
+        }
         this.name = name;
     }
 

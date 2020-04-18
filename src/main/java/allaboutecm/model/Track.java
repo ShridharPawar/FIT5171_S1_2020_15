@@ -17,36 +17,31 @@ import static org.apache.commons.lang3.Validate.notNull;
 public class Track extends Entity{
      private String name;
      private double lengthInMinutes;
-     private String genre;
-     private String style;
-     private String releaseFormat;
-     private Set<Review> Reviews;
 
-    public Track(String name,String genre)
+
+    public Track(String name,double lengthInMinutes)
     {
         notNull(name);
         notBlank(name);
-        notNull(genre);
-        notBlank(genre);
-        this.genre = genre;
+        if(name.length()>40)
+        {
+            throw new IllegalArgumentException("Name of the track should not exceed 40 characters.");
+        }
+        if(!Double.toString(lengthInMinutes).matches("[0-9.]+"))
+        {
+            throw new NumberFormatException("Track length should be in numbers.");
+        }
+        if(lengthInMinutes>100 || lengthInMinutes<1)
+        {
+            throw new IllegalArgumentException("Not a valid track length.");
+        }
         this.name = name;
-        lengthInMinutes=3;
-        style="contemporary Jazz";
-        releaseFormat="CD";
-        Reviews = Sets.newHashSet();
+        this.lengthInMinutes=lengthInMinutes;
     }
 
     public String getName(){return name;}
 
     public double getLengthInMinutes(){return lengthInMinutes;}
-
-    public String getGenre(){return genre;}
-
-    public String getStyle(){return style;}
-
-    public String getReleaseFormat(){return releaseFormat;}
-
-    public Set<Review> getReviews(){return Reviews;}
 
     public void setName(String name)
     {
@@ -72,64 +67,20 @@ public class Track extends Entity{
         this.lengthInMinutes=length;
     }
 
-    public void setGenre(String genre)
-    {
-        notNull(genre,"Genre cannot be null.");
-        notBlank(genre,"Genre cannot be blank.");
-        if(genre.length()>30)
-        {
-            throw new IllegalArgumentException("Genre should not exceed 30 characters.");
-        }
-        this.genre=genre;
-    }
 
-    public void setStyle(String style)
-    {
-        notNull(style,"Style cannot be null.");
-        notBlank(style,"Style cannot be blank.");
-        if(style.length()>30)
-        {
-            throw new IllegalArgumentException("Style should not exceed 30 characters.");
-        }
-        this.style=style;
-    }
-
-    public void setReleaseFormat(String releaseFormat)
-    {
-        notNull(releaseFormat,"Release format cannot be null.");
-        notBlank(releaseFormat,"Release format cannot be blank.");
-        if(releaseFormat.length()>20)
-        {
-            throw new IllegalArgumentException("Release format should not exceed 20 characters.");
-        }
-        this.releaseFormat=releaseFormat;
-    }
-
-    public void setReviews(Set<Review> Reviews)
-    {
-        notNull(Reviews);
-        for(Review rev:Reviews)
-        {
-            if(rev.equals(null))
-            {
-                throw new NullPointerException("Object within the Review set should not be null.");
-            }
-        }
-        this.Reviews=Reviews;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Track track = (Track) o;
-        return name == track.name &&
-                genre.equals(track.genre);
+        return name.equals(track.name) &&
+                lengthInMinutes == track.lengthInMinutes;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name,genre);
+        return Objects.hash(name,lengthInMinutes);
     }
 
 }

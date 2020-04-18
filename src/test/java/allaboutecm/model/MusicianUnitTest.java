@@ -37,6 +37,14 @@ public class MusicianUnitTest {
     }
 
     @Test
+    @DisplayName("Negative test for the constructor.")
+    public void testConstructorForMusician()
+    {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Musician("Mike7"));
+        assertEquals(exception.getMessage(),"Please input an appropriate name.");
+    }
+
+    @Test
     @DisplayName("Musician name cannot be null.")
     public void musicianNameCannotBeNull() {
        NullPointerException exception = assertThrows(NullPointerException.class, () -> musician.setName(null));
@@ -120,27 +128,51 @@ public class MusicianUnitTest {
         assertThrows(NullPointerException.class,()->musician.setAlbums(musicianAlbums));
     }
 
-    private Set<Album> provideMusicianAlbum(){
-        Set<Album> musicianAlbums = new HashSet<>();
-        Album album = new Album(2019,"ECM 339","Meteora");
-        musicianAlbums.add(album);
-        return musicianAlbums;
-    }
-
     @Test
     @DisplayName("Positive test for musician albums.")
     public void positiveMusicianAlbums(){
-        Set<Album> musAlbum = provideMusicianAlbum();
+        Set<Album> musAlbum = new HashSet<>();
+        musAlbum.add(new Album(2019,"ECM 339","Meteora"));
         musician.setAlbums(musAlbum);
         assertEquals(musician.getAlbums(),musAlbum);
     }
-    /*@Test
-    @DisplayName("Positive test for musician albums.")
-    public void positiveMusicianAlbums(){
-        Set<Album> musicianAlbums = new HashSet<>();
-        Album album = new Album(2019,"ECM 339","Meteora");
-        musicianAlbums.add(album);
-        musician.setAlbums(musicianAlbums);
-        assertEquals(musician.getAlbums(),musicianAlbums);
-    }*/
+
+    @Test
+    @DisplayName("Biography cannot be null.")
+    public void biographyCannotBeNull() {
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> musician.setBiography(null));
+        assertEquals(exception.getMessage(),"Biography object cannot be null.");
+    }
+
+    @ParameterizedTest
+    @DisplayName("Positive test case for biography.")
+    @ValueSource(strings = {"Hi, I am Chester, I am from California and I like playing my guitar."})
+    public void positiveBiography(String arg) throws IOException {
+        musician.setBiography(arg);
+        assertEquals(musician.getBiography(),arg);
+    }
+
+    @Test
+    @DisplayName("Musician web pages cannot be null.")
+    public void musicianWebpagesCannotBeNull(){
+        assertThrows(NullPointerException.class,()->musician.setWebpages(null));
+    }
+
+    @Test
+    @DisplayName("Check if any object within the set is null.")
+    public void nullObjectInWebPages(){
+        Set<Webpage> webPages = new HashSet<>();
+        webPages.add(null);
+        assertThrows(NullPointerException.class,()->musician.setWebpages(webPages));
+    }
+
+    @Test
+    @DisplayName("Positive test for web pages.")
+    public void positiveWebPages() throws IOException {
+        Set<Webpage> webPage = new HashSet<>();
+        webPage.add(new Webpage("Chester Bennington's Website",new URL("https://en.wikipedia.org/wiki/Chester_Bennington")));
+        musician.setWebpages(webPage);
+        assertEquals(musician.getWebpages(),webPage);
+    }
+
 }

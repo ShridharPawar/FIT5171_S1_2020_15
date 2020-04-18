@@ -18,7 +18,7 @@ public class MusicianInstrument extends Entity {
 
     public MusicianInstrument(Musician musician, MusicalInstrument musicalInstrument) {
         notNull(musician);
-        notNull(musicalInstrument);
+        notNull(musicalInstrument,"Object cannot be null.");
 
         this.musician = musician;
         this.musicalInstrument = musicalInstrument;

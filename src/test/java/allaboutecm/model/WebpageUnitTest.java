@@ -22,9 +22,8 @@ public class WebpageUnitTest {
     private Webpage webpage;
 
     @BeforeEach
-    public void setUp() throws MalformedURLException {
-        URL url = new URL("https://en.wikipedia.org/wiki/Chester_Bennington");
-        webpage = new Webpage("Chester Bennington's Website",url);
+    public void setUp() throws IOException {
+        webpage = new Webpage("Chester Bennington's Website",new URL("https://en.wikipedia.org/wiki/Chester_Bennington"));
     }
 
     @Test
@@ -67,7 +66,7 @@ public class WebpageUnitTest {
 
     @Test
     @DisplayName("Same url means same web page.")
-    public void sameUrlMeansSameWebPage() throws MalformedURLException {
+    public void sameUrlMeansSameWebPage() throws IOException {
         URL url = new URL("https://en.wikipedia.org/wiki/Chester_Bennington");
         Webpage webpage1 = new Webpage("Chester Bennington's Website",url);
         assertEquals(webpage1, webpage);
@@ -97,22 +96,6 @@ public class WebpageUnitTest {
         webpage.setUrl(url);
         assertEquals(webpage.getUrl(),url);
     }
-
-    @Test
-    @DisplayName("Biography cannot be null.")
-    public void biographyCannotBeNull() {
-        NullPointerException exception = assertThrows(NullPointerException.class, () -> webpage.setBiography(null));
-        assertEquals(exception.getMessage(),"Biography object cannot be null.");
-    }
-
-    @ParameterizedTest
-    @DisplayName("Positive test case for biography.")
-    @ValueSource(strings = {"Hi, I am Chester, I am from California and I like playing my guitar."})
-    public void positiveBiography(String arg) throws IOException {
-        webpage.setBiography(arg);
-        assertEquals(webpage.getBiography(),arg);
-    }
-
 
 
 }

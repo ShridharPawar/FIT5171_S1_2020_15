@@ -23,8 +23,7 @@ public class ReviewUnitTest {
 
     @BeforeEach
     public void setUp() throws MalformedURLException {
-        URL url = new URL("https://www.imdb.com/title/tt7198138/");
-        review = new Review(url,92);
+        review = new Review(new URL("https://www.sputnikmusic.com/review/48517/Linkin-Park-Meteora/"),92);
     }
 
     @Test
@@ -32,6 +31,14 @@ public class ReviewUnitTest {
     public void shouldConstructReviewObject()
     {
         assertNotNull(review,"Review object should not be null.");
+    }
+
+    @Test
+    @DisplayName("Negative test for the constructor.")
+    public void testConstructorForReview()
+    {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Review(new URL("https://www.sputnikmusic.com/review/48517/Linkin-Park-Meteora/"),102));
+        assertEquals(exception.getMessage(),"Not a valid rating.");
     }
 
     @Test
@@ -52,7 +59,7 @@ public class ReviewUnitTest {
 
     @ParameterizedTest
     @DisplayName("Positive test case for URL.")
-    @ValueSource(strings = {"https://www.imdb.com/title/tt7198138/"})
+    @ValueSource(strings = {"https://www.sputnikmusic.com/review/48517/Linkin-Park-Meteora/"})
     public void positiveURL(String arg) throws IOException {
         java.net.URL url = new java.net.URL(arg);
         review.setUrl(url);
@@ -76,14 +83,14 @@ public class ReviewUnitTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"26gfgfg7","8.fgfg2"})
-    @DisplayName("Track length should have just numbers.")
+    @DisplayName("Rating should have just numbers.")
     public void randomRating(String arg){
        assertThrows(NumberFormatException.class,()->review.setRating(Double.parseDouble(arg)));
     }
 
     @ParameterizedTest
     @ValueSource(doubles = {101,0})
-    @DisplayName("Rating should be less than 100 and greater than 0.")
+    @DisplayName("Rating should be less than or equal to 100 and greater than 0.")
     public void ratingShouldBeValid(double arg){
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->review.setRating(arg));
         assertEquals(exception.getMessage(),"Not a valid rating.");

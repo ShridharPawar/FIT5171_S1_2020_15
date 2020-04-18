@@ -22,9 +22,15 @@ public class MusicianInstrumentUnitTest {
 
     @BeforeEach
     public void setUp() {
-        Musician musician = new Musician("Mike Shidona");
-        MusicalInstrument musicalInstrument = new MusicalInstrument("Guitar");
-        musicianInstrument = new MusicianInstrument(musician,musicalInstrument);
+       musicianInstrument = new MusicianInstrument(new Musician("Mike Shidona"),new MusicalInstrument("Guitar"));
+    }
+
+    @Test
+    @DisplayName("Negative test for the constructor.")
+    public void testConstructorForMusicianInstrument()
+    {
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> new MusicianInstrument(new Musician("Mike Shidona"),null));
+        assertEquals(exception.getMessage(),"Object cannot be null.");
     }
 
     @Test
