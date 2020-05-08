@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import javax.sound.midi.Instrument;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -84,14 +83,14 @@ class AlbumUnitTest {
     @DisplayName("Release year should have just numbers.")
     public void randomStringReleaseYear(String arg){
         assertThrows(NumberFormatException.class,()->album.setReleaseYear(Integer.parseInt(arg)));
-     }
+    }
 
     @ParameterizedTest
     @ValueSource(ints = {2021232787,2021,-2020,1499})
     @DisplayName("Release year should be between 1500 and current year.")
     public void releaseYearShouldBeValid(int arg){
-       IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->album.setReleaseYear(arg));
-       assertEquals(exception.getMessage(),"Not a valid year.");
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->album.setReleaseYear(arg));
+        assertEquals(exception.getMessage(),"Not a valid year.");
     }
 
     @ParameterizedTest
@@ -112,7 +111,7 @@ class AlbumUnitTest {
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Record number cannot be empty or blank.")
     public void recordNumberCannotBeEmptyOrBlank(String arg){
-       assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
+        assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
     }
 
     @ParameterizedTest
@@ -134,21 +133,30 @@ class AlbumUnitTest {
     @Test
     @DisplayName("Musicians of an album cannot be null.")
     public void featuredMusiciansCannotBeNull(){
-         assertThrows(NullPointerException.class,()->album.setFeaturedMusicians(null));
+        assertThrows(NullPointerException.class,()->album.setFeaturedMusicians(null));
     }
 
     @Test
     @DisplayName("Check if any object within the set is null.")
     public void nullObjectInFeaturedMusicians(){
-        Set<Musician> musicians = new HashSet<>();
+        List<Musician> musicians = new ArrayList<>();
         musicians.add(null);
         assertThrows(NullPointerException.class,()->album.setFeaturedMusicians(musicians));
     }
 
     @Test
     @DisplayName("Positive test to check if the musicians list has been set.")
+    public void duplicateFeaturedMusicians(){
+        List<Musician> musicians = new ArrayList<>();
+        musicians.add(new Musician("Mike Shinoda"));
+        musicians.add(new Musician("Mike Shinoda"));
+        assertThrows(IllegalArgumentException.class,()->album.setFeaturedMusicians(musicians));
+    }
+
+    @Test
+    @DisplayName("Positive test to check if the musicians list has been set.")
     public void positiveTestFeaturedMusicians(){
-        Set<Musician> musicians = new HashSet<>();
+        List<Musician> musicians = new ArrayList<>();
         musicians.add(new Musician("Mike Shinoda"));
         album.setFeaturedMusicians(musicians);
         assertEquals(album.getFeaturedMusicians(),musicians);
@@ -173,7 +181,9 @@ class AlbumUnitTest {
     @DisplayName("Positive test to check if the Musicianinstrument is valid.")
     public void positiveMusicianInstruments(){
         Set<MusicianInstrument> instruments = new HashSet<>();
-        instruments.add(new MusicianInstrument(new Musician("Chester Bennington"),new MusicalInstrument("Guitar")));
+        Set<MusicalInstrument> musInstruments = new HashSet<>();
+        musInstruments.add(new MusicalInstrument("Guitar"));
+        instruments.add(new MusicianInstrument(new Musician("Chester Bennington"),musInstruments));
         album.setInstruments(instruments);
         assertEquals(album.getInstruments(),instruments);
     }
@@ -332,7 +342,4 @@ class AlbumUnitTest {
         album.setReviews(reviews);
         assertEquals(album.getReviews(),reviews);
     }
-
-
-
 }

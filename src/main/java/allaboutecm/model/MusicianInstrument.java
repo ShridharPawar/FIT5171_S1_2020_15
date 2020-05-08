@@ -1,7 +1,13 @@
 package allaboutecm.model;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
+import java.util.Objects;
+import java.util.Set;
+
+import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 /**
@@ -12,16 +18,29 @@ import static org.apache.commons.lang3.Validate.notNull;
  * See {@https://www.ecmrecords.com/catalogue/143038750696/the-koln-concert-keith-jarrett}
  *
  */
+@NodeEntity
 public class MusicianInstrument extends Entity {
+    @JsonIgnore
+    @Relationship(type="musician")
     private Musician musician;
-    private MusicalInstrument musicalInstrument;
 
-    public MusicianInstrument(Musician musician, MusicalInstrument musicalInstrument) {
+    /**
+     * CHANGE: Instead of a single MusicalInstrument, now it allows multiple
+     * MusicalInstruments, to reflect the fact that a musician can play multiple
+     * instruments.
+     */
+    @Relationship(type="musicalInstruments")
+    private Set<MusicalInstrument> musicalInstruments;
+
+    public MusicianInstrument() {
+    }
+
+    public MusicianInstrument(Musician musician, Set<MusicalInstrument> musicalInstrument) {
         notNull(musician);
         notNull(musicalInstrument,"Object cannot be null.");
-
+        notEmpty(musicalInstrument);
         this.musician = musician;
-        this.musicalInstrument = musicalInstrument;
+        this.musicalInstruments = musicalInstrument;
     }
 
 
@@ -34,13 +53,21 @@ public class MusicianInstrument extends Entity {
         this.musician = musician;
     }
 
-    public MusicalInstrument getMusicalInstrument() {
-        return musicalInstrument;
+    public Set<MusicalInstrument> getMusicalInstruments() {
+        return musicalInstruments;
     }
 
-    public void setMusicalInstrument(MusicalInstrument musicalInstrument) {
-        notNull(musicalInstrument);
-        this.musicalInstrument = musicalInstrument;
+    public void setMusicalInstruments(Set<MusicalInstrument> musicalInstruments)
+    {
+        notNull(musicalInstruments);
+        for(MusicalInstrument mus:musicalInstruments)
+        {
+            if(mus.equals(null))
+            {
+                throw new NullPointerException("Object within the set should not be null");
+            }
+        }
+        this.musicalInstruments = musicalInstruments;
     }
 
     @Override
@@ -49,11 +76,12 @@ public class MusicianInstrument extends Entity {
         if (o == null || getClass() != o.getClass()) return false;
         MusicianInstrument that = (MusicianInstrument) o;
         return musician.equals(that.musician) &&
-                musicalInstrument.equals(that.musicalInstrument);
+                musicalInstruments.equals(that.musicalInstruments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(musician, musicalInstrument);
+        return Objects.hash(musician, musicalInstruments);
     }
+
 }

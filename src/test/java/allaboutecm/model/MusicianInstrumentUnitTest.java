@@ -22,7 +22,9 @@ public class MusicianInstrumentUnitTest {
 
     @BeforeEach
     public void setUp() {
-       musicianInstrument = new MusicianInstrument(new Musician("Mike Shidona"),new MusicalInstrument("Guitar"));
+        Set<MusicalInstrument> instruments = new HashSet<>();
+        instruments.add(new MusicalInstrument("Guitar"));
+        musicianInstrument = new MusicianInstrument(new Musician("Mike Shidona"),instruments);
     }
 
     @Test
@@ -50,8 +52,9 @@ public class MusicianInstrumentUnitTest {
     @DisplayName("Objects are same if the musician name and the instrument are same.")
     public void sameMusicianAndSameMusicianInstrumentPair() {
         Musician newMusician = new Musician("Mike Shidona");
-        MusicalInstrument newMusicalInstrument = new MusicalInstrument("Guitar");
-        MusicianInstrument newMusicianInstrument = new MusicianInstrument(newMusician,newMusicalInstrument);
+        Set<MusicalInstrument> instruments = new HashSet<>();
+        instruments.add(new MusicalInstrument("Guitar"));
+        MusicianInstrument newMusicianInstrument = new MusicianInstrument(newMusician,instruments);
         assertEquals(musicianInstrument, newMusicianInstrument);
     }
 
@@ -66,15 +69,24 @@ public class MusicianInstrumentUnitTest {
     @Test
     @DisplayName("Musical instrument cannot be null.")
     public void musicalInstrumentCannotBeNull() {
-        assertThrows(NullPointerException.class, () -> musicianInstrument.setMusicalInstrument(null));
+        assertThrows(NullPointerException.class, () -> musicianInstrument.setMusicalInstruments(null));
+    }
+
+    @Test
+    @DisplayName("Object in set cannot be null.")
+    public void objectInMusicalInstrumentCannotBeNull() {
+        Set<MusicalInstrument> instruments = new HashSet<>();
+        instruments.add(null);
+        assertThrows(NullPointerException.class, () -> musicianInstrument.setMusicalInstruments(instruments));
     }
 
     @Test
     @DisplayName("Positive test case to set musical instrument.")
     public void positiveMusicalInstrument() {
-        MusicalInstrument musicalInstrument = new MusicalInstrument("Piano");
-        musicianInstrument.setMusicalInstrument(musicalInstrument);
-        assertEquals(musicianInstrument.getMusicalInstrument(),musicalInstrument);
+        Set<MusicalInstrument> instruments = new HashSet<>();
+        instruments.add(new MusicalInstrument("Guitar"));
+        musicianInstrument.setMusicalInstruments(instruments);
+        assertEquals(musicianInstrument.getMusicalInstruments(),instruments);
     }
 
 

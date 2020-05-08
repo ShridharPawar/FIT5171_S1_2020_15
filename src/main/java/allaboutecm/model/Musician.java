@@ -1,6 +1,11 @@
 package allaboutecm.model;
 
+import allaboutecm.dataaccess.neo4j.URLConverter;
 import com.google.common.collect.Sets;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -17,16 +22,24 @@ import static org.apache.commons.lang3.Validate.notNull;
  *
  * See {@https://www.ecmrecords.com/artists/1435045745}
  */
+@NodeEntity
 public class Musician extends Entity {
+    @Property(name="name")
     private String name;
 
+    @Convert(URLConverter.class)
+    @Property(name="musicianURL")
     private URL musicianUrl;
 
+    @Relationship(type="albums")
     private Set<Album> albums;
 
     private Set<Webpage> personalWebpages;
 
     private String biography;
+
+    public Musician() {
+    }
 
     public Musician(String name) {
         notNull(name);
@@ -121,7 +134,7 @@ public class Musician extends Entity {
         HttpURLConnection connectionString = (HttpURLConnection) musicianUrl.openConnection();
         connectionString.setRequestMethod("GET");
         int codeInResponse = connectionString.getResponseCode();
-        if(!musicianUrl.toString().toLowerCase().contains("ecm")||!(codeInResponse==200))
+        if(!(codeInResponse==200))
         {
             throw new UnknownHostException("Not a valid URL.");
         }
@@ -149,8 +162,4 @@ public class Musician extends Entity {
         }
         this.personalWebpages = personalWebpages;
     }
-
-
-
-
 }

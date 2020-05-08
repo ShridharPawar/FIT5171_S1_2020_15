@@ -1,9 +1,12 @@
 package allaboutecm.model;
 
+import allaboutecm.dataaccess.neo4j.URLConverter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-//import com.sun.deploy.security.SelectableSecurityManager;
-//import sun.security.x509.OtherName;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -14,25 +17,38 @@ import java.util.*;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
-/**0
+/**
  * Represents an album released by ECM records.
  *
  * See {@https://www.ecmrecords.com/catalogue/143038750696/the-koln-concert-keith-jarrett}
  */
+@NodeEntity
 public class Album extends Entity {
 
+    @Property(name="releaseYear")
     private int releaseYear;
 
+    @Property(name="recordNumber")
     private String recordNumber;
 
+    @Property(name="albumName")
     private String albumName;
 
-    private Set<Musician> featuredMusicians;
+    /**
+     * CHANGE: instead of a set, now featuredMusicians is a list,
+     * to better represent the order in which musicians are featured in an album.
+     */
+    @Relationship(type="featuredMusicians")
+    private List<Musician> featuredMusicians;
 
+    @Relationship(type="instruments")
     private Set<MusicianInstrument> instruments;
 
+    @Convert(URLConverter.class)
+    @Property(name="albumURL")
     private URL albumURL;
 
+    @Relationship(type="tracks")
     private Set<Track> tracks;
 
     private String genre;
@@ -75,7 +91,7 @@ public class Album extends Entity {
         this.style="contemporary Jazz";
         this.releaseFormat="CD";
         this.Reviews = Sets.newHashSet();
-        this.featuredMusicians = Sets.newHashSet();
+        this.featuredMusicians = new ArrayList<Musician>();
         this.instruments = Sets.newHashSet();
         this.tracks = Sets.newHashSet();
     }
@@ -95,21 +111,26 @@ public class Album extends Entity {
         this.recordNumber = recordNumber;
     }
 
-    public Set<Musician> getFeaturedMusicians() {
+    public List<Musician> getFeaturedMusicians() {
         return featuredMusicians;
     }
 
-    public void setFeaturedMusicians(Set<Musician> featuredMusicians) {
+    public void setFeaturedMusicians(List<Musician> featuredMusicians) {
         notNull(featuredMusicians);
+        Set<Musician> set = new HashSet<Musician>(featuredMusicians);
+        if(set.size()<featuredMusicians.size())
+        {
+            throw new IllegalArgumentException("Duplicate musicians in the list!");
+        }
         for(Musician mus:featuredMusicians)
         {
-             if(mus.equals(null))
-             {
-                 throw new NullPointerException("Object within the set should not be null");
-             }
+            if(mus.equals(null))
+            {
+                throw new NullPointerException("Object within the set should not be null");
+            }
         }
         this.featuredMusicians = featuredMusicians;
-     }
+    }
 
     public Set<MusicianInstrument> getInstruments() {
         return instruments;

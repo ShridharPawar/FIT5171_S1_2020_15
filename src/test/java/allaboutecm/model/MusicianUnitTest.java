@@ -98,7 +98,7 @@ public class MusicianUnitTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"https://www.testfakewebsiteecm.com"})
-    @DisplayName("URL should atleast contain 'ecm' and should be a valid url.")
+    @DisplayName("Should be a valid url.")
     public void invalidURL(String arg) throws MalformedURLException {
         if(!arg.contains("https://")){arg="https://google.com";}
         java.net.URL url = new java.net.URL(arg);
