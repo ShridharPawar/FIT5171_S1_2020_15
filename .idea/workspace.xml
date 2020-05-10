@@ -3,10 +3,28 @@
   <component name="ChangeListManager">
     <list default="true" id="6c7da794-9eed-44f2-be10-21a3185e9848" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Album.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Musician.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/allaboutecm/model/Musician.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/allaboutecm/model/AlbumUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/allaboutecm/model/AlbumUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicianUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/allaboutecm/model/MusicianUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allaboutecm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/allaboutecm.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/allaboutecm/mining/ECMMiner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/allaboutecm/mining/ECMMiner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/allaboutecm/mining/ECMMiner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/allaboutecm/model/Album.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/allaboutecm/model/Entity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/allaboutecm/model/MusicalInstrument.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/allaboutecm/model/Musician.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/allaboutecm/model/MusicianInstrument.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.AlbumUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.AlbumUnitTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicalInstrumentUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicalInstrumentUnitTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianInstrumentUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianInstrumentUnitTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-allaboutecm.model.MusicianUnitTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.AlbumUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.AlbumUnitTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicalInstrumentUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicalInstrumentUnitTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianInstrumentUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianInstrumentUnitTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianUnitTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/allaboutecm.model.MusicianUnitTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/AlbumUnitTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicalInstrumentUnitTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicianInstrumentUnitTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/allaboutecm/model/MusicianUnitTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +52,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1ZyUJoskCMfKf1zM0j2x289Zn3c" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -41,9 +62,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="plugins.junitgenerator.application" />
   </component>
   <component name="RunManager" selected="JUnit.AlbumUnitTest.limitedLengthOfAlbumName">
     <configuration name="AlbumUnitTest.limitedLengthOfAlbumName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -141,7 +164,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fb2d38b1-ae78-4f33-9700-cac6c7c720b0" name="Default Changelist" comment="" />
+      <changelist id="6c7da794-9eed-44f2-be10-21a3185e9848" name="Default Changelist" comment="" />
       <created>1585810757049</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -157,6 +180,7 @@
       <workItem from="1586682664333" duration="400000" />
       <workItem from="1586683084416" duration="98000" />
       <workItem from="1586773829280" duration="24000" />
+      <workItem from="1589113508329" duration="3035000" />
     </task>
     <servers />
   </component>
@@ -168,6 +192,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1586477054291" />
+    <state x="566" y="239" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1589116056832">
+      <screen x="0" y="23" width="1680" height="937" />
+    </state>
+    <state x="566" y="239" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.23.1680.937@0.23.1680.937" timestamp="1589116056832" />
     <state width="408" height="466" key="DebuggerActiveHint" timestamp="1586585937668">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -176,22 +204,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586586182076" />
-    <state width="1493" height="170" key="GridCell.Tab.0.bottom" timestamp="1586776402842">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1614" height="70" key="GridCell.Tab.0.bottom" timestamp="1589116377742">
+      <screen x="0" y="23" width="1680" height="937" />
     </state>
     <state width="1493" height="170" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586776402842" />
-    <state width="1493" height="170" key="GridCell.Tab.0.center" timestamp="1586776402842">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1614" height="70" key="GridCell.Tab.0.bottom/0.23.1680.937@0.23.1680.937" timestamp="1589116377742" />
+    <state width="1614" height="70" key="GridCell.Tab.0.center" timestamp="1589116377741">
+      <screen x="0" y="23" width="1680" height="937" />
     </state>
     <state width="1493" height="170" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586776402842" />
-    <state width="1493" height="170" key="GridCell.Tab.0.left" timestamp="1586776402841">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1614" height="70" key="GridCell.Tab.0.center/0.23.1680.937@0.23.1680.937" timestamp="1589116377741" />
+    <state width="1614" height="70" key="GridCell.Tab.0.left" timestamp="1589116377741">
+      <screen x="0" y="23" width="1680" height="937" />
     </state>
     <state width="1493" height="170" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586776402841" />
-    <state width="1493" height="170" key="GridCell.Tab.0.right" timestamp="1586776402842">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1614" height="70" key="GridCell.Tab.0.left/0.23.1680.937@0.23.1680.937" timestamp="1589116377741" />
+    <state width="1614" height="70" key="GridCell.Tab.0.right" timestamp="1589116377742">
+      <screen x="0" y="23" width="1680" height="937" />
     </state>
     <state width="1493" height="170" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586776402842" />
+    <state width="1614" height="70" key="GridCell.Tab.0.right/0.23.1680.937@0.23.1680.937" timestamp="1589116377742" />
     <state width="746" height="261" key="GridCell.Tab.1.bottom" timestamp="1586586183599">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -208,13 +240,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="746" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1586586183599" />
-    <state x="0" y="0" key="com.intellij.ide.util.TipDialog" timestamp="1586585202152">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="329" y="124" key="SettingsEditor" timestamp="1589116365118">
+      <screen x="0" y="23" width="1680" height="937" />
+    </state>
+    <state x="329" y="124" key="SettingsEditor/0.23.1680.937@0.23.1680.937" timestamp="1589116365118" />
+    <state x="0" y="23" key="com.intellij.ide.util.TipDialog" timestamp="1589113508955">
+      <screen x="0" y="23" width="1680" height="937" />
     </state>
     <state x="0" y="0" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1586585202152" />
+    <state x="0" y="23" key="com.intellij.ide.util.TipDialog/0.23.1680.937@0.23.1680.937" timestamp="1589113508955" />
+    <state x="566" y="255" key="extract.method.dialog" timestamp="1589116102943">
+      <screen x="0" y="23" width="1680" height="937" />
+    </state>
+    <state x="566" y="255" key="extract.method.dialog/0.23.1680.937@0.23.1680.937" timestamp="1589116102943" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1586433600834">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1586433600834" />
+    <state x="493" y="228" width="670" height="676" key="search.everywhere.popup" timestamp="1589116307215">
+      <screen x="0" y="23" width="1680" height="937" />
+    </state>
+    <state x="493" y="228" width="670" height="676" key="search.everywhere.popup/0.23.1680.937@0.23.1680.937" timestamp="1589116307215" />
   </component>
 </project>

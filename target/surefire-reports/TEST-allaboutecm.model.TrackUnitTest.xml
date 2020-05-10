@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="allaboutecm.model.MusicianUnitTest" time="5.155" tests="24" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="allaboutecm.model.TrackUnitTest" time="0.031" tests="15" errors="0" skipped="0" failures="0">
   <properties>
     <property name="gopherProxySet" value="false"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
@@ -62,28 +62,19 @@
     <property name="java.class.version" value="52.0"/>
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase name="musicianNameCannotBeNull" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="invalidURL(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0.005"/>
-  <testcase name="positiveMusicianAlbums" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="positiveMusicianName(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="positiveMusicianName(String)[2]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="nullObjectInWebPages" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="positiveBiography(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="urlCannotBeNull" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="biographyCannotBeNull" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="musicianWebpagesCannotBeNull" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
-  <testcase name="positiveURL(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="5.111"/>
-  <testcase name="nullObjectInMusicianAlbums" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="musicianNameShouldNotHaveSpecialCharacters(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0.002"/>
-  <testcase name="musicianNameShouldNotHaveSpecialCharacters(String)[2]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="musicianNameLength(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="musicianNameLength(String)[2]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="testConstructorForMusician" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="musicianNameCannotBeEmptyOrBlank(String)[1]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="musicianNameCannotBeEmptyOrBlank(String)[2]" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="musicianNameCannotBeEmptyOrBlank(String)[3]" classname="allaboutecm.model.MusicianUnitTest" time="0"/>
-  <testcase name="sameNameMeansSameMusician" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="musicianAlbumsCannotBeNull" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="positiveWebPages" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
-  <testcase name="shouldConstructMusicianObject" classname="allaboutecm.model.MusicianUnitTest" time="0.001"/>
+  <testcase name="trackLengthShouldBeValid(double)[1]" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
+  <testcase name="trackLengthShouldBeValid(double)[2]" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
+  <testcase name="shouldConstructTrackObject" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
+  <testcase name="sameNameAndTimeMeansSameTrack" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
+  <testcase name="positiveTrackLength(double)[1]" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
+  <testcase name="positiveTrackLength(double)[2]" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
+  <testcase name="positiveTrackName(String)[1]" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
+  <testcase name="randomStringTrackLength(String)[1]" classname="allaboutecm.model.TrackUnitTest" time="0.002"/>
+  <testcase name="randomStringTrackLength(String)[2]" classname="allaboutecm.model.TrackUnitTest" time="0.002"/>
+  <testcase name="trackNameCannotBeEmptyOrBlank(String)[1]" classname="allaboutecm.model.TrackUnitTest" time="0"/>
+  <testcase name="trackNameCannotBeEmptyOrBlank(String)[2]" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
+  <testcase name="trackNameCannotBeEmptyOrBlank(String)[3]" classname="allaboutecm.model.TrackUnitTest" time="0"/>
+  <testcase name="trackNameLength(String)[1]" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
+  <testcase name="trackNameCannotBeNull" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
+  <testcase name="testConstructorForTrack" classname="allaboutecm.model.TrackUnitTest" time="0.001"/>
 </testsuite>

@@ -1,0 +1,6 @@
+allaboutecm/model/ReviewUnitTest.class
+allaboutecm/mining/ECMMinerUnitTest.class
+allaboutecm/dataaccess/neo4j/Neo4jDAOUnitTest.class
+allaboutecm/model/TrackUnitTest.class
+allaboutecm/mining/ECMMinerIntegrationTest.class
+allaboutecm/model/WebpageUnitTest.class
