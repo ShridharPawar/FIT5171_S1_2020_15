@@ -88,7 +88,53 @@ public class ECMMiner {
      *
      * @Param k the number of musicians to be returned.
      */
-    public List<Musician> mostTalentedMusicians(int k) {
+    public List<Musician> mostTalentedMusicians(int k, int startYear, int endYear) {
+        Collection<Musician> musicians = dao.loadAll(Musician.class);
+        Map<String, Musician> nameMap = Maps.newHashMap();
+        for (Musician m : musicians) {
+            nameMap.put(m.getName(), m);
+        }
+
+        ListMultimap<String, Album> multimap = MultimapBuilder.treeKeys().arrayListValues().build();
+        ListMultimap<Integer, Musician> countMap = MultimapBuilder.treeKeys().arrayListValues().build();
+
+        for (Musician musician : musicians) {
+            Set<Album> albums = musician.getAlbums();
+            for (Album album : albums) {
+                boolean toInclude =
+                        !((startYear > 0 && album.getReleaseYear() < startYear) ||
+                                (endYear > 0 && album.getReleaseYear() > endYear));
+
+                if (toInclude) {
+                    multimap.put(musician.getName(), album);
+                }
+            }
+        }
+
+        Map<String, Collection<Album>> albumMultimap = multimap.asMap();
+        for (String name : albumMultimap.keySet()) {
+            Collection<Album> albums = albumMultimap.get(name);
+            int size = albums.size();
+            countMap.put(size, nameMap.get(name));
+        }
+
+        List<Musician> result = Lists.newArrayList();
+        List<Integer> sortedKeys = Lists.newArrayList(countMap.keySet());
+        sortedKeys.sort(Ordering.natural().reverse());
+        for (Integer count : sortedKeys) {
+            List<Musician> list = countMap.get(count);
+            if (list.size() >= k) {
+                break;
+            }
+            if (result.size() + list.size() >= k) {
+                int newAddition = k - result.size();
+                for (int i = 0; i < newAddition; i++) {
+                    result.add(list.get(i));
+                }
+            } else {
+                result.addAll(list);
+            }
+        }
 
         return Lists.newArrayList();
     }
