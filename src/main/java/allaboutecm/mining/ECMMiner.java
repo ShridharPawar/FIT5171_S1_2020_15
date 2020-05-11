@@ -8,11 +8,16 @@ import allaboutecm.model.MusicianInstrument;
 import com.google.common.collect.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
+
+import java.util.*;
 
 /**
  * TODO: implement and test the methods in this class.
@@ -140,17 +145,77 @@ public class ECMMiner {
         return Lists.newArrayList();
     }
 
-    /**
+    /** 
      * Musicians that collaborate the most widely, by the number of other musicians they work with on albums.
      *
      * @Param k the number of musicians to be returned.
      */
 
-    public List<Musician> mostSocialMusicians(int k) {
-        return Lists.newArrayList();
+    public List<Musician> mostSocialMusicians(int k)
+    {
+        int l=k;
+        Collection<Album> albums = dao.loadAll(Album.class);
+        Collection<Musician> musicians = dao.loadAll(Musician.class);
+        ListMultimap<String, Album> multimap = MultimapBuilder.treeKeys().arrayListValues().build();
+        for (Musician musician : musicians) {
+            Set<Album> albums1 = musician.getAlbums();
+            for (Album album : albums1) {
+                multimap.put(musician.getName(), album);
+            }
+        }
+
+        Map<String, Collection<Album>> albumMultimap = multimap.asMap();
+        //ListMultimap<String, Integer> countmap = MultimapBuilder.treeKeys().arrayListValues().build();
+        Map<String, Integer> countmap = new HashMap<String, Integer>();
+        for (String name : albumMultimap.keySet()) {
+            Collection<Album> albums1 = albumMultimap.get(name);
+            Set<String> musiNames = new HashSet<>();
+            for(Album a : albums1)
+            {
+                for(int i=0;i<a.getFeaturedMusicians().size();i++)
+                {
+                    musiNames.add(a.getFeaturedMusicians().get(i).getName());
+                }
+            }
+           countmap.put(name, musiNames.size()-1);
+        }
+        List<Musician> result = Lists.newArrayList();
+        List<Integer> sortedKeys = Lists.newArrayList(countmap.values());
+        sortedKeys.sort(Ordering.natural().reverse());
+        List<Integer> chosenKeys = Lists.newArrayList();
+        for(int i=0;i<k;i++){chosenKeys.add(sortedKeys.get(i));}
+
+        List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(countmap.entrySet());
+        Collections.sort(list, new Comparator<Entry<String, Integer>>()
+        {
+            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2)
+            {return o2.getValue().compareTo(o1.getValue());}});
+        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+        for(Entry<String, Integer> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        List<String> chosenMusicians = new ArrayList<>();
+        for(String name: sortedMap.keySet())
+        {
+            Integer count = sortedMap.get(name);
+            int first = count;
+            if(chosenKeys.contains(first) && k!=0){chosenMusicians.add(name);k--;}
+        }
+
+        for(Musician m: musicians)
+        {
+            if(chosenMusicians.contains(m.getName()) && l!=0)
+            {
+                result.add(m);l--;
+            }
+        }
+
+          return result;
     }
 
-    /**
+ /**
      * Busiest year in terms of number of albums released.
      *
      * @Param k the number of years to be returned.
@@ -169,7 +234,38 @@ public class ECMMiner {
      * @Param album
      */
 
-    public List<Album> mostSimilarAlbums(int k, Album album) {
-        return Lists.newArrayList();
+    public List<Album> mostSimilarAlbums(int k, Album album)
+    {
+        Collection<Album> albums = dao.loadAll(Album.class);
+        List<Album> similarAlbums = new ArrayList<>();
+        Set<String> givenAlbumInstruments = new HashSet<>();
+        String givenAlbumGenre = album.getGenre();
+        for(MusicianInstrument i:album.getInstruments())
+        {
+            Set<MusicalInstrument> musicianInstruments = i.getMusicalInstruments();
+            for(MusicalInstrument j:musicianInstruments)
+            {
+                givenAlbumInstruments.add(j.getName());
+            }
+        }
+
+        for (Album a : albums)
+        {
+            Set<MusicianInstrument> musicianInstruments = a.getInstruments();
+            Set<String> musicalInstruments = new HashSet<>();
+            for(MusicianInstrument m : musicianInstruments)
+            {
+                for(MusicalInstrument i:m.getMusicalInstruments())
+                {
+                    musicalInstruments.add(i.getName());
+                }
+            }
+            if(musicalInstruments.equals(givenAlbumInstruments) && a.getGenre().equals(givenAlbumGenre)&&k!=0)
+            {
+                similarAlbums.add(a);
+                k--;
+            }
+        }
+          return similarAlbums;
     }
 }

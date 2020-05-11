@@ -89,13 +89,6 @@ public class MusicianUnitTest {
         assertEquals(musician.getName(),arg);
     }
 
-    @Test
-    @DisplayName("URL cannot be null")
-    public void urlCannotBeNull()
-    {
-      assertThrows(NullPointerException.class,()->musician.setMusicianUrl(null));
-    }
-
     @ParameterizedTest
     @ValueSource(strings = {"https://www.testfakewebsiteecm.com"})
     @DisplayName("Should be a valid url.")
