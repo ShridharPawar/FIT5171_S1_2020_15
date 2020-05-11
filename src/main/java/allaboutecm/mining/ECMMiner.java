@@ -19,6 +19,8 @@ import java.util.Map.Entry;
 
 import java.util.*;
 
+import static allaboutecm.model.MusicalInstrument.*;
+
 /**
  * TODO: implement and test the methods in this class.
  * Note that you can extend the Neo4jDAO class to make implementing this class easier.
@@ -93,11 +95,13 @@ public class ECMMiner {
      * Most talented musicians by the number of different musical instruments they play
      *
      * @Param k the number of musicians to be returned.
+     * The most talented musician refers to the one who can play the largest number of instruments.
      */
-    public List<Musician> mostTalentedMusicians(int k, int instrumentNum) {
+    public List<Musician> mostTalentedMusicians(int k) {
 /*
         Collection<Musician> musicians = dao.loadAll(Musician.class);
         Map<String, Musician> nameMap = Maps.newHashMap();
+
         for (Musician m : musicians) {
             nameMap.put(m.getName(), m);
         }
@@ -106,18 +110,18 @@ public class ECMMiner {
         ListMultimap<Integer, Musician> countMap = MultimapBuilder.treeKeys().arrayListValues().build();
 
         for (Musician musician : musicians) {
-            Set<MusicalInstrument> musicianInstrument = MusicianInstrument.getMusicalInstruments();
-            for (MusicianInstrument mi : musicianInstruments) {
+            Set<MusicalInstrument> musicalInstruments = MusicalInstrument.getName();
+            for (MusicalInstrument musicalInstrument : musicalInstruments) {
                 boolean toInclude =
-                        (instrumentNum > 0 || !instrumentNum.equals(null));
-
+                        (k > 0 && String.valueOf(k).length() != 0 );
                 if (toInclude) {
-                    multimap.put(musician.getName(), name);
+                    multimap.put(musician.getName(), musicalInstrument);
                 }
             }
         }
 
         Map<String, Collection<MusicianInstrument>> albumMultimap = multimap.asMap();
+
         for (String name : albumMultimap.keySet()) {
             Collection<MusicianInstrument> musicianInstruments = albumMultimap.get(name);
             int size = musicianInstruments.size();
@@ -125,9 +129,11 @@ public class ECMMiner {
         }
 
         List<Musician> outcome = Lists.newArrayList();
-        List<Integer> sumInstrument = Lists.newArrayList(countMap.keySet());
-        sumInstrument.sort(Ordering.natural().reverse());
-        for (Integer count : sumInstrument) {
+        List<Integer> sortedKeys = Lists.newArrayList(countMap.keySet());
+
+        sortedKeys.sort(Ordering.natural().reverse());
+
+        for (Integer count: sortedKeys) {
             List<Musician> list = countMap.get(count);
             if (list.size() >= k) {
                 break;

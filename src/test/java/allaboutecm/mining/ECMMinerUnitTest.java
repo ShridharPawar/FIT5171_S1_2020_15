@@ -35,6 +35,19 @@ class ECMMinerUnitTest {
     }
 
     @Test
+    public void mostTelentedMusician(){
+        Musician musician1 = new Musician("Mozart");
+        Musician musician2 = new Musician("Beethoven");
+        Musician musician3 = new Musician("Bach");
+        Musician musician4 = new Musician("Chopin");
+        MusicianInstrument musicianInstrument1 = new MusicianInstrument(musician1, (Set<MusicalInstrument>) musician1);
+        MusicianInstrument musicianInstrument2 = new MusicianInstrument(musician2, (Set<MusicalInstrument>) musician2);
+        MusicianInstrument musicianInstrument3 = new MusicianInstrument(musician3, (Set<MusicalInstrument>) musician3);
+        MusicianInstrument musicianInstrument4 = new MusicianInstrument(musician4, (Set<MusicalInstrument>) musician4);
+    }
+
+
+    @Test
     public void shouldReturnTheMusicianWhenThereIsOnlyOne() {
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
         Musician musician = new Musician("Keith Jarrett");
