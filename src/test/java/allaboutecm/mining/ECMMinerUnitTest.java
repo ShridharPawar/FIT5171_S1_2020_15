@@ -54,13 +54,19 @@ class ECMMinerUnitTest {
         musician.setAlbums(Sets.newHashSet(album));
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
 
-        List<Musician> musicians = ecmMiner.mostProlificMusicians(5, -1, -1);
+        List<Musician> musicians = ecmMiner.mostProlificMusicians(-1, -1, -1);
 
         assertEquals(1, musicians.size());
         assertTrue(musicians.contains(musician));
     }
 
     @Test
+    public void shouldReturnZeroSizeWhenNoMusiciansAreLoaded() {
+       List<Musician> musicians = ecmMiner.mostProlificMusicians(-1, -1, -1);
+        assertEquals(0, musicians.size());
+     }
+
+   @Test
     public void mostSocialMusicians()
     {
         Album album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
@@ -109,7 +115,20 @@ class ECMMinerUnitTest {
          album3.setGenre("Rock");
          albumToBeChecked.setGenre("Rock");
          when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3));
-         List<Album> albums = ecmMiner.mostSimilarAlbums(3,albumToBeChecked);
+         List<Album> albums = ecmMiner.mostSimilarAlbums(2,albumToBeChecked);
+         int b=1;
+     }
+
+     @Test
+    public void busiestYear()
+     {
+         Album album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
+         Album album2 = new Album(2016, "ECM 1064/66", "Meteora");
+         Album album3 = new Album(2016, "ECM 1064/67", "Minutes to midnight");
+         Album album4 = new Album(1975, "ECM 1064/68", "Shadow of the day");
+         Album album5 = new Album(1974, "ECM 1064/69", "Gasolina");
+         when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3,album4,album5));
+         List<Integer> years = ecmMiner.busiestYears(0);
          int b=1;
      }
 

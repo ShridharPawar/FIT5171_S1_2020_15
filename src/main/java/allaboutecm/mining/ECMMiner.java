@@ -171,7 +171,6 @@ public class ECMMiner {
         }
 
         Map<String, Collection<Album>> albumMultimap = multimap.asMap();
-        //ListMultimap<String, Integer> countmap = MultimapBuilder.treeKeys().arrayListValues().build();
         Map<String, Integer> countmap = new HashMap<String, Integer>();
         for (String name : albumMultimap.keySet()) {
             Collection<Album> albums1 = albumMultimap.get(name);
@@ -227,8 +226,52 @@ public class ECMMiner {
      * @Param k the number of years to be returned.
      */
 
-    public List<Integer> busiestYears(int k) {
-        return Lists.newArrayList();
+    public List<Integer> busiestYears(int k)
+    {
+        Collection<Album> albums = dao.loadAll(Album.class);
+        Map<Integer, Integer> multimap = new HashMap<Integer, Integer>();
+        List<Integer> doneYears = new ArrayList<>();
+        for(Album a : albums)
+        {
+            int count=0;
+            int year = a.getReleaseYear();
+
+            for(Album a1:albums)
+            {
+                if(!doneYears.contains(year))
+                {
+                    if(year==a1.getReleaseYear())
+                    {
+                        count++;
+                    }
+                }
+            }
+            if(!doneYears.contains(year)){
+              multimap.put(a.getReleaseYear(),count);}
+            doneYears.add(year);
+       }
+
+        List<Entry<Integer, Integer>> list = new LinkedList<Entry<Integer, Integer>>(multimap.entrySet());
+        Collections.sort(list, new Comparator<Entry<Integer, Integer>>()
+        {
+            public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2)
+            {return o2.getValue().compareTo(o1.getValue());}});
+        Map<Integer, Integer> sortedMap = new LinkedHashMap<Integer, Integer>();
+        for(Entry<Integer, Integer> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        List<Integer> results = new ArrayList<>();
+        for(Integer year:sortedMap.keySet())
+        {
+            if(k!=0)
+            {
+                results.add(year);
+                k--;
+            }
+        }
+
+        return results;
     }
 
     /**
