@@ -26,11 +26,25 @@ public class Neo4jDAO implements DAO {
         this.session = session;
     }
 
+    /*
+     * Get an object
+     * eg. dao.load(Musician.class, id) --> select
+     * id from entity, automatic generated, once create an object, the id would be generated
+     */
     @Override
     public <T extends Entity> T load(Class<T> clazz, Long id) {
         return session.load(clazz, id, DEPTH_ENTITY);
     }
 
+    /*
+     * Update or insert the information to a dot
+     * Creation
+     * Musician musicianA = new Musician("Lily Lee")
+     * dao.createOrUpdate(musicianA)
+     * Updating
+     * MusicianA.setName("Tresa Will")
+     * dao.createOrUpdate(musicianA)
+     */
     @Override
     public <T extends Entity> T createOrUpdate(T entity) {
         Class clazz = entity.getClass();
@@ -46,18 +60,38 @@ public class Neo4jDAO implements DAO {
 
     }
 
+    /*
+     * Get all data from a table(class)
+     * dao.loadAll(Musician.class) --> select * from Musician
+     * return type is Collection< >
+     */
     @Override
-    public <T extends Entity> Collection<T> loadAll(Class<T> clazz) {
+    public <T extends Entity> Collection<T> loadAll(Class<T> clazz)
+    {
         return session.loadAll(clazz, DEPTH_LIST);
-
-
     }
 
+    /*
+     * Delete data
+     */
     @Override
-    public <T extends Entity> void delete(T entity) {
-        session.delete(entity);
-    }
+    public <T extends Entity> void delete(T entity)
+    {
+        Class clazz = entity.getClass();
 
+        if (clazz.equals(Musician.class))
+        {
+            Collection<MusicianInstrument> musicianInstruments = this.loadAll(MusicianInstrument.class);
+            for (MusicianInstrument anInstrument : musicianInstruments)
+            {
+                session.delete(anInstrument);
+            }
+        }
+
+        /*
+         * Finding musician depend on name
+         * dao.findMusicianByName(name) --> select * from Musician where name = "name"
+         */
     @Override
     public Musician findMusicianByName(String name) {
         Filters filters = new Filters();
@@ -70,6 +104,10 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+        /*
+         * Similar to load, finding data of an object
+         *
+         */
     private <T extends Entity> T findExistingEntity(Entity entity, Class clazz) {
         Filters filters = new Filters();
         Collection<? extends Entity> collection = Sets.newLinkedHashSet();

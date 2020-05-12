@@ -46,19 +46,26 @@ class Neo4jDAOUnitTest {
         // Configuration configuration = new Configuration.Builder().uri(new File(TEST_DB).toURI().toString()).build();
 
         // HTTP data store, need to install the Neo4j desktop app and create & run a database first.
-//        Configuration configuration = new Configuration.Builder().uri("http://neo4j:password@localhost:7474").build();
+        // Configuration configuration = new Configuration.Builder().uri("http://neo4j:password@localhost:7474").build();
 
+        //Activate database
         sessionFactory = new SessionFactory(configuration, Musician.class.getPackage().getName());
         session = sessionFactory.openSession();
 
         dao = new Neo4jDAO(session);
     }
 
+    /*
+     Purging the database
+     */
     @AfterEach
     public void tearDownEach() {
         session.purgeDatabase();
     }
 
+    /*
+     Purging the database
+     */
     @AfterAll
     public static void tearDown() throws IOException {
         session.purgeDatabase();
@@ -112,5 +119,131 @@ class Neo4jDAOUnitTest {
         assertEquals(musician, loadedMusician);
         assertEquals(musician.getMusicianUrl(), loadedMusician.getMusicianUrl());
         assertEquals(musician.getAlbums(), loadedMusician.getAlbums());
+    }
+
+    /*
+    Testing saving musician process with same values could only saved once
+    */
+    @DisplayName("Same musician could only be one data in database")
+    @Test
+    public void SameMusiciansWouldSaveOnce() throws IOException
+    {
+        Musician mu1 = new Musician("Keith Jarrett");
+        mu1.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+        dao.createOrUpdate(mu1);
+
+        Musician mu2 = new Musician("Keith Jarrett");
+        mu2.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+        dao.createOrUpdate(mu2);
+
+        Collection<Musician> musicians = dao.loadAll(Musician.class);
+
+        assertEquals(1,musicians.size());
+        assertEquals(mu1.getName(), musicians.iterator().next().getName());
+    }
+
+    /*
+     Testing multiple musicians data could be uploaded at a time
+     */
+    @DisplayName("Multiple object could be created in database once")
+    @Test
+    public void saveMultipleMusiciansOnce()
+    {
+        HashSet<Musician> musicianSet = Sets.newHashSet(
+                new Musician("Lily Lee"),
+                new Musician("Tresa Will"),
+                new Musician("Ingrid Yu"),
+                new Musician("Lucas Collins")
+        );
+
+        for (Musician musician : musicianSet)
+        {
+            dao.createOrUpdate(musician);
+        }
+
+        Collection<Musician> multipleLoad = dao.loadAll(Musician.class);
+
+        assertEquals(musicianSet.size(), multipleLoad.size(), "Musicians could not be loaded");
+        //Checking the loaded musicians collection contains all objects from updated collection
+        for (Musician musician : multipleLoad)
+        {
+            assertTrue(musicianSet.contains(musician), musician.getName());
+        }
+    }
+
+    /*
+     Musician attribute could be updated
+     */
+    @DisplayName("Musician attribute could be updated")
+    @Test
+    public void updatingMusicianInfo() throws IOException {
+        Musician musician = new Musician("Keith Jarrett");
+        musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+        //Musician musician = new Musician("Elizabeth Wolf");
+        //musician.setMusicianUrl(new URL("https://www.elizabethwolf.org/"));
+        dao.createOrUpdate(musician);
+
+        musician.setName("Eli Granger");
+
+        Musician loadMusician = dao.load(Musician.class, musician.getId());
+        assertEquals(musician.getName(), loadMusician.getName());
+    }
+
+    /*
+     Testing deleting musician would not delete the album together
+     */
+    @Test
+    public void deletingMusicianWithoutAlbum() throws IOException {
+        Musician musician = new Musician("Keith Jarrett");
+        musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        musician.setAlbums(Sets.newHashSet(album));
+
+        dao.createOrUpdate(musician);
+        dao.createOrUpdate(album);
+
+        assertNotNull(dao.load(Musician.class, musician.getId()), "musician saved");
+        assertNotNull(dao.loadAll(Album.class), "Album saved");
+
+        dao.delete(musician);
+
+        assertNull(dao.load(Musician.class, musician.getId()));
+        assertNotNull(dao.load(Album.class, album.getId()));
+        //assertTrue(dao.loadAll(Musician.class).isEmpty());
+        //assertFalse(dao.loadAll(Album.class).isEmpty());
+    }
+
+    /*
+     Deleting the Musician would delete the instrument with he or she together
+     */
+    @Test
+    public void deleteMusicianWithInstrumentTogether()
+    {
+        Musician musician = new Musician("Keith Jarrett");
+        dao.createOrUpdate(musician);
+
+        MusicianInstrument anInstrument = new MusicianInstrument();
+        anInstrument.setMusician(musician);
+        dao.createOrUpdate(anInstrument);
+
+        dao.delete(musician);
+
+        assertNull(dao.load(Musician.class, musician.getId()));
+        assertNull(dao.load(MusicianInstrument.class, anInstrument.getId()));
+    }
+
+    /*
+     Searching musician from database by name
+     */
+    @Test
+    public void searchMusicianByName()
+    {
+        Musician musician = new Musician("Keith Jarrett");
+        dao.createOrUpdate(musician);
+
+        Musician foundMusician = dao.findMusicianByName(musician.getName());
+
+        assertEquals(musician, foundMusician);
     }
 }
