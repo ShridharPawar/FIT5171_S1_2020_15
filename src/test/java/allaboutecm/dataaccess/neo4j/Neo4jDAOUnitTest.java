@@ -2,9 +2,11 @@ package allaboutecm.dataaccess.neo4j;
 
 import allaboutecm.dataaccess.DAO;
 import allaboutecm.model.Album;
+import allaboutecm.model.MusicalInstrument;
 import allaboutecm.model.Musician;
+import allaboutecm.model.MusicianInstrument;
 import com.google.common.collect.Sets;
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,9 +20,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * TODO: add test cases to adequately test the Neo4jDAO class.
@@ -102,6 +104,7 @@ class Neo4jDAOUnitTest {
 //        assertEquals(0, dao.loadAll(Musician.class).size());
     }
 
+    // Daniel updates
     @Test
     public void successfulCreationOfMusicianAndAlbum() throws IOException {
         Musician musician = new Musician("Keith Jarrett");
@@ -122,7 +125,7 @@ class Neo4jDAOUnitTest {
     }
 
     /*
-    Testing saving musician process with same values could only saved once
+    Testing saving musician process with same values could only saved once -- SM
     */
     @DisplayName("Same musician could only be one data in database")
     @Test
@@ -140,6 +143,23 @@ class Neo4jDAOUnitTest {
 
         assertEquals(1,musicians.size());
         assertEquals(mu1.getName(), musicians.iterator().next().getName());
+    }
+
+
+    @DisplayName("Same instrument can be dispalyed only once")
+    @Test
+    public void SameMusicalInstrumentWouldSaveOnce() throws IOException
+    {
+        MusicalInstrument mi1 = new MusicalInstrument("Pinao");
+        dao.createOrUpdate(mi1);
+
+        MusicalInstrument mi2 = new MusicalInstrument("Pinao");
+        dao.createOrUpdate(mi2);
+
+        Collection<MusicalInstrument> musicalInstruments = dao.loadAll(MusicalInstrument.class);
+
+        assertEquals(1,musicalInstruments.size());
+        assertEquals(mi1.getName(), musicalInstruments.iterator().next().getName());
     }
 
     /*
