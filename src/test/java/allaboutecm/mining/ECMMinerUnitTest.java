@@ -54,7 +54,7 @@ class ECMMinerUnitTest {
         musician.setAlbums(Sets.newHashSet(album));
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
 
-        List<Musician> musicians = ecmMiner.mostProlificMusicians(-1, -1, -1);
+        List<Musician> musicians = ecmMiner.mostProlificMusicians(5, -1, -1);
 
         assertEquals(1, musicians.size());
         assertTrue(musicians.contains(musician));
