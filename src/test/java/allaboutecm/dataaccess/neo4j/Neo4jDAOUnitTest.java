@@ -504,3 +504,25 @@ class Neo4jDAOUnitTest {
     }
 
 }
+
+//creation and loading of every entity
+
+//deletion of review
+
+//search
+//Album: search by albumname, search by release year, search by genre, search by style
+//Musicalinstrument: search by musicalinstrument name
+//Musician: search by musicianname,
+//track: search by name,
+
+//do we need to update for every entity, do we need to save for every entity
+//ask if the objects in ecmminer are created properly
+//what to do about url converter?
+//do we need to write searchbyname in dao file as well?
+//what do you mean by integration testing approach? Like bottom up and top down etc?
+
+
+//Tasks:
+//Daniel: Search, deletion of review
+//Shuming: Test cases for ecm miner, update
+//Shridhar: Most talented musician, test cases for ecm miner for integration testing

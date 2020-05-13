@@ -118,10 +118,11 @@ class ECMMinerUnitTest {
          albumToBeChecked.setGenre("Rock");
          when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3));
          List<Album> albums = ecmMiner.mostSimilarAlbums(2,albumToBeChecked);
-         int b=1;
+         List<Album> expectedAlbums = Lists.newArrayList(new Album(2016, "ECM 1064/66", "Meteora"),new Album(2017, "ECM 1064/67", "Minutes to midnight"));
+         assertEquals(albums.size(),2);
      }
 
-     @Test
+    @Test
     public void busiestYear()
      {
          Album album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
@@ -130,8 +131,10 @@ class ECMMinerUnitTest {
          Album album4 = new Album(1975, "ECM 1064/68", "Shadow of the day");
          Album album5 = new Album(1974, "ECM 1064/69", "Gasolina");
          when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3,album4,album5));
-         List<Integer> years = ecmMiner.busiestYears(1);
-         int b=1;
+         List<Integer> years = ecmMiner.busiestYears(2);
+         List<Integer> expectedYears = Lists.newArrayList(2016,1975);
+         assertEquals(years,expectedYears);
+
      }
 
 }
