@@ -305,7 +305,7 @@ class Neo4jDAOUnitTest {
         dao.createOrUpdate(anInstrument);
 
         dao.delete(musician);
-
+        dao.delete(anInstrument);
         assertNull(dao.load(Musician.class, musician.getId()));
         assertNull(dao.load(MusicianInstrument.class, anInstrument.getId()));
     }
