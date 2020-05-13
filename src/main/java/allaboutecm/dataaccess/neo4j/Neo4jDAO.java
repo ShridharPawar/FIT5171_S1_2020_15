@@ -50,12 +50,15 @@ public class Neo4jDAO implements DAO {
     @Override
     public <T extends Entity> Collection<T> loadAll(Class<T> clazz) {
         return session.loadAll(clazz, DEPTH_LIST);
-
-
     }
 
+
+    /*
+     * Delete data
+     */
     @Override
-    public <T extends Entity> void delete(T entity) {
+    public <T extends Entity> void delete(T entity)
+    {
         session.delete(entity);
     }
 
@@ -72,7 +75,8 @@ public class Neo4jDAO implements DAO {
     }
 
     @Override
-    public MusicalInstrument findMusicalInstrumentByName(String name) {
+    public MusicalInstrument findMusicalInstrumentByName(String name)
+    {
         Filters filters = new Filters();
         filters.add(new Filter("name", EQUALS, name));
         Collection<MusicalInstrument> musicalInstruments = session.loadAll(MusicalInstrument.class, filters);
@@ -84,7 +88,6 @@ public class Neo4jDAO implements DAO {
         }
 
     }
-
 
     private <T extends Entity> T findExistingEntity(Entity entity, Class clazz) {
         Filters filters = new Filters();
@@ -120,3 +123,4 @@ public class Neo4jDAO implements DAO {
         return (T) existingEntity;
     }
 }
+

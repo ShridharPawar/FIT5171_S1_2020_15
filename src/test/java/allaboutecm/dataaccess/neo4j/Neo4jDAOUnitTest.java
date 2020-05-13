@@ -1,13 +1,9 @@
 package allaboutecm.dataaccess.neo4j;
 
 import allaboutecm.dataaccess.DAO;
-import allaboutecm.model.Album;
-import allaboutecm.model.MusicalInstrument;
-import allaboutecm.model.MusicianInstrument;
-import allaboutecm.model.Musician;
+import allaboutecm.model.*;
 
 import com.google.common.collect.Sets;
-import allaboutecm.model.Track;
 import org.junit.jupiter.api.*;
 import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.session.Session;
@@ -144,26 +140,9 @@ class Neo4jDAOUnitTest {
         assertEquals(musicianInstrument, loadedMusicianInstrument);
     }
 
-    @Test
-    public void successfulCreationAndLoadingOfMusicalInstrument()
-    {
-        //Checking there is no musicalInstrument exist
-        assertEquals(0, dao.loadAll(MusicalInstrument.class).size());
-
-        MusicalInstrument musicalInstrument = new MusicalInstrument("Violin");
-        dao.createOrUpdate(musicalInstrument);
-
-        MusicalInstrument loadedMusicalInstrument = dao.load(MusicalInstrument.class, musicalInstrument.getId());
-
-        assertNotNull(loadedMusicalInstrument.getId());
-        assertEquals(musicalInstrument, loadedMusicalInstrument);
-
-        assertEquals(1, dao.loadAll(MusicalInstrument.class).size());
-    }
-
     //Validate if the musicalInstrument could be created and loaded successfully
     @Test
-    public void successfulCreationAndLoadingOfMusicalInstrument() throws IOException {
+    public void successfulCreationAndLoadingOfMusicalInstrument(){
 
         assertEquals(0, dao.loadAll(MusicalInstrument.class).size());
 
@@ -177,6 +156,7 @@ class Neo4jDAOUnitTest {
 
         assertEquals(1, dao.loadAll(MusicalInstrument.class).size());
     }
+
     //Validate if the Track could be created and loaded to database successfully
     @Test
     public void successfulCreationAndLoadingOfTrack() {
@@ -213,7 +193,6 @@ class Neo4jDAOUnitTest {
         assertEquals(1,musicians.size());
         assertEquals(mu1.getName(), musicians.iterator().next().getName());
     }
-
 
     @DisplayName("Same instrument can be dispalyed only once")
     @Test
@@ -369,7 +348,7 @@ class Neo4jDAOUnitTest {
     }
 
     @Test
-    public void deteleMusicanInstrument() throws IOException {
+    public void deleteMusicianInstrument() throws IOException {
         Musician musician = new Musician("Mozart");
         MusicianInstrument musicianInstrument = new MusicianInstrument(musician,
                 Sets.newHashSet(new MusicalInstrument("Guitar")));
@@ -437,30 +416,6 @@ class Neo4jDAOUnitTest {
         assertEquals(0,dao.loadAll(Webpage.class).size());
     }
 
-    /*
-     Deleting the Musician would delete the instrument with he or she together
-     */
-    /*@Test
-    public void deleteMusicianWithInstrumentTogether()
-    {
-        Musician musician = new Musician("Keith Jarrett");
-        dao.createOrUpdate(musician);
-
-        MusicianInstrument anInstrument = new MusicianInstrument();
-        anInstrument.setMusician(musician);
-        dao.createOrUpdate(anInstrument);
-
-        assertNotNull(dao.load(Musician.class, musician.getId()));
-        assertNotNull(dao.loadAll(MusicianInstrument.class));
-
-        dao.delete(musician);
-        dao.delete(anInstrument);
-        assertNull(dao.load(Musician.class, musician.getId()));
-        //assertNull(dao.load(MusicianInstrument.class, anInstrument.getId()));
-    }*?
-    /*
-     Searching musician from database by name
-     */
     @Test
     public void searchMusicianByName()
     {
