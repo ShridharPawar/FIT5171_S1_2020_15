@@ -11,6 +11,7 @@ import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.cypher.Filters;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.transaction.Transaction;
+import scala.Equals;
 
 import java.util.Collection;
 
@@ -70,6 +71,19 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    @Override
+    public MusicalInstrument findMusicalInstrumentByName(String name) {
+        Filters filters = new Filters();
+        filters.add(new Filter("name", EQUALS, name));
+        Collection<MusicalInstrument> musicalInstruments = session.loadAll(MusicalInstrument.class, filters);
+        if(musicalInstruments.isEmpty()){
+            return null;
+        } else
+        {
+            return musicalInstruments.iterator().next();
+        }
+
+    }
 
 
     private <T extends Entity> T findExistingEntity(Entity entity, Class clazz) {
