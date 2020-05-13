@@ -35,15 +35,17 @@ class ECMMinerUnitTest {
     }
 
     @Test
-    public void mostTelentedMusician(){
+    public void mostTalentedMusician(){
         Musician musician1 = new Musician("Mozart");
         Musician musician2 = new Musician("Beethoven");
         Musician musician3 = new Musician("Bach");
         Musician musician4 = new Musician("Chopin");
-        MusicianInstrument musicianInstrument1 = new MusicianInstrument(musician1, Sets.newHashSet(new MusicalInstrument("Guitar")));
-        MusicianInstrument musicianInstrument2 = new MusicianInstrument(musician2, Sets.newHashSet(new MusicalInstrument("Piano")));
+        MusicianInstrument musicianInstrument1 = new MusicianInstrument(musician1, Sets.newHashSet(new MusicalInstrument("Guitar"),new MusicalInstrument("Piano"),new MusicalInstrument("Violin")));
+        MusicianInstrument musicianInstrument2 = new MusicianInstrument(musician2, Sets.newHashSet(new MusicalInstrument("Piano"),new MusicalInstrument("Violin")));
         MusicianInstrument musicianInstrument3 = new MusicianInstrument(musician3, Sets.newHashSet(new MusicalInstrument("Violin")));
         MusicianInstrument musicianInstrument4 = new MusicianInstrument(musician4, Sets.newHashSet(new MusicalInstrument("Synthesizer")));
+        when(dao.loadAll(MusicianInstrument.class)).thenReturn(Sets.newHashSet(musicianInstrument1,musicianInstrument2,musicianInstrument3,musicianInstrument4));
+        List<Musician> musicians = ecmMiner.mostTalentedMusicians(1);
     }
 
 
@@ -128,7 +130,7 @@ class ECMMinerUnitTest {
          Album album4 = new Album(1975, "ECM 1064/68", "Shadow of the day");
          Album album5 = new Album(1974, "ECM 1064/69", "Gasolina");
          when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3,album4,album5));
-         List<Integer> years = ecmMiner.busiestYears(0);
+         List<Integer> years = ecmMiner.busiestYears(1);
          int b=1;
      }
 
