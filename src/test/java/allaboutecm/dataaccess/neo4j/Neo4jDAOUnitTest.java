@@ -287,7 +287,7 @@ class Neo4jDAOUnitTest {
     public void deteleMusicanWithoutInstrument() throws IOException {
         Musician musician = new Musician("Mozart");
         MusicalInstrument musicalInstrument = new MusicalInstrument ("Piano");
-        MusicianInstrument musicianInstrument = new MusicianInstrument(musician,(Set<MusicalInstrument>) musician);
+        MusicianInstrument musicianInstrument = new MusicianInstrument(musician,Sets.newHashSet(new MusicalInstrument("Guitar")));
 
     }
 

@@ -40,10 +40,10 @@ class ECMMinerUnitTest {
         Musician musician2 = new Musician("Beethoven");
         Musician musician3 = new Musician("Bach");
         Musician musician4 = new Musician("Chopin");
-        MusicianInstrument musicianInstrument1 = new MusicianInstrument(musician1, (Set<MusicalInstrument>) musician1);
-        MusicianInstrument musicianInstrument2 = new MusicianInstrument(musician2, (Set<MusicalInstrument>) musician2);
-        MusicianInstrument musicianInstrument3 = new MusicianInstrument(musician3, (Set<MusicalInstrument>) musician3);
-        MusicianInstrument musicianInstrument4 = new MusicianInstrument(musician4, (Set<MusicalInstrument>) musician4);
+        MusicianInstrument musicianInstrument1 = new MusicianInstrument(musician1, Sets.newHashSet(new MusicalInstrument("Guitar")));
+        MusicianInstrument musicianInstrument2 = new MusicianInstrument(musician2, Sets.newHashSet(new MusicalInstrument("Piano")));
+        MusicianInstrument musicianInstrument3 = new MusicianInstrument(musician3, Sets.newHashSet(new MusicalInstrument("Violin")));
+        MusicianInstrument musicianInstrument4 = new MusicianInstrument(musician4, Sets.newHashSet(new MusicalInstrument("Synthesizer")));
     }
 
 
