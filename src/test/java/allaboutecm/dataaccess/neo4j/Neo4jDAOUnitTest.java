@@ -3,10 +3,11 @@ package allaboutecm.dataaccess.neo4j;
 import allaboutecm.dataaccess.DAO;
 import allaboutecm.model.Album;
 import allaboutecm.model.MusicalInstrument;
-import allaboutecm.model.Musician;
 import allaboutecm.model.MusicianInstrument;
-import com.google.common.collect.Sets;
+import allaboutecm.model.Musician;
 
+import com.google.common.collect.Sets;
+import allaboutecm.model.Track;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -138,6 +139,21 @@ class Neo4jDAOUnitTest {
         assertEquals(musicalInstrument, loadedMusicalInstrument);
 
         assertEquals(1, dao.loadAll(MusicalInstrument.class).size());
+    }
+    //Validate if the Track could be created and loaded to database successfully
+    @Test
+    public void successfulCreationAndLoadingOfTrack() {
+        assertEquals(0,dao.loadAll(Track.class).size());
+
+        Track track = new Track("Yesterday Once More", 5.31);
+
+        dao.createOrUpdate(track);
+        Track loadedTrack = dao.load(Track.class, track.getId());
+
+        assertNotNull(loadedTrack.getId());
+        assertEquals(track, loadedTrack);
+
+        assertEquals(1, dao.loadAll(Track.class).size());
     }
 
     /*
@@ -283,11 +299,36 @@ class Neo4jDAOUnitTest {
         //assertFalse(dao.loadAll(Album.class).isEmpty());
     }
 
+    //Validate if remove MusicalInstrument successfully
     @Test
-    public void deteleMusicanWithoutInstrument() throws IOException {
+    public void deleteMusicalInstrument() throws IOException {
+        MusicalInstrument musicalInstrument = new MusicalInstrument("Mozart");
+
+        dao.createOrUpdate(musicalInstrument);
+
+        assertNotNull(dao.load(MusicalInstrument.class, musicalInstrument.getId()), "musicalInstrument saved");
+
+        dao.delete(musicalInstrument);
+
+        assertNull(dao.load(MusicalInstrument.class, musicalInstrument.getId()));
+    }
+
+    @Test
+    public void deteleMusicanInstrument() throws IOException {
         Musician musician = new Musician("Mozart");
-        MusicalInstrument musicalInstrument = new MusicalInstrument ("Piano");
-        MusicianInstrument musicianInstrument = new MusicianInstrument(musician,Sets.newHashSet(new MusicalInstrument("Guitar")));
+        MusicianInstrument musicianInstrument = new MusicianInstrument(musician,
+                Sets.newHashSet(new MusicalInstrument("Guitar")));
+
+        //dao.createOrUpdate(musician);
+        dao.createOrUpdate(musicianInstrument);
+
+        //assertNotNull(dao.load(Musician.class, musician.getId()));
+        assertNotNull(dao.load(MusicianInstrument.class, musicianInstrument.getId()));
+
+        dao.delete(musicianInstrument);
+
+        //assertNotNull(dao.load(Musician.class, musician.getId()));
+        assertNull(dao.load(MusicianInstrument.class, musicianInstrument.getId()));
 
     }
 
