@@ -1,8 +1,12 @@
 package allaboutecm.dataaccess;
 
+import allaboutecm.model.Album;
 import allaboutecm.model.Entity;
 import allaboutecm.model.MusicalInstrument;
 import allaboutecm.model.Musician;
+import allaboutecm.model.Review;
+import allaboutecm.model.Track;
+import allaboutecm.model.Webpage;
 
 import java.util.Collection;
 
@@ -18,4 +22,18 @@ public interface DAO {
     Musician findMusicianByName(String name);
 
     MusicalInstrument findMusicalInstrumentByName(String name);
+
+    void createOrUpdate(String review);
+
+    void delete(String review);
+
+    Album findAlbumByAlbumName(String albumName);
+
+    Album findAlbumByReleaseYear(int releaseYear);
+
+    Album findAlbumByGenre(String genre);
+
+    Album findAlbumByStyle(String style);
+
+    Track findTrackByName(String name);
 }

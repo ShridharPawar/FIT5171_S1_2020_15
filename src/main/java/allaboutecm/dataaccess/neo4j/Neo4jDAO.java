@@ -1,11 +1,7 @@
 package allaboutecm.dataaccess.neo4j;
 
 import allaboutecm.dataaccess.DAO;
-import allaboutecm.model.Album;
-import allaboutecm.model.Entity;
-import allaboutecm.model.MusicalInstrument;
-import allaboutecm.model.Musician;
-import allaboutecm.model.MusicianInstrument;
+import allaboutecm.model.*;
 import com.google.common.collect.Sets;
 import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.cypher.Filters;
@@ -88,6 +84,80 @@ public class Neo4jDAO implements DAO {
         }
 
     }
+
+    @Override
+    public void createOrUpdate(String review) {
+
+    }
+
+    @Override
+    public void delete(String review) {
+
+    }
+
+    @Override
+    public Album findAlbumByAlbumName(String albumName) {
+        Filters filters = new Filters();
+        filters.add(new Filter("albumName", EQUALS, albumName));
+        Collection<Album> album = session.loadAll(Album.class,filters);
+        if(album.isEmpty()){
+            return null;
+        } else
+        {
+            return album.iterator().next();
+        }
+    }
+
+    @Override
+    public Album findAlbumByReleaseYear(int releaseYear) {
+        Filters filters = new Filters();
+        filters.add(new Filter("releaseYear", EQUALS, releaseYear));
+        Collection<Album> album = session.loadAll(Album.class,filters);
+        if(album.isEmpty()){
+            return null;
+        } else
+        {
+            return album.iterator().next();
+        }
+    }
+
+    @Override
+    public Album findAlbumByGenre(String genre) {
+        Filters filters = new Filters();
+        filters.add(new Filter("genre", EQUALS, genre));
+        Collection<Album> album = session.loadAll(Album.class,filters);
+        if(album.isEmpty()){
+            return null;
+        } else
+        {
+            return album.iterator().next();
+        }
+    }
+
+    @Override
+    public Album findAlbumByStyle(String style) {
+        Filters filters = new Filters();
+        filters.add(new Filter("style", EQUALS, style));
+        Collection<Album> album = session.loadAll(Album.class, filters);
+        if (album.isEmpty()) {
+            return null;
+        } else {
+            return album.iterator().next();
+        }
+    }
+
+    @Override
+    public Track findTrackByName(String name) {
+        Filters filters = new Filters();
+        filters.add(new Filter("name", EQUALS, name));
+        Collection<Track> track = session.loadAll(Track.class, filters);
+        if (track.isEmpty()) {
+            return null;
+        } else {
+            return track.iterator().next();
+        }
+    }
+
 
     private <T extends Entity> T findExistingEntity(Entity entity, Class clazz) {
         Filters filters = new Filters();

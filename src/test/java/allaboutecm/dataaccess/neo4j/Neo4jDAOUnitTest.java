@@ -416,6 +416,21 @@ class Neo4jDAOUnitTest {
         assertEquals(0,dao.loadAll(Webpage.class).size());
     }
 
+    @DisplayName("Validate if the Review could be deleted successfully")
+    @Test
+    public void successfulDeleteReview() throws IOException {
+        URL websiteUrl = new URL("https://www.garypeacock.org/");
+        String review = new String("The song is nice!");
+        double ratingOutOf100 = new Double(9.1);
+
+        dao.createOrUpdate(review);
+
+        assertNotNull(dao.loadAll(Review.class));
+
+        dao.delete(review);
+        assertEquals(0,dao.loadAll(Review.class).size());
+    }
+
     @Test
     public void searchMusicianByName()
     {
@@ -437,4 +452,55 @@ class Neo4jDAOUnitTest {
 
         assertEquals(musicalInstrument, findMusicalInstrument);
     }
+
+    @Test
+    public void searchAlbumByAlbumName() {
+        Album album = new Album(1975,"ECM 1064/65", "The Köln Concert");
+        dao.createOrUpdate((album));
+
+        Album findAlbum = dao.findAlbumByAlbumName(album.getAlbumName());
+
+        assertEquals(album, findAlbum);
+    }
+
+    @Test
+    public void searchAlbumByReleaseYear() {
+        Album album = new Album(1985,"ECM 1064/65", "The Köln Concert");
+        dao.createOrUpdate((album));
+
+        Album findAlbum = dao.findAlbumByReleaseYear(album.getReleaseYear());
+
+        assertEquals(album, findAlbum);
+    }
+
+    @Test
+    public void searchAlbumByGenre() {
+        Album album = new Album(1995,"ECM 1064/65", "The Köln Concert");
+        dao.createOrUpdate((album));
+
+        Album findAlbum = dao.findAlbumByGenre(album.getGenre());
+
+        assertEquals(album, findAlbum);
+    }
+
+    @Test
+    public void searchAlbumByStyle() {
+        Album album = new Album(1990,"ECM 1064/65", "The Köln Concert");
+        dao.createOrUpdate((album));
+
+        Album findAlbum = dao.findAlbumByStyle(album.getStyle());
+
+        assertEquals(album, findAlbum);
+    }
+
+    @Test
+    public void searchTrackByName() {
+        Track track = new Track("Yesterday Once More",5.29);
+        dao.createOrUpdate((track));
+
+        Track findTrack = dao.findTrackByName(track.getName());
+
+        assertEquals(track, findTrack);
+    }
+
 }
