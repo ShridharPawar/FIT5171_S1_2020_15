@@ -55,16 +55,16 @@ class Neo4jDAOUnitTest {
     }
 
     /*
-     Purging the database
-     */
+     Purging the database*/
+
     @AfterEach
     public void tearDownEach() {
         session.purgeDatabase();
     }
 
-    /*
-     Purging the database
-     */
+
+     /*Purging the database*/
+
     @AfterAll
     public static void tearDown() throws IOException {
         session.purgeDatabase();
@@ -103,6 +103,8 @@ class Neo4jDAOUnitTest {
 
     @Test
     public void successfulCreationOfMusicianAndAlbum() throws IOException {
+        assertEquals(0,dao.loadAll(Musician.class).size());
+        assertEquals(0,dao.loadAll(Album.class).size());
         Musician musician = new Musician("Keith Jarrett");
         musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
 
@@ -123,6 +125,9 @@ class Neo4jDAOUnitTest {
     @Test
     public void successfulCreationOfMusicianInstrument()
     {
+        assertEquals(0,dao.loadAll(Musician.class).size());
+        assertEquals(0,dao.loadAll(MusicalInstrument.class).size());
+        assertEquals(0,dao.loadAll(MusicianInstrument.class).size());
         Musician musician = new Musician("Keith Jarrett");
         HashSet<MusicalInstrument> musicalInstruments = Sets.newHashSet(
                 new MusicalInstrument("Violin"),
@@ -135,11 +140,12 @@ class Neo4jDAOUnitTest {
         assertNotNull(loadedMusicianInstrument);
         assertEquals(musicianInstrument, loadedMusicianInstrument);
         assertEquals(1,dao.loadAll(MusicianInstrument.class).size());
-}
+     }
 
     //Validate if the musicalInstrument could be created and loaded successfully
     @Test
-    public void successfulCreationAndLoadingOfMusicalInstrument(){
+    public void successfulCreationAndLoadingOfMusicalInstrument()
+    {
 
         assertEquals(0, dao.loadAll(MusicalInstrument.class).size());
 
@@ -190,6 +196,7 @@ class Neo4jDAOUnitTest {
     @Test
     public void SameMusiciansWouldSaveOnce() throws IOException
     {
+
         Musician mu1 = new Musician("Keith Jarrett");
         mu1.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
         dao.createOrUpdate(mu1);
