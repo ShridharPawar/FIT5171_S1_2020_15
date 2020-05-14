@@ -11,6 +11,7 @@ import org.neo4j.ogm.session.SessionFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
@@ -173,6 +174,19 @@ class Neo4jDAOUnitTest {
         assertEquals(1, dao.loadAll(Track.class).size());
     }
 
+    @Test
+    public void successfulCreatingAndLoadingOfWebPage() throws IOException {
+        assertEquals(0,dao.loadAll(Webpage.class).size());
+        URL url = new URL("https://www.garypeacock.org/");
+        Webpage webpage = new Webpage("Gary Peacock", url);
+        dao.createOrUpdate(webpage);
+
+        Webpage loadedWebPage = dao.load(Webpage.class, webpage.getId());
+
+        assertEquals(webpage, loadedWebPage);
+        assertEquals(1, dao.loadAll(Webpage.class).size());
+    }
+
     /*
     Testing saving musician process with same values could only saved once -- SM
     */
@@ -292,6 +306,98 @@ class Neo4jDAOUnitTest {
 
         Musician loadMusician = dao.load(Musician.class, musician.getId());
         assertEquals(musician.getName(), loadMusician.getName());
+    }
+
+    @DisplayName("Album attributes could be updated ")
+    @Test
+    public void updateAlbumInfo()
+    {
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        dao.createOrUpdate(album);
+
+        album.setAlbumName("When Will the Blues Leave");
+        album.setReleaseYear(1990);
+        album.setRecordNumber("ECM 2642");
+
+        Album loadedAlbum = dao.load(Album.class, album.getId());
+        assertEquals(album.getAlbumName(), loadedAlbum.getAlbumName());
+        assertEquals(album.getReleaseYear(), loadedAlbum.getReleaseYear());
+        assertEquals(album.getRecordNumber(), loadedAlbum.getRecordNumber());
+    }
+
+    @DisplayName("Musical Instrument attributes could be updated ")
+    @Test
+    public void updateMusicalInstrumentInfo()
+    {
+        MusicalInstrument musicalInstrument = new MusicalInstrument("Violin");
+        dao.createOrUpdate(musicalInstrument);
+
+        musicalInstrument.setName("Cello");
+
+        MusicalInstrument loadedAlInstrument = dao.load(MusicalInstrument.class, musicalInstrument.getId());
+        assertEquals(musicalInstrument.getName(), loadedAlInstrument.getName());
+    }
+
+    @DisplayName("Musician Instrument attributes could be updated ")
+    @Test
+    public void updateMusicianInstrumentInfo()
+    {
+        MusicianInstrument musicianInstrument = new MusicianInstrument(new Musician("Gary Peacock"),
+                Sets.newHashSet(new MusicalInstrument("Guitar")));
+        dao.createOrUpdate(musicianInstrument);
+
+        musicianInstrument.setMusician(new Musician("Keith Jarrett"));
+        musicianInstrument.setMusicalInstruments(Sets.newHashSet(new MusicalInstrument("Violin")));
+
+        MusicianInstrument loadedInstrument = dao.load(MusicianInstrument.class, musicianInstrument.getId());
+        assertEquals(musicianInstrument.getMusician(), loadedInstrument.getMusician());
+        assertEquals(musicianInstrument.getMusicalInstruments(), loadedInstrument.getMusicalInstruments());
+    }
+
+    @DisplayName("Review attributes could be updated")
+    @Test
+    public void updateReviewInfo() throws IOException {
+        Review review = new Review(new URL("https://www.garypeacock.org/"), 9.1);
+        dao.createOrUpdate(review);
+
+        review.setUrl(new URL("https://www.keithjarrett.org/"));
+        review.setRating(8.0);
+        review.setReview("This is a good song.");
+
+        Review loadedReview = dao.load(Review.class, review.getId());
+
+        assertEquals(review.getUrl(), loadedReview.getUrl());
+        assertEquals(review.getRating(), loadedReview.getRating());
+        assertEquals(review.getReview(), loadedReview.getReview());
+    }
+
+    @DisplayName("Track attributes could be updated")
+    @Test
+    public void updateTrackInfo()
+    {
+        Track track = new Track("KÖLN, JANUARY 24, 1975, PART I", 26.02);
+        dao.createOrUpdate(track);
+
+        track.setName("Yesterday Once More");
+        track.setLength(5.31);
+
+        Track loadedTrack = dao.load(Track.class, track.getId());
+
+        assertEquals(track.getName(), loadedTrack.getName());
+        assertEquals(track.getLengthInMinutes(), loadedTrack.getLengthInMinutes());
+    }
+
+    @DisplayName("Web Page URL could be updated ")
+    @Test
+    public void updateWebPageInfo() throws IOException {
+        URL url = new URL("https://www.garypeacock.org/");
+        Webpage webpage = new Webpage("Gary Peacock", url);
+        dao.createOrUpdate(webpage);
+
+        webpage.setUrl(new URL("https://www.keithjarrett.org/"));
+
+        Webpage loadedWebPage = dao.load(Webpage.class, webpage.getId());
+        assertEquals(webpage.getUrl(), loadedWebPage.getUrl());
     }
 
     // Validate if the instruments could be updated
