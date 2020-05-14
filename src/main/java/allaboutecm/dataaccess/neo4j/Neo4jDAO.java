@@ -160,6 +160,42 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    @Override
+    public Concert findConcertByName(String concertName) {
+        Filters filters = new Filters();
+        filters.add(new Filter("concertName", EQUALS, concertName));
+        Collection<Concert> concert = session.loadAll(Concert.class, filters);
+        if (concert.isEmpty()) {
+            return null;
+        } else {
+            return concert.iterator().next();
+        }
+    }
+
+    @Override
+    public Concert findConcertByCountry(String country) {
+        Filters filters = new Filters();
+        filters.add(new Filter("country", EQUALS, country));
+        Collection<Concert> concert = session.loadAll(Concert.class, filters);
+        if (concert.isEmpty()) {
+            return null;
+        } else {
+            return concert.iterator().next();
+        }
+    }
+
+    @Override
+    public Concert findConcertByCity(String city) {
+        Filters filters = new Filters();
+        filters.add(new Filter("city", EQUALS, city));
+        Collection<Concert> concert = session.loadAll(Concert.class, filters);
+        if (concert.isEmpty()) {
+            return null;
+        } else {
+            return concert.iterator().next();
+        }
+    }
+
 
     private <T extends Entity> T findExistingEntity(Entity entity, Class clazz) {
         Filters filters = new Filters();

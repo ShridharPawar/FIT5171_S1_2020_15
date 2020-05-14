@@ -1,12 +1,6 @@
 package allaboutecm.dataaccess;
 
-import allaboutecm.model.Album;
-import allaboutecm.model.Entity;
-import allaboutecm.model.MusicalInstrument;
-import allaboutecm.model.Musician;
-import allaboutecm.model.Review;
-import allaboutecm.model.Track;
-import allaboutecm.model.Webpage;
+import allaboutecm.model.*;
 
 import java.util.Collection;
 
@@ -34,4 +28,10 @@ public interface DAO {
     Album findAlbumByStyle(String style);
 
     Track findTrackByName(String name);
+
+    Concert findConcertByName(String name);
+
+    Concert findConcertByCountry(String country);
+
+    Concert findConcertByCity(String city);
 }

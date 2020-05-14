@@ -342,4 +342,50 @@ class AlbumUnitTest {
         album.setReviews(reviews);
         assertEquals(album.getReviews(),reviews);
     }
+
+    @Test
+    @DisplayName("Concerts cannot be null.")
+    public void concertsCannotBeNull(){
+        assertThrows(NullPointerException.class,()->album.setConcerts(null));
+    }
+
+    @Test
+    @DisplayName("Check if any object within the set is null.")
+    public void nullObjectInConcerts(){
+        Set<Concert> concerts = Sets.newHashSet();
+        concerts.add(null);
+        assertThrows(NullPointerException.class,()->album.setConcerts(concerts));
+    }
+
+    @Test
+    @DisplayName("Valid concerts.")
+    public void positiveConcerts(){
+        Set<Concert> concert = Sets.newHashSet();
+        concert.add(new Concert("Tokyo festival","Japan"));
+        album.setConcerts(concert);
+        assertEquals(album.getConcerts(),concert);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"26gfgfg7","8.fgfg2"})
+    @DisplayName("Sales should have just numbers.")
+    public void randomSales(String arg){
+        assertThrows(NumberFormatException.class,()->album.setSales(Integer.parseInt(arg)));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-2})
+    @DisplayName("Sales should be greater than or equal to 0.")
+    public void salesShouldBeValid(int arg){
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->album.setSales(arg));
+        assertEquals(exception.getMessage(),"Sales number should be greater than or equal to 0.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {59999})
+    @DisplayName("Check if it is setting the valid sales number.")
+    public void positiveSales(int arg){
+        album.setSales(arg);
+        assertEquals(album.getSales(),arg);
+    }
 }

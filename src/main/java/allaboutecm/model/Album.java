@@ -63,6 +63,13 @@ public class Album extends Entity {
     @Relationship(type="Reviews")
     private Set<Review> Reviews;
 
+    @Relationship(type="concerts")
+    private Set<Concert> concerts;
+
+    @Property(name="sales")
+    private int sales;
+
+
     public Album(int releaseYear, String recordNumber, String albumName) {
         notNull(recordNumber,"Record number should not be null.");
         notNull(albumName,"Album name cannot be null.");
@@ -98,6 +105,8 @@ public class Album extends Entity {
         this.featuredMusicians = new ArrayList<Musician>();
         this.instruments = Sets.newHashSet();
         this.tracks = Sets.newHashSet();
+        this.concerts = Sets.newHashSet();
+        this.sales = 0;
     }
 
     public String getRecordNumber() {
@@ -189,6 +198,39 @@ public class Album extends Entity {
             }
         }
         this.tracks = tracks;
+    }
+
+    public void setConcerts(Set<Concert> concerts)
+    {
+        notNull(concerts,"Object should not be null.");
+        for(Concert concert:concerts)
+        {
+            if(concert.equals(null))
+            {
+                throw new NullPointerException("Object should not be null.");
+            }
+        }
+        this.concerts = concerts;
+    }
+
+    public Set<Concert> getConcerts(){return concerts;}
+
+    public void setSales(int sales)
+    {
+        notNull(sales);
+        if(sales<0)
+        {
+            throw new IllegalArgumentException("Sales number should be greater than or equal to 0.");
+        }
+        if(!(Integer.toString(sales).matches("[0-9]+")))
+        {
+            throw new NumberFormatException("Sales should be just in numbers.");
+        }
+        this.sales = sales;
+    }
+
+    public int getSales() {
+        return sales;
     }
 
     public int getReleaseYear() {

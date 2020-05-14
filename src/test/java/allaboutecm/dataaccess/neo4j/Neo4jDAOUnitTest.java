@@ -3,7 +3,9 @@ package allaboutecm.dataaccess.neo4j;
 import allaboutecm.dataaccess.DAO;
 import allaboutecm.model.*;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.sun.org.apache.regexp.internal.RE;
 import org.junit.jupiter.api.*;
 import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.session.Session;
@@ -96,9 +98,6 @@ class Neo4jDAOUnitTest {
         assertEquals(musician.getMusicianUrl(), loadedMusician.getMusicianUrl());
 
         assertEquals(1, dao.loadAll(Musician.class).size());
-
-//        dao.delete(musician);
-//        assertEquals(0, dao.loadAll(Musician.class).size());
     }
 
     @Test
@@ -123,6 +122,129 @@ class Neo4jDAOUnitTest {
     }
 
     @Test
+    public void successfulCreationOfMusicianAndWebPages() throws IOException{
+        assertEquals(0,dao.loadAll(Musician.class).size());
+        assertEquals(0,dao.loadAll(Webpage.class).size());
+        URL url = new URL("https://www.garypeacock.org/");
+        Webpage webpage = new Webpage("Gary Peacock", url);
+        Musician musician = new Musician("Keith Jarrett");
+        musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+        musician.setWebpages(Sets.newHashSet(webpage));
+        dao.createOrUpdate(webpage);
+        dao.createOrUpdate(musician);
+
+        Collection<Musician> musicians = dao.loadAll(Musician.class);
+        assertEquals(1, musicians.size());
+        Musician loadedMusician = musicians.iterator().next();
+        assertEquals(musician, loadedMusician);
+        assertEquals(musician.getMusicianUrl(), loadedMusician.getMusicianUrl());
+        assertEquals(musician.getWebpages(), loadedMusician.getWebpages());
+    }
+
+    @Test
+    public void successfulCreationAndLoadingOfAlbum(){
+        assertEquals(0, dao.loadAll(Album.class).size());
+
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+
+        dao.createOrUpdate(album);
+        Album loadedAlbum = dao.load(Album.class, album.getId());
+
+        assertNotNull(loadedAlbum.getId());
+        assertEquals(album, loadedAlbum);
+        assertEquals(1, dao.loadAll(Album.class).size());
+    }
+
+    @Test
+    public void successfulCreationOfAlbumAndFeaturedMusicians() throws IOException{
+        assertEquals(0,dao.loadAll(Musician.class).size());
+        assertEquals(0,dao.loadAll(Album.class).size());
+        Musician musician = new Musician("Keith Jarrett");
+        musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        album.setFeaturedMusicians(Lists.newArrayList(musician));
+        dao.createOrUpdate(album);
+        dao.createOrUpdate(musician);
+
+        Collection<Album> albums = dao.loadAll(Album.class);
+        assertEquals(1, albums.size());
+        Album loadedAlbum = albums.iterator().next();
+        assertEquals(album, loadedAlbum);
+        assertEquals(album.getFeaturedMusicians(), loadedAlbum.getFeaturedMusicians());
+    }
+
+    @Test
+    public void successfulCreationOfAlbumAndInstruments(){
+        assertEquals(0,dao.loadAll(MusicianInstrument.class).size());
+        assertEquals(0,dao.loadAll(Album.class).size());
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        MusicianInstrument musicianInstrument = new MusicianInstrument(new Musician("Keith Jarrett"), Sets.newHashSet(
+                new MusicalInstrument("Violin"),
+                new MusicalInstrument("Guitar")));
+        album.setInstruments(Sets.newHashSet(musicianInstrument));
+        dao.createOrUpdate(album);
+        dao.createOrUpdate(musicianInstrument);
+        Collection<Album> albums = dao.loadAll(Album.class);
+        assertEquals(1, albums.size());
+        Album loadedAlbum = albums.iterator().next();
+        assertEquals(album, loadedAlbum);
+        assertEquals(album.getInstruments(), loadedAlbum.getInstruments());
+    }
+
+    @Test
+    public void successfulCreationOfAlbumAndTracks()
+    {
+        assertEquals(0,dao.loadAll(Track.class).size());
+        assertEquals(0,dao.loadAll(Album.class).size());
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        Track track = new Track("Yesterday Once More", 5.31);
+        album.setTracks(Sets.newHashSet(track));
+        dao.createOrUpdate(album);
+        dao.createOrUpdate(track);
+        Collection<Album> albums = dao.loadAll(Album.class);
+        assertEquals(1, albums.size());
+        Album loadedAlbum = albums.iterator().next();
+        assertEquals(album, loadedAlbum);
+        assertEquals(album.getTracks(), loadedAlbum.getTracks());
+    }
+
+    @Test
+    public void successfulCreationOfAlbumAndReviews() throws IOException
+    {
+        assertEquals(0,dao.loadAll(Review.class).size());
+        assertEquals(0,dao.loadAll(Album.class).size());
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        URL url = new URL("https://www.sputnikmusic.com/review/48517/Linkin-Park-Meteora/");
+        Review review = new Review(url,98);
+        album.setReviews(Sets.newHashSet(review));
+        dao.createOrUpdate(album);
+        dao.createOrUpdate(review);
+        Collection<Album> albums = dao.loadAll(Album.class);
+        assertEquals(1, albums.size());
+        Album loadedAlbum = albums.iterator().next();
+        assertEquals(album, loadedAlbum);
+        assertEquals(album.getReviews(), loadedAlbum.getReviews());
+    }
+
+    @Test
+    public void successfulCreationOfAlbumAndConcerts() throws IOException
+    {
+        assertEquals(0,dao.loadAll(Concert.class).size());
+        assertEquals(0,dao.loadAll(Album.class).size());
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        Concert concert = new Concert("International festival","India");
+        album.setConcerts(Sets.newHashSet(concert));
+        dao.createOrUpdate(album);
+        dao.createOrUpdate(concert);
+        Collection<Album> albums = dao.loadAll(Album.class);
+        assertEquals(1, albums.size());
+        Album loadedAlbum = albums.iterator().next();
+        assertEquals(album, loadedAlbum);
+        assertEquals(album.getConcerts(), loadedAlbum.getConcerts());
+    }
+
+    @Test
     public void successfulCreationOfMusicianInstrument()
     {
         assertEquals(0,dao.loadAll(Musician.class).size());
@@ -133,9 +255,7 @@ class Neo4jDAOUnitTest {
                 new MusicalInstrument("Violin"),
                 new MusicalInstrument("Guitar"));
         MusicianInstrument musicianInstrument = new MusicianInstrument(musician, musicalInstruments);
-
         dao.createOrUpdate(musicianInstrument);
-
         MusicianInstrument loadedMusicianInstrument = dao.load(MusicianInstrument.class, musicianInstrument.getId());
         assertNotNull(loadedMusicianInstrument);
         assertEquals(musicianInstrument, loadedMusicianInstrument);
@@ -189,107 +309,42 @@ class Neo4jDAOUnitTest {
         assertEquals(1, dao.loadAll(Webpage.class).size());
     }
 
-    /*
-    Testing saving musician process with same values could only saved once -- SM
-    */
-    @DisplayName("Same musician could only be one data in database")
     @Test
-    public void SameMusiciansWouldSaveOnce() throws IOException
-    {
-
-        Musician mu1 = new Musician("Keith Jarrett");
-        mu1.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
-        dao.createOrUpdate(mu1);
-
-        Musician mu2 = new Musician("Keith Jarrett");
-        mu2.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
-        dao.createOrUpdate(mu2);
-
-        Collection<Musician> musicians = dao.loadAll(Musician.class);
-
-        assertEquals(1,musicians.size());
-        assertEquals(mu1.getName(), musicians.iterator().next().getName());
+    public void successfulCreationAndLoadingOfReview() throws IOException{
+        assertEquals(0,dao.loadAll(Review.class).size());
+        URL url = new URL("https://www.sputnikmusic.com/review/48517/Linkin-Park-Meteora/");
+        Review review = new Review(url,98);
+        dao.createOrUpdate(review);
+        Review loadedReview = dao.load(Review.class,review.getId());
+        assertEquals(review,loadedReview);
+        assertEquals(1, dao.loadAll(Review.class).size());
     }
 
-    @DisplayName("Same instrument can be dispalyed only once")
     @Test
-    public void SameMusicalInstrumentWouldSaveOnce() throws IOException
-    {
-        MusicalInstrument mi1 = new MusicalInstrument("Piano");
-        dao.createOrUpdate(mi1);
-
-        MusicalInstrument mi2 = new MusicalInstrument("Piano");
-        dao.createOrUpdate(mi2);
-
-        Collection<MusicalInstrument> musicalInstruments = dao.loadAll(MusicalInstrument.class);
-
-        assertEquals(1,musicalInstruments.size());
-        assertEquals(mi1.getName(), musicalInstruments.iterator().next().getName());
+    public void successfulCreationAndLoadingOfConcert(){
+        assertEquals(0,dao.loadAll(Concert.class).size());
+        Concert concert = new Concert("International Tokyo festival","Tokyo");
+        dao.createOrUpdate(concert);
+        Concert loadedConcert = dao.load(Concert.class,concert.getId());
+        assertEquals(concert,loadedConcert);
+        assertEquals(1, dao.loadAll(Concert.class).size());
     }
 
-    @DisplayName("Same album could be saved only once")
     @Test
-    public void sameAlbumWouldSaveOnce()
+    public void successfulCreationOfConcertAndMusician() throws IOException
     {
-        Album a1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
-        dao.createOrUpdate(a1);
-        Album a2 = new Album(1975, "ECM 1064/65", "The Köln Concert");
-        dao.createOrUpdate(a2);
-
-        Collection<Album> albums = dao.loadAll(Album.class);
-
-        assertEquals(1, albums.size());
-        assertEquals(a1.getAlbumName(), albums.iterator().next().getAlbumName());
-        assertEquals(a1.getReleaseYear(), albums.iterator().next().getReleaseYear());
-        assertEquals(a1.getRecordNumber(), albums.iterator().next().getRecordNumber());
-    }
-
-    /*
-     Testing multiple musicians data could be uploaded at a time
-     */
-    @DisplayName("Multiple musicians could be created in database once")
-    @Test
-    public void saveMultipleMusiciansOnce()
-    {
-        HashSet<Musician> musicianSet = Sets.newHashSet(
-                new Musician("Lily Lee"),
-                new Musician("Tresa Will"),
-                new Musician("Ingrid Yu"),
-                new Musician("Lucas Collins")
-        );
-
-        for (Musician musician : musicianSet)
-        {
-            dao.createOrUpdate(musician);
-        }
-
-        Collection<Musician> multipleLoad = dao.loadAll(Musician.class);
-
-        assertEquals(musicianSet.size(), multipleLoad.size(), "Musicians could not be loaded");
-        //Checking the loaded musicians collection contains all objects from updated collection
-        for (Musician musician : multipleLoad)
-        {
-            assertTrue(musicianSet.contains(musician), musician.getName());
-        }
-    }
-
-    // Validate if more than one instruments could be saved at a time
-    @Test
-    public void saveMultipleInstrumentAtATime() {
-        HashSet<MusicalInstrument> musicalInstrumentSet = Sets.newHashSet(
-                new MusicalInstrument("Piano"),
-                new MusicalInstrument("Flute"),
-                new MusicalInstrument("Violin"),
-                new MusicalInstrument("Guitar")
-        );
-
-        for (MusicalInstrument musicalInstrument : musicalInstrumentSet){
-            dao.createOrUpdate(musicalInstrument);
-        }
-        for (MusicalInstrument musicalInstrument : musicalInstrumentSet)
-        {
-            assertTrue(musicalInstrumentSet.contains(musicalInstrument), musicalInstrument.getName());
-        }
+        assertEquals(0,dao.loadAll(Concert.class).size());
+        assertEquals(0,dao.loadAll(Musician.class).size());
+        Musician musician = new Musician("Chester Bennington");
+        Concert concert = new Concert("International festival","India");
+        concert.setMusicians(Sets.newHashSet(musician));
+        dao.createOrUpdate(musician);
+        dao.createOrUpdate(concert);
+        Collection<Concert> concerts = dao.loadAll(Concert.class);
+        assertEquals(1, concerts.size());
+        Concert loadedConcert = concerts.iterator().next();
+        assertEquals(concert, loadedConcert);
+        assertEquals(concert.getMusicians(), loadedConcert.getMusicians());
     }
 
     /*
@@ -399,6 +454,19 @@ class Neo4jDAOUnitTest {
         assertEquals(webpage.getUrl(), loadedWebPage.getUrl());
     }
 
+    @DisplayName("Concert attributes could be updated")
+    @Test
+    public void updateConcertInfo()
+    {
+        Concert concert = new Concert("International ultrasonic festival","Tokyo");
+        dao.createOrUpdate(concert);
+        concert.setCountry("India");
+        concert.setCity("Mumbai");
+        Concert loadedConcert = dao.load(Concert.class, concert.getId());
+        assertEquals(concert.getCountry(), loadedConcert.getCountry());
+        assertEquals(concert.getCity(), loadedConcert.getCity());
+    }
+
     /*
      Testing deleting musician would not delete the album together
      */
@@ -485,8 +553,8 @@ class Neo4jDAOUnitTest {
         assertNotNull(dao.loadAll(Track.class));
 
         dao.delete(track);
-        //assertNull(dao.load(Track.class, track.getId()));
-        assertEquals(0,dao.loadAll(Track.class).size());
+        assertNull(dao.load(Track.class, track.getId()));
+
     }
 
     /*
@@ -517,7 +585,22 @@ class Neo4jDAOUnitTest {
         assertNotNull(dao.loadAll(Review.class));
 
         dao.delete(review);
+        assertNull(dao.load(Review.class, review.getId()));
         assertEquals(0,dao.loadAll(Review.class).size());
+    }
+
+    /*
+     Deleting the created concert would be successful
+    */
+    @DisplayName("Deleting created concert successfully.")
+    @Test
+    public void successfullyDeleteConcert()
+    {
+        Concert concert = new Concert("International Tokyo Festival","Japan");
+        dao.createOrUpdate(concert);
+        assertNotNull(dao.loadAll(Concert.class));
+        dao.delete(concert);
+        assertNull(dao.load(Concert.class, concert.getId()));
     }
 
     @Test
@@ -604,26 +687,131 @@ class Neo4jDAOUnitTest {
         assertEquals(track, findTrack);
     }
 
+    @Test
+    public void searchConcertByName() {
+        Concert concert = new Concert("Tokyo Festival","Japan");
+        dao.createOrUpdate((concert));
+        Concert findConcert = dao.findConcertByName(concert.getConcertName());
+        assertEquals(concert, findConcert);
+    }
+
+    @Test
+    public void searchConcertByCountry() {
+        Concert concert = new Concert("Tokyo Festival","Japan");
+        dao.createOrUpdate((concert));
+        Concert findConcert = dao.findConcertByCountry(concert.getCountry());
+        assertEquals(concert, findConcert);
+    }
+
+    @Test
+    public void searchConcertByCity() {
+        Concert concert = new Concert("Tokyo Festival","Japan");
+        concert.setCity("Mumbai");
+        dao.createOrUpdate((concert));
+        Concert findConcert = dao.findConcertByCity(concert.getCity());
+        assertEquals(concert, findConcert);
+    }
+
+    /*
+    Testing saving musician process with same values could only saved once -- SM
+    */
+    @DisplayName("Same musician could only be one data in database")
+    @Test
+    public void SameMusiciansWouldSaveOnce() throws IOException
+    {
+
+        Musician mu1 = new Musician("Keith Jarrett");
+        mu1.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+        dao.createOrUpdate(mu1);
+
+        Musician mu2 = new Musician("Keith Jarrett");
+        mu2.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+        dao.createOrUpdate(mu2);
+
+        Collection<Musician> musicians = dao.loadAll(Musician.class);
+
+        assertEquals(1,musicians.size());
+        assertEquals(mu1.getName(), musicians.iterator().next().getName());
+    }
+
+    @DisplayName("Same instrument can be dispalyed only once")
+    @Test
+    public void SameMusicalInstrumentWouldSaveOnce() throws IOException
+    {
+        MusicalInstrument mi1 = new MusicalInstrument("Piano");
+        dao.createOrUpdate(mi1);
+
+        MusicalInstrument mi2 = new MusicalInstrument("Piano");
+        dao.createOrUpdate(mi2);
+
+        Collection<MusicalInstrument> musicalInstruments = dao.loadAll(MusicalInstrument.class);
+
+        assertEquals(1,musicalInstruments.size());
+        assertEquals(mi1.getName(), musicalInstruments.iterator().next().getName());
+    }
+
+    @DisplayName("Same album could be saved only once")
+    @Test
+    public void sameAlbumWouldSaveOnce()
+    {
+        Album a1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        dao.createOrUpdate(a1);
+        Album a2 = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        dao.createOrUpdate(a2);
+
+        Collection<Album> albums = dao.loadAll(Album.class);
+
+        assertEquals(1, albums.size());
+        assertEquals(a1.getAlbumName(), albums.iterator().next().getAlbumName());
+        assertEquals(a1.getReleaseYear(), albums.iterator().next().getReleaseYear());
+        assertEquals(a1.getRecordNumber(), albums.iterator().next().getRecordNumber());
+    }
+
+    /*
+     Testing multiple musicians data could be uploaded at a time
+     */
+    @DisplayName("Multiple musicians could be created in database once")
+    @Test
+    public void saveMultipleMusiciansOnce()
+    {
+        HashSet<Musician> musicianSet = Sets.newHashSet(
+                new Musician("Lily Lee"),
+                new Musician("Tresa Will"),
+                new Musician("Ingrid Yu"),
+                new Musician("Lucas Collins")
+        );
+
+        for (Musician musician : musicianSet)
+        {
+            dao.createOrUpdate(musician);
+        }
+
+        Collection<Musician> multipleLoad = dao.loadAll(Musician.class);
+
+        assertEquals(musicianSet.size(), multipleLoad.size(), "Musicians could not be loaded");
+        //Checking the loaded musicians collection contains all objects from updated collection
+        for (Musician musician : multipleLoad)
+        {
+            assertTrue(musicianSet.contains(musician), musician.getName());
+        }
+    }
+
+    // Validate if more than one instruments could be saved at a time
+    @Test
+    public void saveMultipleInstrumentAtATime() {
+        HashSet<MusicalInstrument> musicalInstrumentSet = Sets.newHashSet(
+                new MusicalInstrument("Piano"),
+                new MusicalInstrument("Flute"),
+                new MusicalInstrument("Violin"),
+                new MusicalInstrument("Guitar")
+        );
+
+        for (MusicalInstrument musicalInstrument : musicalInstrumentSet){
+            dao.createOrUpdate(musicalInstrument);
+        }
+        for (MusicalInstrument musicalInstrument : musicalInstrumentSet)
+        {
+            assertTrue(musicalInstrumentSet.contains(musicalInstrument), musicalInstrument.getName());
+        }
+    }
 }
-
-//creation and loading of every entity
-
-//deletion of review
-
-//search
-//Album: search by albumname, search by release year, search by genre, search by style
-//Musicalinstrument: search by musicalinstrument name
-//Musician: search by musicianname,
-//track: search by name,
-
-//do we need to update for every entity, do we need to save for every entity
-//ask if the objects in ecmminer are created properly
-//what to do about url converter?
-//do we need to write searchbyname in dao file as well?
-//what do you mean by integration testing approach? Like bottom up and top down etc?
-
-
-//Tasks:
-//Daniel: Search, deletion of review
-//Shuming: Test cases for ecm miner, update
-//Shridhar: Most talented musician, test cases for ecm miner for integration testing
