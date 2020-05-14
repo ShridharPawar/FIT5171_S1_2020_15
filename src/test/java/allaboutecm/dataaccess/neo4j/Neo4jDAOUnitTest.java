@@ -129,17 +129,13 @@ class Neo4jDAOUnitTest {
                 new MusicalInstrument("Guitar"));
         MusicianInstrument musicianInstrument = new MusicianInstrument(musician, musicalInstruments);
 
-        dao.createOrUpdate(musician);
         dao.createOrUpdate(musicianInstrument);
 
-        Musician loadedMusician = dao.load(Musician.class, musician.getId());
-        assertNotNull(loadedMusician);
-        assertEquals(musician, loadedMusician);
-        assertEquals(1,dao.loadAll(Musician.class).size());
-
         MusicianInstrument loadedMusicianInstrument = dao.load(MusicianInstrument.class, musicianInstrument.getId());
+        assertNotNull(loadedMusicianInstrument);
         assertEquals(musicianInstrument, loadedMusicianInstrument);
-    }
+        assertEquals(1,dao.loadAll(MusicianInstrument.class).size());
+}
 
     //Validate if the musicalInstrument could be created and loaded successfully
     @Test
@@ -298,12 +294,8 @@ class Neo4jDAOUnitTest {
     {
         Musician musician = new Musician("Keith Jarrett");
         musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
-        //Musician musician = new Musician("Elizabeth Wolf");
-        //musician.setMusicianUrl(new URL("https://www.elizabethwolf.org/"));
         dao.createOrUpdate(musician);
-
         musician.setName("Eli Granger");
-
         Musician loadMusician = dao.load(Musician.class, musician.getId());
         assertEquals(musician.getName(), loadMusician.getName());
     }
@@ -400,20 +392,6 @@ class Neo4jDAOUnitTest {
         assertEquals(webpage.getUrl(), loadedWebPage.getUrl());
     }
 
-    // Validate if the instruments could be updated
-    @DisplayName("MusicalInstrument could be updated")
-    @Test
-    public void InstrumentCouldBeUpdate(){
-        MusicalInstrument musicalInstrument = new MusicalInstrument("Piano");
-
-        dao.createOrUpdate(musicalInstrument);
-
-        musicalInstrument.setName("Flute");
-
-        MusicalInstrument loadMusicalInstrument = dao.load(MusicalInstrument.class, musicalInstrument.getId());
-        assertEquals(musicalInstrument.getName(), loadMusicalInstrument.getName());
-    }
-
     /*
      Testing deleting musician would not delete the album together
      */
@@ -421,11 +399,12 @@ class Neo4jDAOUnitTest {
     public void deletingMusicianWithoutAlbum() throws IOException {
         Musician musician = new Musician("Keith Jarrett");
         musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
-
+        Musician musician1 = new Musician("Mike Shinoda");
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
         musician.setAlbums(Sets.newHashSet(album));
 
         dao.createOrUpdate(musician);
+        dao.createOrUpdate(musician1);
         dao.createOrUpdate(album);
 
         assertNotNull(dao.load(Musician.class, musician.getId()));
@@ -435,11 +414,9 @@ class Neo4jDAOUnitTest {
 
         assertNull(dao.load(Musician.class, musician.getId()));
         assertNotNull(dao.load(Album.class, album.getId()));
-        //assertTrue(dao.loadAll(Musician.class).isEmpty());
-        //assertFalse(dao.loadAll(Album.class).isEmpty());
     }
 
-    //Validate if remove MusicalInstrument successfully
+    //Validate if MusicalInstrument is removed successfully
     @Test
     public void deleteMusicalInstrument() throws IOException {
         MusicalInstrument musicalInstrument = new MusicalInstrument("Mozart");
@@ -477,7 +454,7 @@ class Neo4jDAOUnitTest {
      */
     @DisplayName("Deleting created Album would be successful")
     @Test
-    public void successfulDeleteAlbum()
+    public void successfullyDeleteAlbum()
     {
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
         dao.createOrUpdate(album);
@@ -493,7 +470,7 @@ class Neo4jDAOUnitTest {
      */
     @DisplayName("Deleting created track successfully")
     @Test
-    public void successfulDeleteTrack()
+    public void successfullyDeleteTrack()
     {
         Track track = new Track("KÖLN, JANUARY 24, 1975, PART I", 26.02);
         dao.createOrUpdate(track);
@@ -510,7 +487,7 @@ class Neo4jDAOUnitTest {
      */
     @DisplayName("Deleting created web page successfully")
     @Test
-    public void successfulDeleteWebPage() throws IOException {
+    public void successfullyDeleteWebPage() throws IOException {
         URL url = new URL("https://www.garypeacock.org/");
         Webpage webpage = new Webpage("Gary Peacock", url);
         dao.createOrUpdate(webpage);
@@ -524,11 +501,10 @@ class Neo4jDAOUnitTest {
 
     @DisplayName("Validate if the Review could be deleted successfully")
     @Test
-    public void successfulDeleteReview() throws IOException {
+    public void successfullyDeleteReview() throws IOException {
         URL websiteUrl = new URL("https://www.garypeacock.org/");
-        String review = new String("The song is nice!");
         double ratingOutOf100 = new Double(9.1);
-
+        Review review = new Review(websiteUrl,ratingOutOf100);
         dao.createOrUpdate(review);
 
         assertNotNull(dao.loadAll(Review.class));
@@ -587,6 +563,16 @@ class Neo4jDAOUnitTest {
         dao.createOrUpdate((album));
 
         Album findAlbum = dao.findAlbumByGenre(album.getGenre());
+
+        assertEquals(album, findAlbum);
+    }
+
+    @Test
+    public void searchAlbumByRecordNumber() {
+        Album album = new Album(1995,"ECM 1064/65", "The Köln Concert");
+        dao.createOrUpdate((album));
+
+        Album findAlbum = dao.findAlbumByRecordNumber(album.getRecordNumber());
 
         assertEquals(album, findAlbum);
     }

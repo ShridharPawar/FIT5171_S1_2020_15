@@ -85,19 +85,22 @@ public class Neo4jDAO implements DAO {
     }
 
     @Override
-    public void createOrUpdate(String review) {
-
-    }
-
-    @Override
-    public void delete(String review) {
-
-    }
-
-    @Override
     public Album findAlbumByAlbumName(String albumName) {
         Filters filters = new Filters();
         filters.add(new Filter("albumName", EQUALS, albumName));
+        Collection<Album> album = session.loadAll(Album.class,filters);
+        if(album.isEmpty()){
+            return null;
+        } else
+        {
+            return album.iterator().next();
+        }
+    }
+
+    @Override
+    public Album findAlbumByRecordNumber(String recordNumber) {
+        Filters filters = new Filters();
+        filters.add(new Filter("recordNumber", EQUALS, recordNumber));
         Collection<Album> album = session.loadAll(Album.class,filters);
         if(album.isEmpty()){
             return null;

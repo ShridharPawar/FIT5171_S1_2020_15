@@ -37,6 +37,7 @@ public class Musician extends Entity {
     @Relationship(type="personalWebpages")
     private Set<Webpage> personalWebpages;
 
+    @Property(name="biography")
     private String biography;
 
     public Musician() {

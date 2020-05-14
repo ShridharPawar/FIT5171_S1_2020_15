@@ -51,12 +51,16 @@ public class Album extends Entity {
     @Relationship(type="tracks")
     private Set<Track> tracks;
 
+    @Property(name="genre")
     private String genre;
 
+    @Property(name="style")
     private String style;
 
+    @Property(name="releaseFormat")
     private String releaseFormat;
 
+    @Relationship(type="Reviews")
     private Set<Review> Reviews;
 
     public Album(int releaseYear, String recordNumber, String albumName) {

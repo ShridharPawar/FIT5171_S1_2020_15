@@ -23,11 +23,9 @@ public interface DAO {
 
     MusicalInstrument findMusicalInstrumentByName(String name);
 
-    void createOrUpdate(String review);
-
-    void delete(String review);
-
     Album findAlbumByAlbumName(String albumName);
+
+    Album findAlbumByRecordNumber(String recordNumber);
 
     Album findAlbumByReleaseYear(int releaseYear);
 

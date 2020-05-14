@@ -20,6 +20,7 @@ import static org.apache.commons.lang3.Validate.notNull;
  */
 @NodeEntity
 public class MusicianInstrument extends Entity {
+
     @JsonIgnore
     @Relationship(type="musician")
     private Musician musician;

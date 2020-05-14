@@ -1,6 +1,10 @@
 package allaboutecm.model;
 
+import allaboutecm.dataaccess.neo4j.URLConverter;
 import com.google.common.collect.Sets;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -13,10 +17,15 @@ import java.util.Set;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
+@NodeEntity
 public class Webpage extends Entity{
-      private URL url;
-      private String name;
 
+      @Convert(URLConverter.class)
+      @Property(name="url")
+      private URL url;
+
+      @Property(name="name")
+      private String name;
 
       public Webpage(String name,URL url) throws IOException {
           notNull(name);

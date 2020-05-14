@@ -2,6 +2,8 @@ package allaboutecm.model;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 //import com.sun.deploy.security.SelectableSecurityManager;
 //import sun.security.x509.OtherName;
 
@@ -14,9 +16,14 @@ import java.util.*;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
+@NodeEntity
 public class Track extends Entity{
-     private String name;
-     private double lengthInMinutes;
+
+    @Property(name="name")
+    private String name;
+
+    @Property(name="lengthInMinutes")
+    private double lengthInMinutes;
 
 
     public Track(String name,double lengthInMinutes)

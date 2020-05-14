@@ -10,6 +10,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -63,10 +65,28 @@ class ECMMinerUnitTest {
     }
 
     @Test
-    public void busiestYearWhenNothingPassed()
+    public void shouldReturnTheBusiestYearWhenOnlyOne()
     {
-        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet());
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1));
         List<Integer> years = ecmMiner.busiestYears(2);
+        assertEquals(1,years.size());
+        assertTrue(years.contains(album1.getReleaseYear()));
+    }
+
+    @Test
+    public void busiestYearWhenNullPassed()
+    {
+        when(dao.loadAll(Album.class)).thenReturn(null);
+        List<Integer> years = ecmMiner.busiestYears(2);
+        assertEquals(years.size(),0);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0,-100})
+    public void busiestYearWhenNegativeOrZeroParameterPassed(int arg)
+    {
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3,album4,album5));
+        List<Integer> years = ecmMiner.busiestYears(arg);
         assertEquals(years.size(),0);
     }
 
@@ -102,7 +122,7 @@ class ECMMinerUnitTest {
         assertEquals(0, musicians.size());
      }
 
-   @Test
+    @Test
     public void mostSocialMusicians()
     {
         musician1.setAlbums(Sets.newHashSet(album1,album2));
@@ -115,10 +135,10 @@ class ECMMinerUnitTest {
         album3.setFeaturedMusicians(Lists.newArrayList(musician5));
         when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3,album4));
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1,musician2,musician3,musician4,musician5));
-        List<Musician> musicians = ecmMiner.mostSocialMusicians(3);
+        List<Musician> musicians = ecmMiner.mostSocialMusicians(2);
         assertTrue(musicians.contains(musician1));
         assertTrue(musicians.contains(musician2));
-        assertEquals(3, musicians.size());
+        assertEquals(2, musicians.size());
        }
 
      @Test

@@ -1,5 +1,10 @@
 package allaboutecm.model;
 
+import allaboutecm.dataaccess.neo4j.URLConverter;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.typeconversion.Convert;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -9,9 +14,17 @@ import java.net.UnknownHostException;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
+@NodeEntity
 public class Review extends Entity{
+
+    @Convert(URLConverter.class)
+    @Property(name="websiteUrl")
     private URL websiteUrl;
+
+    @Property(name="review")
     private String review;
+
+    @Property(name="ratingOutOf100")
     private double ratingOutOf100;
 
     public Review(URL websiteUrl,double ratingOutOf100)

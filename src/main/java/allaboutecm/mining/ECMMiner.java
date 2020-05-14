@@ -220,6 +220,8 @@ public class ECMMiner {
         Collection<Album> albums = dao.loadAll(Album.class);
         Map<Integer, Integer> multimap = new HashMap<Integer, Integer>();
         List<Integer> doneYears = new ArrayList<>();
+        if(albums!=null)
+        {
         for(Album a : albums)
         {
             int count=0;
@@ -238,7 +240,7 @@ public class ECMMiner {
             if(!doneYears.contains(year)){
               multimap.put(a.getReleaseYear(),count);}
             doneYears.add(year);
-       }
+       }}
 
         List<Entry<Integer, Integer>> list = new LinkedList<Entry<Integer, Integer>>(multimap.entrySet());
         Collections.sort(list, new Comparator<Entry<Integer, Integer>>()
@@ -253,7 +255,7 @@ public class ECMMiner {
         List<Integer> results = new ArrayList<>();
         for(Integer year:sortedMap.keySet())
         {
-            if(k!=0)
+            if(!(k<=0))
             {
                 results.add(year);
                 k--;

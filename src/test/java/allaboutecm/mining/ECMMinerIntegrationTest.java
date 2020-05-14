@@ -29,7 +29,7 @@ class ECMMinerIntegrationTest {
     private static Session session;
     private static SessionFactory sessionFactory;
     private ECMMiner ecmMiner;
-    private DAO dao;
+    private static DAO dao;
     private Album album1;
     private Album album2;
     private Album album3;
@@ -46,11 +46,11 @@ class ECMMinerIntegrationTest {
         Configuration configuration = new Configuration.Builder().build();
         sessionFactory = new SessionFactory(configuration, Musician.class.getPackage().getName());
         session = sessionFactory.openSession();
+        dao = new Neo4jDAO(session);
     }
 
     @BeforeEach
     public void beforeEachSetUp() {
-        dao = new Neo4jDAO(session);
         ecmMiner = new ECMMiner(dao);
         album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
         album2 = new Album(2016, "ECM 1064/66", "Meteora");
@@ -63,8 +63,6 @@ class ECMMinerIntegrationTest {
         musician4 = new Musician("Bon Jovi");
         musician5 = new Musician("Chris Martin");
     }
-
-
 
     @Test
     public void busiestYear()
@@ -82,19 +80,11 @@ class ECMMinerIntegrationTest {
     @Test
     public void mostSimilarAlbums()
     {
-        assertEquals(0, dao.loadAll(Musician.class).size());
-        Album album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
-        Album album2 = new Album(2016, "ECM 1064/66", "Meteora");
-        Album album3 = new Album(2017, "ECM 1064/67", "Minutes to midnight");
         Album albumToBeChecked = new Album(2014,"ECM 1064/68", "Shadow");
-        MusicianInstrument musicianInstrument1 = new MusicianInstrument(new Musician("Joe Vahn"),Sets.newHashSet(new MusicalInstrument("Guitar")));
-        MusicianInstrument musicianInstrument2 = new MusicianInstrument(new Musician("Mike"),Sets.newHashSet(new MusicalInstrument("Guitar")));
-        MusicianInstrument musicianInstrument3 = new MusicianInstrument(new Musician("Chester"),Sets.newHashSet(new MusicalInstrument("Drums")));
-        MusicianInstrument musicianInstrument4 = new MusicianInstrument(new Musician("Keith"),Sets.newHashSet(new MusicalInstrument("Synthesizer")));
-        album1.setInstruments(Sets.newHashSet(musicianInstrument1,musicianInstrument4));
-        album2.setInstruments(Sets.newHashSet(musicianInstrument1,musicianInstrument3));
-        album3.setInstruments(Sets.newHashSet(musicianInstrument2,musicianInstrument3));
-        albumToBeChecked.setInstruments(Sets.newHashSet(musicianInstrument1,musicianInstrument3));
+        album1.setInstruments(Sets.newHashSet( new MusicianInstrument(musician1,Sets.newHashSet(new MusicalInstrument("Guitar"))),new MusicianInstrument(musician4,Sets.newHashSet(new MusicalInstrument("Synthesizer")))));
+        album2.setInstruments(Sets.newHashSet(new MusicianInstrument(musician1,Sets.newHashSet(new MusicalInstrument("Guitar"))),new MusicianInstrument(musician3,Sets.newHashSet(new MusicalInstrument("Drums")))));
+        album3.setInstruments(Sets.newHashSet(new MusicianInstrument(musician1,Sets.newHashSet(new MusicalInstrument("Guitar"))),new MusicianInstrument(musician3,Sets.newHashSet(new MusicalInstrument("Drums")))));
+        albumToBeChecked.setInstruments(Sets.newHashSet(new MusicianInstrument(musician1,Sets.newHashSet(new MusicalInstrument("Guitar"))),new MusicianInstrument(musician3,Sets.newHashSet(new MusicalInstrument("Drums")))));
         album1.setGenre("Jazz");
         album2.setGenre("Rock");
         album3.setGenre("Rock");
@@ -103,6 +93,8 @@ class ECMMinerIntegrationTest {
         dao.createOrUpdate(album2);
         dao.createOrUpdate(album3);
         List<Album> albums = ecmMiner.mostSimilarAlbums(2,albumToBeChecked);
+        assertTrue(albums.contains(album2));
+        assertTrue(albums.contains(album3));
         assertEquals(albums.size(),2);
     }
 
