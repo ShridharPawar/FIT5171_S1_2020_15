@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
@@ -25,28 +26,49 @@ import static org.mockito.Mockito.when;
  */
 class ECMMinerIntegrationTest {
     private static final String TEST_DB = "target/test-data/test-db.neo4j";
-    private static DAO dao;
     private static Session session;
     private static SessionFactory sessionFactory;
     private ECMMiner ecmMiner;
+    private DAO dao;
+    private Album album1;
+    private Album album2;
+    private Album album3;
+    private Album album4;
+    private Album album5;
+    private Musician musician1;
+    private Musician musician2;
+    private Musician musician3;
+    private Musician musician4;
+    private Musician musician5;
 
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         Configuration configuration = new Configuration.Builder().build();
         sessionFactory = new SessionFactory(configuration, Musician.class.getPackage().getName());
         session = sessionFactory.openSession();
-        dao = new Neo4jDAO(session);
-        ecmMiner = new ECMMiner(dao);
     }
 
-   @Test
+    @BeforeEach
+    public void beforeEachSetUp() {
+        dao = new Neo4jDAO(session);
+        ecmMiner = new ECMMiner(dao);
+        album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        album2 = new Album(2016, "ECM 1064/66", "Meteora");
+        album3 = new Album(2016, "ECM 1064/67", "Minutes to midnight");
+        album4 = new Album(1975, "ECM 1064/68", "Shadow of the day");
+        album5 = new Album(1974, "ECM 1064/69", "Gasolina");
+        musician1 = new Musician("Keith Jarrett");
+        musician2 = new Musician("Mike Shinoda");
+        musician3 = new Musician("Chester Bennington");
+        musician4 = new Musician("Bon Jovi");
+        musician5 = new Musician("Chris Martin");
+    }
+
+
+
+    @Test
     public void busiestYear()
     {
-        Album album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
-        Album album2 = new Album(2016, "ECM 1064/66", "Meteora");
-        Album album3 = new Album(2016, "ECM 1064/67", "Minutes to midnight");
-        Album album4 = new Album(1975, "ECM 1064/68", "Shadow of the day");
-        Album album5 = new Album(1974, "ECM 1064/69", "Gasolina");
         dao.createOrUpdate(album1);
         dao.createOrUpdate(album2);
         dao.createOrUpdate(album3);

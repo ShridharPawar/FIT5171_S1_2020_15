@@ -88,6 +88,7 @@ public class ECMMiner {
                 result.addAll(list);
             }
         }
+
         return result;
     }
 
@@ -97,58 +98,46 @@ public class ECMMiner {
      * @Param k the number of musicians to be returned.
      * The most talented musician refers to the one who can play the largest number of instruments.
      */
-    public List<Musician> mostTalentedMusicians(int k) {
-/*
+    public List<Musician> mostTalentedMusicians(int k)
+    {
+        Collection<MusicianInstrument> musicianInstruments = dao.loadAll(MusicianInstrument.class);
         Collection<Musician> musicians = dao.loadAll(Musician.class);
-        Map<String, Musician> nameMap = Maps.newHashMap();
-
-        for (Musician m : musicians) {
-            nameMap.put(m.getName(), m);
+        Map<String, Integer> musicianInstrumentmap = new HashMap<String, Integer>();
+        for(Musician m: musicians)
+        {
+            int count = 0;
+            for(MusicianInstrument musins: musicianInstruments)
+            {
+                if(m.equals(musins.getMusician()))
+                {
+                    count=count+musins.getMusicalInstruments().size();
+                }
+            }
+            musicianInstrumentmap.put(m.getName(),count);
         }
-
-        ListMultimap<String, MusicianInstrument> multimap = MultimapBuilder.treeKeys().arrayListValues().build();
-        ListMultimap<Integer, Musician> countMap = MultimapBuilder.treeKeys().arrayListValues().build();
-
-        for (Musician musician : musicians) {
-            Set<MusicalInstrument> musicalInstruments = MusicalInstrument.getName();
-            for (MusicalInstrument musicalInstrument : musicalInstruments) {
-                boolean toInclude =
-                        (k > 0 && String.valueOf(k).length() != 0 );
-                if (toInclude) {
-                    multimap.put(musician.getName(), musicalInstrument);
+        List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(musicianInstrumentmap.entrySet());
+        Collections.sort(list, new Comparator<Entry<String, Integer>>()
+        {
+            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2)
+            {return o2.getValue().compareTo(o1.getValue());}});
+        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+        for(Entry<String, Integer> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        List<Musician> results = new ArrayList<>();
+        for(String musicianName:sortedMap.keySet())
+        {
+            for(Musician m : musicians)
+            {
+                if (k != 0 && musicianName.equals(m.getName()))
+                {
+                    results.add(m);
+                    k--;
                 }
             }
         }
-
-        Map<String, Collection<MusicianInstrument>> albumMultimap = multimap.asMap();
-
-        for (String name : albumMultimap.keySet()) {
-            Collection<MusicianInstrument> musicianInstruments = albumMultimap.get(name);
-            int size = musicianInstruments.size();
-            countMap.put(size, nameMap.get(name));
-        }
-
-        List<Musician> outcome = Lists.newArrayList();
-        List<Integer> sortedKeys = Lists.newArrayList(countMap.keySet());
-
-        sortedKeys.sort(Ordering.natural().reverse());
-
-        for (Integer count: sortedKeys) {
-            List<Musician> list = countMap.get(count);
-            if (list.size() >= k) {
-                break;
-            }
-            if (outcome.size() + list.size() >= k) {
-                int newAddition = k - outcome.size();
-                for (int j = 0; j < newAddition; j++) {
-                    outcome.add(list.get(j));
-                }
-            } else {
-                outcome.addAll(list);
-            }
-        }
-*/
-        return Lists.newArrayList();
+        return results;
     }
 
     /** 

@@ -82,7 +82,6 @@ public class Neo4jDAO implements DAO {
         {
             return musicalInstruments.iterator().next();
         }
-
     }
 
     @Override

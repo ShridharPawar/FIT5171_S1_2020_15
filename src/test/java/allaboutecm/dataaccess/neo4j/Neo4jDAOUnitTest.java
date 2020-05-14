@@ -562,7 +562,9 @@ class Neo4jDAOUnitTest {
     @Test
     public void searchAlbumByAlbumName() {
         Album album = new Album(1975,"ECM 1064/65", "The Köln Concert");
+        Album album1 = new Album(1976,"ECM 1064/66", "Meteora");
         dao.createOrUpdate((album));
+        dao.createOrUpdate((album1));
 
         Album findAlbum = dao.findAlbumByAlbumName(album.getAlbumName());
 
