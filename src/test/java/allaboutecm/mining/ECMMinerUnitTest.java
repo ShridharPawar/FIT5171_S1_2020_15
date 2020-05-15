@@ -249,7 +249,7 @@ class ECMMinerUnitTest {
         assertEquals(1, musicians.size());
     }
 
-    @DisplayName("Testing while there is null value in musician and album")
+    @DisplayName("Testing while there is null value in musician.")
     @Test
     public void whenNullIsPassedToSocialMusician() {
         when(dao.loadAll(Musician.class)).thenReturn(null);
