@@ -408,6 +408,25 @@ class ECMMinerUnitTest {
         assertEquals(0,albums.size());
     }
 
+    @DisplayName("Highest selling album returned when there is only one existing album and k exceeds the total number.")
+    @Test
+    public void shouldReturnTheHighestSellingAlbumWhenThereIsOnlyOne()
+    {
+        album1.setSales(1000);
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1));
+        List<Album> albums = ecmMiner.bestSellingAlbums(999);
+        assertEquals(1, albums.size());
+        assertTrue(albums.contains(album1));
+    }
+
+    @DisplayName("Testing while there is null value in Album.")
+    @Test
+    public void whenNullIsPassedToHighestSellingAlbum() {
+        when(dao.loadAll(Album.class)).thenReturn(null);
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> ecmMiner.bestSellingAlbums(2));
+        assertEquals(exception.getMessage(),"Object is null.");
+    }
+
 
 
 }

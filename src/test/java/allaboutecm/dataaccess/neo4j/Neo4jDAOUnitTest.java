@@ -137,7 +137,6 @@ class Neo4jDAOUnitTest {
         assertEquals(1, musicians.size());
         Musician loadedMusician = musicians.iterator().next();
         assertEquals(musician, loadedMusician);
-        assertEquals(musician.getMusicianUrl(), loadedMusician.getMusicianUrl());
         assertEquals(musician.getWebpages(), loadedMusician.getWebpages());
     }
 

@@ -373,4 +373,74 @@ class ECMMinerIntegrationTest {
         assertTrue(albums.contains(album3));
     }
 
+    @DisplayName("Highest rated album returns albums with 0 size with invalid k value.")
+    @ParameterizedTest
+    @ValueSource(ints = {-100, 0})
+    public void highestRatedAlbumsWithInvalidK(int arg) throws MalformedURLException {
+        album1.setReviews(Sets.newHashSet(new Review(url1,98),new Review(url2,48)));
+        album2.setReviews(Sets.newHashSet(new Review(url2,98),new Review(url1,50)));
+        dao.createOrUpdate(album1);
+        dao.createOrUpdate(album2);
+        List<Album> albums = ecmMiner.highestRatedAlbums(arg);
+        assertEquals(0, albums.size());
+    }
+
+    @DisplayName("Highest rated album returned when there is only one existing album and k exceeds the total number.")
+    @Test
+    public void shouldReturnTheHighestRatedAlbumWhenThereIsOnlyOne()
+    {
+        album1.setReviews(Sets.newHashSet(new Review(url1,98),new Review(url2,48)));
+        dao.createOrUpdate(album1);
+        List<Album> albums = ecmMiner.highestRatedAlbums(999);
+        assertEquals(1, albums.size());
+        assertTrue(albums.contains(album1));
+    }
+
+    @DisplayName("Testing while there is nothing in Album.")
+    @Test
+    public void whenNoValueOfAlbumIsPassedToHighestRatedAlbum() {
+        List<Album> albums =  ecmMiner.highestRatedAlbums(2);
+        assertEquals(albums.size(),0);
+    }
+
+    @Test
+    public void positiveBestSellingAlbums() throws MalformedURLException
+    {
+        album1.setSales(1000);
+        album2.setSales(400);
+        album3.setSales(999);
+        dao.createOrUpdate(album1);dao.createOrUpdate(album2);dao.createOrUpdate(album3);
+        List<Album> albums = ecmMiner.bestSellingAlbums(1);
+        assertTrue(albums.contains(album1));
+        assertEquals(1,albums.size());
+    }
+
+    @DisplayName("Best selling albums returns albums with 0 size with invalid k value.")
+    @ParameterizedTest
+    @ValueSource(ints = {-100, 0})
+    public void bestSellingAlbumsWithInvalidK(int arg){
+        album1.setSales(1000);
+        dao.createOrUpdate(album1);
+        List<Album> albums = ecmMiner.bestSellingAlbums(arg);
+        assertEquals(0,albums.size());
+    }
+
+    @DisplayName("Highest selling album returned when there is only one existing album and k exceeds the total number.")
+    @Test
+    public void shouldReturnTheHighestSellingAlbumWhenThereIsOnlyOne()
+    {
+        album1.setSales(1000);
+        dao.createOrUpdate(album1);
+        List<Album> albums = ecmMiner.bestSellingAlbums(999);
+        assertEquals(1, albums.size());
+        assertTrue(albums.contains(album1));
+    }
+
+    @DisplayName("Testing while there is null value in Album.")
+    @Test
+    public void whenNullIsPassedToHighestSellingAlbum() {
+        List<Album> albums =  ecmMiner.bestSellingAlbums(2);
+        assertEquals(albums.size(),0);
+    }
+
 }
