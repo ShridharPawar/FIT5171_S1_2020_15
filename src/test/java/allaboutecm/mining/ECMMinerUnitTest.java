@@ -131,7 +131,7 @@ class ECMMinerUnitTest {
         assertEquals(0, musicians.size());
     }
 
-/**
+    /**
      * Busiest year test cases
      */
     @DisplayName("Positive test for busiest year")
@@ -173,6 +173,9 @@ class ECMMinerUnitTest {
         assertEquals(0,years.size());
     }
 
+    /**
+     *Most Talented Musician Test cases
+     */
     @DisplayName("positive test for most Talented musician.")
     @Test
     public void positiveMostTalentedMusician()
@@ -206,9 +209,6 @@ class ECMMinerUnitTest {
         assertEquals(exception.getMessage(),"Object is null.");
     }
 
-    /**
-     *Most Talented Musician Test cases
-     */
     @DisplayName("Invalid k for most talented musicians would return null")
     @ParameterizedTest
     @ValueSource(ints = {0, -1, -100})
@@ -220,6 +220,9 @@ class ECMMinerUnitTest {
         assertEquals(0, musicians.size());
     }
 
+    /**
+     *Most Social Musician Test cases
+     */
     @DisplayName("Positive test for most social musicians")
     @Test
     public void positiveMostSocialMusicians()
@@ -259,6 +262,9 @@ class ECMMinerUnitTest {
         assertEquals(exception.getMessage(),"Object is null.");
     }
 
+    /**
+     *Most Similar Albums Test cases
+     */
      @Test
      public void positiveMostSimilarAlbums()
      {
@@ -332,6 +338,9 @@ class ECMMinerUnitTest {
         assertEquals(0, albums.size());
     }
 
+    /**
+     *Highest Rated Albums Test cases
+     */
     @Test
     public void positiveHighestRatedAlbums() throws MalformedURLException
     {
@@ -374,6 +383,9 @@ class ECMMinerUnitTest {
         assertEquals(exception.getMessage(),"Object is null.");
     }
 
+    /**
+     *Best Selling Albums Test cases
+     */
     @Test
     public void positiveBestSellingAlbums() throws MalformedURLException
     {
