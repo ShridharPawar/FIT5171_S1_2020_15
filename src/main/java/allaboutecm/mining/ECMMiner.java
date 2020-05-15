@@ -418,4 +418,55 @@ public class ECMMiner {
         }
         return results;
     }
+
+    public List<Musician> mostPopularPerformer(int k)
+    {
+        Collection<Concert> concerts = dao.loadAll(Concert.class);
+        Collection<Musician> musicians = dao.loadAll(Musician.class);
+        if(concerts==null||musicians==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
+        Map<String, Integer> musicianMap = new HashMap<String, Integer>();
+        for(Musician m:musicians)
+        {
+            int count = 0;
+            for(Concert c:concerts)
+            {
+                for(Musician m1:c.getMusicians())
+                {
+                    if(m1.equals(m))
+                    {
+                        count++;
+                    }
+                }
+            }
+            musicianMap.put(m.getName(),count);
+       }
+        List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(musicianMap.entrySet());
+        Collections.sort(list, new Comparator<Entry<String, Integer>>()
+        {
+            public int compare(Entry<String, Integer> i1, Entry<String, Integer> i2)
+            {return i2.getValue().compareTo(i1.getValue());}});
+
+        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+        for(Entry<String, Integer> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        List<Musician> results = new ArrayList<>();
+        for(String name: sortedMap.keySet())
+        {
+            for(Musician m : musicians)
+            {
+                if(m.getName().equals(name)&& !(k<=0))
+                {
+                    results.add(m);
+                    k--;
+                }
+            }
+        }
+
+        return results;
+    }
 }

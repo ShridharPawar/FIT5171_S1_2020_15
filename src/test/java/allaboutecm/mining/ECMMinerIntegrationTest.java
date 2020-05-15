@@ -443,4 +443,41 @@ class ECMMinerIntegrationTest {
         assertEquals(albums.size(),0);
     }
 
+    @Test
+    public void positiveMostPopularPerformer()
+    {
+        Concert concert1 = new Concert("Tokyo Festival","Japan");
+        Concert concert2 = new Concert("Ultrasonic Festival","India");
+        concert1.setMusicians(Sets.newHashSet(musician1,musician2,musician3));
+        concert2.setMusicians(Sets.newHashSet(musician4,musician1));
+        dao.createOrUpdate(concert1);dao.createOrUpdate(concert2);
+        dao.createOrUpdate(musician1);dao.createOrUpdate(musician2);dao.createOrUpdate(musician3);dao.createOrUpdate(musician4);
+        List<Musician> musicians = ecmMiner.mostPopularPerformer(1);
+        assertTrue(musicians.contains(musician1));
+        assertEquals(1,musicians.size());
+    }
+
+    @DisplayName("Most popular musicians return musicians with 0 size with invalid k value.")
+    @ParameterizedTest
+    @ValueSource(ints = {-100, 0})
+    public void postPopularPerformerWithInvalidK(int arg){
+        Concert concert1 = new Concert("Tokyo Festival","Japan");
+        concert1.setMusicians(Sets.newHashSet(musician1));
+        dao.createOrUpdate(concert1);dao.createOrUpdate(musician1);
+        List<Musician> musicians = ecmMiner.mostPopularPerformer(arg);
+        assertEquals(0,musicians.size());
+    }
+
+    @DisplayName("Most popular performer returned when there is only one existing musician and k exceeds the total number.")
+    @Test
+    public void shouldReturnTheMostPopularPerformerWhenThereIsOnlyOne()
+    {
+        Concert concert1 = new Concert("Tokyo Festival","Japan");
+        concert1.setMusicians(Sets.newHashSet(musician1));
+        dao.createOrUpdate(concert1);dao.createOrUpdate(musician1);
+        List<Musician> musicians = ecmMiner.mostPopularPerformer(999);
+        assertEquals(1, musicians.size());
+        assertTrue(musicians.contains(musician1));
+    }
+
 }
