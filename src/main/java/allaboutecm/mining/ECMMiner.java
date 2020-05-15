@@ -168,9 +168,8 @@ public class ECMMiner {
     public List<Musician> mostSocialMusicians(int k)
     {
         int l=k;
-        Collection<Album> albums = dao.loadAll(Album.class);
         Collection<Musician> musicians = dao.loadAll(Musician.class);
-        if(albums==null || musicians==null)
+        if(musicians==null)
         {
             throw new NullPointerException("Object is null.");
         }
