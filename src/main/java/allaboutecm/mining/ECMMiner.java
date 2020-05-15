@@ -43,10 +43,17 @@ public class ECMMiner {
      */
     public List<Musician> mostProlificMusicians(int k, int startYear, int endYear) {
         Collection<Musician> musicians = dao.loadAll(Musician.class);
+        List<Musician> result = Lists.newArrayList();
+        if(musicians==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
         Map<String, Musician> nameMap = Maps.newHashMap();
+
         for (Musician m : musicians) {
             nameMap.put(m.getName(), m);
         }
+
 
         ListMultimap<String, Album> multimap = MultimapBuilder.treeKeys().arrayListValues().build();
         ListMultimap<Integer, Musician> countMap = MultimapBuilder.treeKeys().arrayListValues().build();
@@ -71,12 +78,18 @@ public class ECMMiner {
             countMap.put(size, nameMap.get(name));
         }
 
-        List<Musician> result = Lists.newArrayList();
+
         List<Integer> sortedKeys = Lists.newArrayList(countMap.keySet());
         sortedKeys.sort(Ordering.natural().reverse());
         for (Integer count : sortedKeys) {
             List<Musician> list = countMap.get(count);
-            if (list.size() >= k) {
+            for(Musician m:list){
+            if (!(k<=0))
+            {
+                result.add(m);
+                k--;
+            }}
+            /*if (list.size() >= k) {
                 break;
             }
             if (result.size() + list.size() >= k) {
@@ -86,7 +99,7 @@ public class ECMMiner {
                 }
             } else {
                 result.addAll(list);
-            }
+            }*/
         }
 
         return result;
@@ -102,35 +115,41 @@ public class ECMMiner {
     {
         Collection<MusicianInstrument> musicianInstruments = dao.loadAll(MusicianInstrument.class);
         Collection<Musician> musicians = dao.loadAll(Musician.class);
+        List<Musician> results = new ArrayList<>();
+        if(musicianInstruments==null || musicians==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
         Map<String, Integer> musicianInstrumentmap = new HashMap<String, Integer>();
         for(Musician m: musicians)
         {
             int count = 0;
+            boolean ifExists = false;
             for(MusicianInstrument musins: musicianInstruments)
             {
                 if(m.equals(musins.getMusician()))
                 {
                     count=count+musins.getMusicalInstruments().size();
+                    ifExists = true;
                 }
             }
-            musicianInstrumentmap.put(m.getName(),count);
+            if(ifExists){musicianInstrumentmap.put(m.getName(),count);}
         }
         List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(musicianInstrumentmap.entrySet());
         Collections.sort(list, new Comparator<Entry<String, Integer>>()
         {
-            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2)
-            {return o2.getValue().compareTo(o1.getValue());}});
+            public int compare(Entry<String, Integer> i1, Entry<String, Integer> i2)
+            {return i2.getValue().compareTo(i1.getValue());}});
         Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
         for(Entry<String, Integer> entry : list)
         {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
-        List<Musician> results = new ArrayList<>();
         for(String musicianName:sortedMap.keySet())
         {
             for(Musician m : musicians)
             {
-                if (k != 0 && musicianName.equals(m.getName()))
+                if (!(k<=0) && musicianName.equals(m.getName()))
                 {
                     results.add(m);
                     k--;
@@ -151,6 +170,10 @@ public class ECMMiner {
         int l=k;
         Collection<Album> albums = dao.loadAll(Album.class);
         Collection<Musician> musicians = dao.loadAll(Musician.class);
+        if(albums==null || musicians==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
         ListMultimap<String, Album> multimap = MultimapBuilder.treeKeys().arrayListValues().build();
         for (Musician musician : musicians) {
             Set<Album> albums1 = musician.getAlbums();
@@ -177,13 +200,13 @@ public class ECMMiner {
         List<Integer> sortedKeys = Lists.newArrayList(countmap.values());
         sortedKeys.sort(Ordering.natural().reverse());
         List<Integer> chosenKeys = Lists.newArrayList();
-        for(int i=0;i<k;i++){chosenKeys.add(sortedKeys.get(i));}
+        for(int i=0;i<k;i++){if(i<=sortedKeys.size()-1){chosenKeys.add(sortedKeys.get(i));}}
 
         List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(countmap.entrySet());
         Collections.sort(list, new Comparator<Entry<String, Integer>>()
         {
-            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2)
-            {return o2.getValue().compareTo(o1.getValue());}});
+            public int compare(Entry<String, Integer> i1, Entry<String, Integer> i2)
+            {return i2.getValue().compareTo(i1.getValue());}});
         Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
         for(Entry<String, Integer> entry : list)
         {
@@ -200,7 +223,7 @@ public class ECMMiner {
 
         for(Musician m: musicians)
         {
-            if(chosenMusicians.contains(m.getName()) && l!=0)
+            if(chosenMusicians.contains(m.getName()) && !(l<=0))
             {
                 result.add(m);l--;
             }
@@ -220,8 +243,10 @@ public class ECMMiner {
         Collection<Album> albums = dao.loadAll(Album.class);
         Map<Integer, Integer> multimap = new HashMap<Integer, Integer>();
         List<Integer> doneYears = new ArrayList<>();
-        if(albums!=null)
+        if(albums==null)
         {
+            throw new NullPointerException("Object is null.");
+        }
         for(Album a : albums)
         {
             int count=0;
@@ -240,13 +265,13 @@ public class ECMMiner {
             if(!doneYears.contains(year)){
               multimap.put(a.getReleaseYear(),count);}
             doneYears.add(year);
-       }}
+       }
 
         List<Entry<Integer, Integer>> list = new LinkedList<Entry<Integer, Integer>>(multimap.entrySet());
         Collections.sort(list, new Comparator<Entry<Integer, Integer>>()
         {
-            public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2)
-            {return o2.getValue().compareTo(o1.getValue());}});
+            public int compare(Entry<Integer, Integer> i1, Entry<Integer, Integer> i2)
+            {return i2.getValue().compareTo(i1.getValue());}});
         Map<Integer, Integer> sortedMap = new LinkedHashMap<Integer, Integer>();
         for(Entry<Integer, Integer> entry : list)
         {
@@ -266,9 +291,9 @@ public class ECMMiner {
     }
 
     /**
-     * Most similar albums to a give album. The similarity can be defined in a variety of ways.
-     * For example, it can be defined over the musicians in albums, the similarity between names
-     * of the albums & tracks, etc.
+     * Most similar albums to a give album. The similarity here is such that:
+     * if similar musical instruments are used in different albums and if the genre
+     * of the album is same, then they are the most similar albums.
      *
      * @Param k the number of albums to be returned.
      * @Param album
@@ -277,6 +302,10 @@ public class ECMMiner {
     public List<Album> mostSimilarAlbums(int k, Album album)
     {
         Collection<Album> albums = dao.loadAll(Album.class);
+        if(albums==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
         List<Album> similarAlbums = new ArrayList<>();
         Set<String> givenAlbumInstruments = new HashSet<>();
         String givenAlbumGenre = album.getGenre();
@@ -300,7 +329,7 @@ public class ECMMiner {
                     musicalInstruments.add(i.getName());
                 }
             }
-            if(musicalInstruments.equals(givenAlbumInstruments) && a.getGenre().equals(givenAlbumGenre)&&k!=0)
+            if(musicalInstruments.equals(givenAlbumInstruments) && a.getGenre().equals(givenAlbumGenre)&&!(k<=0))
             {
                 similarAlbums.add(a);
                 k--;
