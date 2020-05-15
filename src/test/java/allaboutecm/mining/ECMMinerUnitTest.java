@@ -2,10 +2,7 @@ package allaboutecm.mining;
 
 import allaboutecm.dataaccess.DAO;
 import allaboutecm.dataaccess.neo4j.Neo4jDAO;
-import allaboutecm.model.Album;
-import allaboutecm.model.MusicalInstrument;
-import allaboutecm.model.Musician;
-import allaboutecm.model.MusicianInstrument;
+import allaboutecm.model.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -44,10 +43,11 @@ class ECMMinerUnitTest {
     private MusicianInstrument musicianInstrument3;
     private MusicianInstrument musicianInstrument4;
     private MusicianInstrument musicianInstrument5;
-
+    private URL url1;
+    private URL url2;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         dao = mock(Neo4jDAO.class);
         ecmMiner = new ECMMiner(dao);
         album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
@@ -73,6 +73,8 @@ class ECMMinerUnitTest {
         musicianInstrument3 = new MusicianInstrument(musician3, Sets.newHashSet(new MusicalInstrument("Drums")));
         musicianInstrument4 = new MusicianInstrument(musician4, Sets.newHashSet(new MusicalInstrument("Synthesizer")));
         musicianInstrument5 = new MusicianInstrument(musician1, Sets.newHashSet(new MusicalInstrument("Synthesizer")));
+        url1 = new URL("https://www.imdb.com/");
+        url2 = new URL("https://www.rottentomatoes.com/");
     }
 
     /**
@@ -329,5 +331,71 @@ class ECMMinerUnitTest {
         List<Album> albums = ecmMiner.mostSimilarAlbums(arg,albumToBeChecked);
         assertEquals(0, albums.size());
     }
+
+    @Test
+    public void positiveHighestRatedAlbums() throws MalformedURLException
+    {
+        album1.setReviews(Sets.newHashSet(new Review(url1,98),new Review(url2,48.5)));
+        album2.setReviews(Sets.newHashSet(new Review(url1,98),new Review(url2,98.5)));
+        album3.setReviews(Sets.newHashSet(new Review(url2,99)));
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3));
+        List<Album> albums = ecmMiner.highestRatedAlbums(2);
+        assertTrue(albums.contains(album3));
+        assertTrue(albums.contains(album2));
+    }
+
+    @DisplayName("Highest rated album returns albums with 0 size with invalid k value.")
+    @ParameterizedTest
+    @ValueSource(ints = {-100, 0})
+    public void highestRatedAlbumsWithInvalidK(int arg) throws MalformedURLException {
+        album1.setReviews(Sets.newHashSet(new Review(url1,98),new Review(url2,48)));
+        album2.setReviews(Sets.newHashSet(new Review(url2,98),new Review(url1,50)));
+         when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2));
+        List<Album> albums = ecmMiner.highestRatedAlbums(arg);
+        assertEquals(0, albums.size());
+    }
+
+    @DisplayName("Highest rated album returned when there is only one existing album and k exceeds the total number.")
+    @Test
+    public void shouldReturnTheHighestRatedAlbumWhenThereIsOnlyOne()
+    {
+        album1.setReviews(Sets.newHashSet(new Review(url1,98),new Review(url2,48)));
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1));
+        List<Album> albums = ecmMiner.highestRatedAlbums(999);
+        assertEquals(1, albums.size());
+        assertTrue(albums.contains(album1));
+    }
+
+    @DisplayName("Testing while there is null value in Album.")
+    @Test
+    public void whenNullIsPassedToHighestRatedAlbum() {
+        when(dao.loadAll(Album.class)).thenReturn(null);
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> ecmMiner.highestRatedAlbums(2));
+        assertEquals(exception.getMessage(),"Object is null.");
+    }
+
+    @Test
+    public void positiveBestSellingAlbums() throws MalformedURLException
+    {
+        album1.setSales(1000);
+        album2.setSales(400);
+        album3.setSales(999);
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3));
+        List<Album> albums = ecmMiner.bestSellingAlbums(1);
+        assertTrue(albums.contains(album1));
+        assertEquals(1,albums.size());
+    }
+
+    @DisplayName("Best selling albums returns albums with 0 size with invalid k value.")
+    @ParameterizedTest
+    @ValueSource(ints = {-100, 0})
+    public void bestSellingAlbumsWithInvalidK(int arg){
+        album1.setSales(1000);
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1));
+        List<Album> albums = ecmMiner.bestSellingAlbums(arg);
+        assertEquals(0,albums.size());
+    }
+
+
 
 }

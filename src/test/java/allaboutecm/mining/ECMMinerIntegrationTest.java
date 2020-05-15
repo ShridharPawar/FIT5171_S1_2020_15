@@ -2,10 +2,7 @@ package allaboutecm.mining;
 
 import allaboutecm.dataaccess.DAO;
 import allaboutecm.dataaccess.neo4j.Neo4jDAO;
-import allaboutecm.model.Album;
-import allaboutecm.model.MusicalInstrument;
-import allaboutecm.model.Musician;
-import allaboutecm.model.MusicianInstrument;
+import allaboutecm.model.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.*;
@@ -17,6 +14,8 @@ import org.neo4j.ogm.session.SessionFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +43,8 @@ class ECMMinerIntegrationTest {
     private Musician musician3;
     private Musician musician4;
     private Musician musician5;
+    private URL url1;
+    private URL url2;
 
     @BeforeAll
     public static void setUp() {
@@ -81,7 +82,7 @@ class ECMMinerIntegrationTest {
     }
 
     @BeforeEach
-    public void beforeEachSetUp() {
+    public void beforeEachSetUp() throws MalformedURLException {
         ecmMiner = new ECMMiner(dao);
         album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
         album2 = new Album(2016, "ECM 1064/66", "Meteora");
@@ -101,6 +102,8 @@ class ECMMinerIntegrationTest {
         album1.setFeaturedMusicians(Lists.newArrayList(musician1,musician2,musician3));
         album2.setFeaturedMusicians(Lists.newArrayList(musician1,musician2,musician4));
         album3.setFeaturedMusicians(Lists.newArrayList(musician5));
+        url1 = new URL("https://www.imdb.com/");
+        url2 = new URL("https://www.rottentomatoes.com/");
     }
 
     @Test
@@ -356,6 +359,18 @@ class ECMMinerIntegrationTest {
     public void whenNullIsPassedToSocialMusician() {
         List<Musician> musicians = ecmMiner.mostSocialMusicians(2);
         assertEquals(0, musicians.size());
+    }
+
+    @Test
+    public void positiveHighestRatedAlbums() throws MalformedURLException {
+        album1.setReviews(Sets.newHashSet(new Review(url1,98),new Review(url2,48)));
+        album2.setReviews(Sets.newHashSet(new Review(url1,98),new Review(url2,98)));
+        album3.setReviews(Sets.newHashSet(new Review(url2,99)));
+        dao.createOrUpdate(album1);
+        dao.createOrUpdate(album2);
+        dao.createOrUpdate(album3);
+        List<Album> albums = ecmMiner.highestRatedAlbums(1);
+        assertTrue(albums.contains(album3));
     }
 
 }

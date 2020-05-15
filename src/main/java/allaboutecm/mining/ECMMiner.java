@@ -1,10 +1,7 @@
 package allaboutecm.mining;
 
 import allaboutecm.dataaccess.DAO;
-import allaboutecm.model.Album;
-import allaboutecm.model.MusicalInstrument;
-import allaboutecm.model.Musician;
-import allaboutecm.model.MusicianInstrument;
+import allaboutecm.model.*;
 import com.google.common.collect.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -335,5 +332,90 @@ public class ECMMiner {
             }
         }
           return similarAlbums;
+    }
+
+    public List<Album> highestRatedAlbums(int k)
+    {
+        Collection<Album> albums = dao.loadAll(Album.class);
+        if(albums==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
+        Map<String, Double> albumMap = new HashMap<String, Double>();
+        for(Album a:albums)
+        {
+            double count = 0;
+            int totalReviews = 0;
+            for(Review r:a.getReviews())
+            {
+               count=count+r.getRating();
+               totalReviews++;
+            }
+           albumMap.put(a.getAlbumName(),(count/totalReviews));
+         }
+        List<Entry<String, Double>> list = new LinkedList<Entry<String, Double>>(albumMap.entrySet());
+        Collections.sort(list, new Comparator<Entry<String, Double>>()
+        {
+            public int compare(Entry<String, Double> i1, Entry<String, Double> i2)
+            {return i2.getValue().compareTo(i1.getValue());
+            }});
+
+        Map<String, Double> sortedMap = new LinkedHashMap<String, Double>();
+        for(Entry<String, Double> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        List<Album> results = new ArrayList<>();
+        for(String name: sortedMap.keySet())
+        {
+            for(Album a : albums)
+            {
+                if(a.getAlbumName().equals(name)&& !(k<=0))
+                {
+                    results.add(a);
+                    k--;
+                }
+            }
+        }
+
+        return results;
+    }
+
+    public List<Album> bestSellingAlbums(int k)
+    {
+        Collection<Album> albums = dao.loadAll(Album.class);
+        if(albums==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
+        Map<String, Integer> albumMap = new HashMap<String, Integer>();
+        for(Album a:albums)
+        {
+            albumMap.put(a.getAlbumName(),a.getSales());
+        }
+        List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(albumMap.entrySet());
+        Collections.sort(list, new Comparator<Entry<String, Integer>>()
+        {
+            public int compare(Entry<String, Integer> i1, Entry<String, Integer> i2)
+            {return i2.getValue().compareTo(i1.getValue());}});
+
+        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+        for(Entry<String, Integer> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        List<Album> results = new ArrayList<>();
+        for(String name: sortedMap.keySet())
+        {
+            for(Album a : albums)
+            {
+                if(a.getAlbumName().equals(name)&& !(k<=0))
+                {
+                    results.add(a);
+                    k--;
+                }
+            }
+        }
+        return results;
     }
 }
