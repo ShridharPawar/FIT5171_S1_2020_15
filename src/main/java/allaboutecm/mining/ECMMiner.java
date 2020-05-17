@@ -51,7 +51,6 @@ public class ECMMiner {
             nameMap.put(m.getName(), m);
         }
 
-
         ListMultimap<String, Album> multimap = MultimapBuilder.treeKeys().arrayListValues().build();
         ListMultimap<Integer, Musician> countMap = MultimapBuilder.treeKeys().arrayListValues().build();
 
@@ -334,6 +333,11 @@ public class ECMMiner {
           return similarAlbums;
     }
 
+    /**
+     * To return the album with the highest rate.
+     *
+     * @Param k the number of albums to be returned.
+     */
     public List<Album> highestRatedAlbums(int k)
     {
         Collection<Album> albums = dao.loadAll(Album.class);
@@ -381,6 +385,11 @@ public class ECMMiner {
         return results;
     }
 
+    /**
+     * To return the Album with the largest number of selling.
+     *
+     * @Param k the number of albums to be returned.
+     */
     public List<Album> bestSellingAlbums(int k)
     {
         Collection<Album> albums = dao.loadAll(Album.class);
@@ -419,6 +428,11 @@ public class ECMMiner {
         return results;
     }
 
+    /**
+     * To return the musician who held the largest number of concerts.
+     *
+     * @Param k the number of musicians to be returned.
+     */
     public List<Musician> mostPopularPerformer(int k)
     {
         Collection<Concert> concerts = dao.loadAll(Concert.class);

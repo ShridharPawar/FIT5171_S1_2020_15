@@ -58,6 +58,7 @@ public class Neo4jDAO implements DAO {
         session.delete(entity);
     }
 
+    // Search musician by their name
     @Override
     public Musician findMusicianByName(String name) {
         Filters filters = new Filters();
@@ -70,6 +71,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    // Search musical instrument by its name
     @Override
     public MusicalInstrument findMusicalInstrumentByName(String name)
     {
@@ -84,6 +86,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    // Search ablum by album names
     @Override
     public Album findAlbumByAlbumName(String albumName) {
         Filters filters = new Filters();
@@ -97,6 +100,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    // Search album by Record Number
     @Override
     public Album findAlbumByRecordNumber(String recordNumber) {
         Filters filters = new Filters();
@@ -110,6 +114,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    // Search album by Release Year
     @Override
     public Album findAlbumByReleaseYear(int releaseYear) {
         Filters filters = new Filters();
@@ -123,6 +128,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    // Search album by Genre
     @Override
     public Album findAlbumByGenre(String genre) {
         Filters filters = new Filters();
@@ -136,6 +142,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    // Search album by Style
     @Override
     public Album findAlbumByStyle(String style) {
         Filters filters = new Filters();
@@ -148,6 +155,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    // Search Track By Name
     @Override
     public Track findTrackByName(String name) {
         Filters filters = new Filters();
@@ -160,6 +168,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    // Search Concert By its Name
     @Override
     public Concert findConcertByName(String concertName) {
         Filters filters = new Filters();
@@ -172,6 +181,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    //Search Concert By Country
     @Override
     public Concert findConcertByCountry(String country) {
         Filters filters = new Filters();
@@ -184,6 +194,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
+    // Search Concert By City
     @Override
     public Concert findConcertByCity(String city) {
         Filters filters = new Filters();
@@ -196,7 +207,7 @@ public class Neo4jDAO implements DAO {
         }
     }
 
-
+    // Search existing entities, including Album, Musician, MusicalInstrument and MusicianInstrument
     private <T extends Entity> T findExistingEntity(Entity entity, Class clazz) {
         Filters filters = new Filters();
         Collection<? extends Entity> collection = Sets.newLinkedHashSet();

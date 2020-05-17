@@ -78,11 +78,17 @@ class Neo4jDAOUnitTest {
         }
     }
 
+    /**
+     * To Validate if there is data in dao.
+     */
     @Test
     public void daoIsNotEmpty() {
         assertNotNull(dao);
     }
 
+    /**
+     * To Validate if musician is created successfully.
+     */
     @Test
     public void successfulCreationAndLoadingOfMusician() throws IOException {
         assertEquals(0, dao.loadAll(Musician.class).size());
@@ -100,6 +106,9 @@ class Neo4jDAOUnitTest {
         assertEquals(1, dao.loadAll(Musician.class).size());
     }
 
+    /**
+     * To Validate if musician and their album are created successfully.
+     */
     @Test
     public void successfulCreationOfMusicianAndAlbum() throws IOException {
         assertEquals(0,dao.loadAll(Musician.class).size());
@@ -121,6 +130,9 @@ class Neo4jDAOUnitTest {
         assertEquals(musician.getAlbums(), loadedMusician.getAlbums());
     }
 
+    /**
+     * To Validate if musician and their webpage are created successfully.
+     */
     @Test
     public void successfulCreationOfMusicianAndWebPages() throws IOException{
         assertEquals(0,dao.loadAll(Musician.class).size());
@@ -140,6 +152,9 @@ class Neo4jDAOUnitTest {
         assertEquals(musician.getWebpages(), loadedMusician.getWebpages());
     }
 
+    /**
+     * To Validate if the album are created successfully.
+     */
     @Test
     public void successfulCreationAndLoadingOfAlbum(){
         assertEquals(0, dao.loadAll(Album.class).size());
@@ -154,6 +169,9 @@ class Neo4jDAOUnitTest {
         assertEquals(1, dao.loadAll(Album.class).size());
     }
 
+    /**
+     * To Validate if musician and their album are created successfully.
+     */
     @Test
     public void successfulCreationOfAlbumAndFeaturedMusicians() throws IOException{
         assertEquals(0,dao.loadAll(Musician.class).size());
@@ -173,6 +191,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album.getFeaturedMusicians(), loadedAlbum.getFeaturedMusicians());
     }
 
+    /**
+     * To Validate if album and their instrument are created successfully.
+     */
     @Test
     public void successfulCreationOfAlbumAndInstruments(){
         assertEquals(0,dao.loadAll(MusicianInstrument.class).size());
@@ -191,6 +212,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album.getInstruments(), loadedAlbum.getInstruments());
     }
 
+    /**
+     * To Validate if album and its track are created successfully.
+     */
     @Test
     public void successfulCreationOfAlbumAndTracks()
     {
@@ -208,6 +232,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album.getTracks(), loadedAlbum.getTracks());
     }
 
+    /**
+     * To Validate if album and it review are created successfully.
+     */
     @Test
     public void successfulCreationOfAlbumAndReviews() throws IOException
     {
@@ -226,6 +253,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album.getReviews(), loadedAlbum.getReviews());
     }
 
+    /**
+     * To Validate if album and its concerts are created successfully.
+     */
     @Test
     public void successfulCreationOfAlbumAndConcerts() throws IOException
     {
@@ -243,6 +273,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album.getConcerts(), loadedAlbum.getConcerts());
     }
 
+    /**
+     * To Validate if musicalInstrument are created successfully.
+     */
     @Test
     public void successfulCreationOfMusicianInstrument()
     {
@@ -261,7 +294,9 @@ class Neo4jDAOUnitTest {
         assertEquals(1,dao.loadAll(MusicianInstrument.class).size());
      }
 
-    //Validate if the musicalInstrument could be created and loaded successfully
+    /**
+     * To Validate if the musicalInstrument could be created and loaded successfully.
+     */
     @Test
     public void successfulCreationAndLoadingOfMusicalInstrument()
     {
@@ -279,7 +314,9 @@ class Neo4jDAOUnitTest {
         assertEquals(1, dao.loadAll(MusicalInstrument.class).size());
     }
 
-    //Validate if the Track could be created and loaded to database successfully
+    /**
+     * To Validate if the Track could be created and loaded to database successfully
+     */
     @Test
     public void successfulCreationAndLoadingOfTrack() {
         assertEquals(0,dao.loadAll(Track.class).size());
@@ -295,6 +332,9 @@ class Neo4jDAOUnitTest {
         assertEquals(1, dao.loadAll(Track.class).size());
     }
 
+    /**
+     * To Validate if the WebPage could be created and loaded to database successfully
+     */
     @Test
     public void successfulCreatingAndLoadingOfWebPage() throws IOException {
         assertEquals(0,dao.loadAll(Webpage.class).size());
@@ -308,6 +348,9 @@ class Neo4jDAOUnitTest {
         assertEquals(1, dao.loadAll(Webpage.class).size());
     }
 
+    /**
+     * To Validate if the Review could be created and loaded to database successfully
+     */
     @Test
     public void successfulCreationAndLoadingOfReview() throws IOException{
         assertEquals(0,dao.loadAll(Review.class).size());
@@ -319,6 +362,9 @@ class Neo4jDAOUnitTest {
         assertEquals(1, dao.loadAll(Review.class).size());
     }
 
+    /**
+     * To Validate if the Concert could be created and loaded to database successfully
+     */
     @Test
     public void successfulCreationAndLoadingOfConcert(){
         assertEquals(0,dao.loadAll(Concert.class).size());
@@ -329,6 +375,9 @@ class Neo4jDAOUnitTest {
         assertEquals(1, dao.loadAll(Concert.class).size());
     }
 
+    /**
+     * To Validate if the Concert and corresponding Musician could be created and loaded to database successfully
+     */
     @Test
     public void successfulCreationOfConcertAndMusician() throws IOException
     {
@@ -346,8 +395,8 @@ class Neo4jDAOUnitTest {
         assertEquals(concert.getMusicians(), loadedConcert.getMusicians());
     }
 
-    /*
-     Musician attribute could be updated
+    /**
+     * To Validate if the musician information could be updated to database successfully
      */
     @DisplayName("Musician attribute could be updated")
     @Test
@@ -361,6 +410,9 @@ class Neo4jDAOUnitTest {
         assertEquals(musician.getName(), loadMusician.getName());
     }
 
+    /**
+     * To Validate if the Album information could be updated to database successfully
+     */
     @DisplayName("Album attributes could be updated ")
     @Test
     public void updateAlbumInfo()
@@ -378,6 +430,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album.getRecordNumber(), loadedAlbum.getRecordNumber());
     }
 
+    /**
+     * To Validate if the Instrument infoamtion could be updated to database successfully
+     */
     @DisplayName("Musical Instrument attributes could be updated ")
     @Test
     public void updateMusicalInstrumentInfo()
@@ -391,7 +446,10 @@ class Neo4jDAOUnitTest {
         assertEquals(musicalInstrument.getName(), loadedAlInstrument.getName());
     }
 
-    @DisplayName("Musician Instrument attributes could be updated ")
+    /**
+     * To Validate if the Musician Instrumrnt could be created and loaded to database successfully
+     */
+    @DisplayName("Musician Instrument attributes could be updated")
     @Test
     public void updateMusicianInstrumentInfo()
     {
@@ -407,6 +465,9 @@ class Neo4jDAOUnitTest {
         assertEquals(musicianInstrument.getMusicalInstruments(), loadedInstrument.getMusicalInstruments());
     }
 
+    /**
+     * To Validate if the Review infoamtion could be updated to database successfully
+     */
     @DisplayName("Review attributes could be updated")
     @Test
     public void updateReviewInfo() throws IOException {
@@ -424,6 +485,9 @@ class Neo4jDAOUnitTest {
         assertEquals(review.getReview(), loadedReview.getReview());
     }
 
+    /**
+     * To Validate if the Track infoamtion could be updated to database successfully
+     */
     @DisplayName("Track attributes could be updated")
     @Test
     public void updateTrackInfo()
@@ -440,6 +504,9 @@ class Neo4jDAOUnitTest {
         assertEquals(track.getLengthInMinutes(), loadedTrack.getLengthInMinutes());
     }
 
+    /**
+     * To Validate if the Page URL infoamtion could be updated to database successfully
+     */
     @DisplayName("Web Page URL could be updated ")
     @Test
     public void updateWebPageInfo() throws IOException {
@@ -453,6 +520,9 @@ class Neo4jDAOUnitTest {
         assertEquals(webpage.getUrl(), loadedWebPage.getUrl());
     }
 
+    /**
+     * To Validate if the Concert infoamtion could be updated to database successfully
+     */
     @DisplayName("Concert attributes could be updated")
     @Test
     public void updateConcertInfo()
@@ -466,8 +536,9 @@ class Neo4jDAOUnitTest {
         assertEquals(concert.getCity(), loadedConcert.getCity());
     }
 
-    /*
-     Testing deleting musician would not delete the album together
+    /**
+     * To Validate if the musician could be deleted without their
+     * album removal from database successfully
      */
     @Test
     public void deletingMusicianWithoutAlbum() throws IOException {
@@ -490,7 +561,9 @@ class Neo4jDAOUnitTest {
         assertNotNull(dao.load(Album.class, album.getId()));
     }
 
-    //Validate if MusicalInstrument is removed successfully
+    /**
+     * To Validate if the musicalInstrument could be deleted from database successfully
+     */
     @Test
     public void deleteMusicalInstrument() throws IOException {
         MusicalInstrument musicalInstrument = new MusicalInstrument("Mozart");
@@ -504,6 +577,9 @@ class Neo4jDAOUnitTest {
         assertNull(dao.load(MusicalInstrument.class, musicalInstrument.getId()));
     }
 
+    /**
+     * To Validate if the musicianInstrument could be deleted from database successfully
+     */
     @Test
     public void deleteMusicianInstrument() throws IOException {
         Musician musician = new Musician("Mozart");
@@ -523,8 +599,8 @@ class Neo4jDAOUnitTest {
 
     }
 
-    /*
-    Deleting the created album would be successful
+    /**
+     * To Validate if the album could be deleted from database successfully
      */
     @DisplayName("Deleting created Album would be successful")
     @Test
@@ -539,8 +615,8 @@ class Neo4jDAOUnitTest {
         assertNull(dao.load(Album.class, album.getId()));
     }
 
-    /*
-    Deleting the created track would be successful
+    /**
+     * To Validate if created Track could be deleted from database successfully
      */
     @DisplayName("Deleting created track successfully")
     @Test
@@ -556,8 +632,8 @@ class Neo4jDAOUnitTest {
 
     }
 
-    /*
-    Deleting the created web page would be successful
+    /**
+     * To Validate if created Webpage could be deleted from database successfully
      */
     @DisplayName("Deleting created web page successfully")
     @Test
@@ -573,6 +649,9 @@ class Neo4jDAOUnitTest {
         assertEquals(0,dao.loadAll(Webpage.class).size());
     }
 
+    /**
+     * To Validate if created Review could be deleted from database successfully
+     */
     @DisplayName("Validate if the Review could be deleted successfully")
     @Test
     public void successfullyDeleteReview() throws IOException {
@@ -588,9 +667,9 @@ class Neo4jDAOUnitTest {
         assertEquals(0,dao.loadAll(Review.class).size());
     }
 
-    /*
-     Deleting the created concert would be successful
-    */
+    /**
+     * To Validate if created Concert could be deleted from database successfully
+     */
     @DisplayName("Deleting created concert successfully.")
     @Test
     public void successfullyDeleteConcert()
@@ -602,6 +681,9 @@ class Neo4jDAOUnitTest {
         assertNull(dao.load(Concert.class, concert.getId()));
     }
 
+    /**
+     * To Validate if created Musician could be queried by name from database.
+     */
     @Test
     public void searchMusicianByName()
     {
@@ -613,7 +695,9 @@ class Neo4jDAOUnitTest {
         assertEquals(musician, foundMusician);
     }
 
-    // Validate if instrument could be searched by its name
+    /**
+     * To Validate if created MusicalInstrument could be queried by name from database.
+     */
     @Test
     public void searchMusicalInstrumentByName(){
         MusicalInstrument musicalInstrument = new MusicalInstrument("Piano");
@@ -624,6 +708,9 @@ class Neo4jDAOUnitTest {
         assertEquals(musicalInstrument, findMusicalInstrument);
     }
 
+    /**
+     * To Validate if created Album could be queried by name from database.
+     */
     @Test
     public void searchAlbumByAlbumName() {
         Album album = new Album(1975,"ECM 1064/65", "The Köln Concert");
@@ -636,6 +723,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album, findAlbum);
     }
 
+    /**
+     * To Validate if created Album could be queried by its release year from database.
+     */
     @Test
     public void searchAlbumByReleaseYear() {
         Album album = new Album(1985,"ECM 1064/65", "The Köln Concert");
@@ -646,6 +736,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album, findAlbum);
     }
 
+    /**
+     * To Validate if created Album could be queried by its genre from database.
+     */
     @Test
     public void searchAlbumByGenre() {
         Album album = new Album(1995,"ECM 1064/65", "The Köln Concert");
@@ -656,6 +749,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album, findAlbum);
     }
 
+    /**
+     * To Validate if created Album could be queried by its record number from database.
+     */
     @Test
     public void searchAlbumByRecordNumber() {
         Album album = new Album(1995,"ECM 1064/65", "The Köln Concert");
@@ -666,6 +762,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album, findAlbum);
     }
 
+    /**
+     * To Validate if created Album could be queried by its style from database.
+     */
     @Test
     public void searchAlbumByStyle() {
         Album album = new Album(1990,"ECM 1064/65", "The Köln Concert");
@@ -676,6 +775,9 @@ class Neo4jDAOUnitTest {
         assertEquals(album, findAlbum);
     }
 
+    /**
+     * To Validate if created Track could be queried by its name from database.
+     */
     @Test
     public void searchTrackByName() {
         Track track = new Track("Yesterday Once More",5.29);
@@ -686,6 +788,9 @@ class Neo4jDAOUnitTest {
         assertEquals(track, findTrack);
     }
 
+    /**
+     * To Validate if created Concert could be queried by its name from database.
+     */
     @Test
     public void searchConcertByName() {
         Concert concert = new Concert("Tokyo Festival","Japan");
@@ -694,6 +799,9 @@ class Neo4jDAOUnitTest {
         assertEquals(concert, findConcert);
     }
 
+    /**
+     * To Validate if created Concert could be queried by its country from database.
+     */
     @Test
     public void searchConcertByCountry() {
         Concert concert = new Concert("Tokyo Festival","Japan");
@@ -702,6 +810,9 @@ class Neo4jDAOUnitTest {
         assertEquals(concert, findConcert);
     }
 
+    /**
+     * To Validate if created Concert could be queried by its city from database.
+     */
     @Test
     public void searchConcertByCity() {
         Concert concert = new Concert("Tokyo Festival","Japan");
@@ -711,9 +822,9 @@ class Neo4jDAOUnitTest {
         assertEquals(concert, findConcert);
     }
 
-    /*
-    Testing saving musician process with same values could only saved once -- SM
-    */
+    /**
+     * To Validate if the same musician is saved once in database.
+     */
     @DisplayName("Same musician could only be one data in database")
     @Test
     public void SameMusiciansWouldSaveOnce() throws IOException
@@ -733,6 +844,9 @@ class Neo4jDAOUnitTest {
         assertEquals(mu1.getName(), musicians.iterator().next().getName());
     }
 
+    /**
+     * To Validate if the same Musical instrument is saved once in database.
+     */
     @DisplayName("Same instrument can be dispalyed only once")
     @Test
     public void SameMusicalInstrumentWouldSaveOnce() throws IOException
@@ -749,6 +863,9 @@ class Neo4jDAOUnitTest {
         assertEquals(mi1.getName(), musicalInstruments.iterator().next().getName());
     }
 
+    /**
+     * To Validate if the same album is saved once in database.
+     */
     @DisplayName("Same album could be saved only once")
     @Test
     public void sameAlbumWouldSaveOnce()
@@ -766,8 +883,8 @@ class Neo4jDAOUnitTest {
         assertEquals(a1.getRecordNumber(), albums.iterator().next().getRecordNumber());
     }
 
-    /*
-     Testing multiple musicians data could be uploaded at a time
+    /**
+     * To Validate if multiple musicians are saved at a time.
      */
     @DisplayName("Multiple musicians could be created in database once")
     @Test
@@ -795,7 +912,9 @@ class Neo4jDAOUnitTest {
         }
     }
 
-    // Validate if more than one instruments could be saved at a time
+    /**
+     * To Validate if multiple instruments are saved at a time.
+     */
     @Test
     public void saveMultipleInstrumentAtATime() {
         HashSet<MusicalInstrument> musicalInstrumentSet = Sets.newHashSet(
