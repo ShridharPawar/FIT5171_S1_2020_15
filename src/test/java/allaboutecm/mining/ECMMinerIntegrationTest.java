@@ -106,6 +106,9 @@ class ECMMinerIntegrationTest {
         url2 = new URL("https://www.rottentomatoes.com/");
     }
 
+    /**
+     * To Validate if if can pass test when the positive year is given.
+     */
     @Test
     public void positiveBusiestYear()
     {
@@ -119,6 +122,9 @@ class ECMMinerIntegrationTest {
         assertEquals(years,expectedYears);
     }
 
+    /**
+     * To Validate if can return busiest year when there is only one year.
+     */
     @Test
     public void shouldReturnTheBusiestYearWhenOnlyOne()
     {
@@ -128,6 +134,9 @@ class ECMMinerIntegrationTest {
         assertTrue(years.contains(album1.getReleaseYear()));
     }
 
+    /**
+     * To Validate if there will be return when no album is created.
+     */
     @Test
     public void busiestYearWhenNoAlbumIsCreated()
     {
@@ -135,6 +144,9 @@ class ECMMinerIntegrationTest {
         assertEquals(0,years.size());
     }
 
+    /**
+     * To Validate if it can pass when there is 0 or minus numbers are given.
+     */
     @ParameterizedTest
     @ValueSource(ints = {0,-100})
     public void busiestYearWhenNegativeOrZeroParameterPassed(int arg)
@@ -144,6 +156,9 @@ class ECMMinerIntegrationTest {
         assertEquals(years.size(),0);
     }
 
+    /**
+     * To Validate if positive number of most similar album can pass test.
+     */
     @Test
     public void positiveMostSimilarAlbums()
     {
@@ -165,6 +180,9 @@ class ECMMinerIntegrationTest {
         assertEquals(albums.size(),2);
     }
 
+    /**
+     * To Validate if will return 0 when there is no similar ablum.
+     */
     @DisplayName("Return 0 when albums are unique.")
     @Test
     public void shouldReturnSizeZeroWhenThereIsNoSimilarAlbum()
@@ -179,6 +197,9 @@ class ECMMinerIntegrationTest {
         assertEquals(albums.size(),0);
     }
 
+    /**
+     * To Validate if will return most similar when there is only one ablum.
+     */
     @DisplayName("Most similar album return one when there is only one existing musician")
     @Test
     public void shouldReturnTheMostSimilarAlbumWhenThereIsOnlyOne()
@@ -194,6 +215,9 @@ class ECMMinerIntegrationTest {
         assertEquals(albums.size(),1);
     }
 
+    /**
+     * To Validate what method will return when there is no ablum existed.
+     */
     @Test
     public void whenNoAlbumExistsForAlbumSimilarity()
     {
@@ -204,6 +228,9 @@ class ECMMinerIntegrationTest {
         assertEquals(0,albums.size());
     }
 
+    /**
+     * To Validate if what method will return when 0 or minus numbers are given.
+     */
     @DisplayName("Most similar album with invalid k value")
     @ParameterizedTest
     @ValueSource(ints = {0,-100})
@@ -218,6 +245,9 @@ class ECMMinerIntegrationTest {
         assertEquals(0, albums.size());
     }
 
+    /**
+     * To Validate if it can pass test when positive number of prolific musician is given.
+     */
     @Test
     public void positiveProlificMusician()
     {
@@ -229,6 +259,9 @@ class ECMMinerIntegrationTest {
         assertTrue(musicians.equals(Lists.newArrayList(musician1,musician2)));
     }
 
+    /**
+     * To Validate what method will return when invalid K is given.
+     */
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
     public void mostProlificMusicianReturnEmptyWithInvalidK(int arg)
@@ -239,12 +272,19 @@ class ECMMinerIntegrationTest {
         assertEquals(0, musicians.size());
     }
 
+    /**
+     * To Validate what method will return when no musician is created.
+     */
     @Test
     public void whenNoMusicianIsCreatedForProlific() {
         List<Musician> musicians = ecmMiner.mostProlificMusicians(3, 1960, 2010);
         assertEquals(0, musicians.size());
     }
 
+    /**
+     * To Validate what method will return for prolific musician when there is
+     * only one musician.
+     */
     @Test
     public void shouldReturnTheProlificMusicianWhenThereIsOnlyOne()
     {
@@ -255,6 +295,9 @@ class ECMMinerIntegrationTest {
         assertTrue(musicians.contains(musician1));
     }
 
+    /**
+     * To Validate if method will return empty list when Invalid Start and EndYears are given.
+     */
     @Test
     public void mostProlificMusicianReturnEmptyListWithInvalidStartAndEndYears()
     {
@@ -264,6 +307,9 @@ class ECMMinerIntegrationTest {
         assertEquals(0, musicians.size());
     }
 
+    /**
+     * To Validate if it can pass test when positive number of Talented musician is given.
+     */
     @DisplayName("positive test for most Talented musician.")
     @Test
     public void positiveMostTalentedMusician()
@@ -285,6 +331,9 @@ class ECMMinerIntegrationTest {
         assertTrue(musicians.equals(Lists.newArrayList(musician1)));
     }
 
+    /**
+     * To Validate if will one musician when there is only one musician.
+     */
     @DisplayName("Return one musician when there is only one existing")
     @Test
     public void shouldReturnTheTalentedMusicianWhenThereIsOnlyOne()
@@ -298,6 +347,9 @@ class ECMMinerIntegrationTest {
         assertTrue(musicians.equals(Lists.newArrayList(musician3)));
     }
 
+    /**
+     * To Validate if will method will return when there are no value for musician and their  instrument.
+     */
     @DisplayName("Testing while there is no value in musician and musician instrument")
     @Test
     public void whenNoMusicianOrMusicianInstrumentCreatedForTalented()
@@ -307,7 +359,7 @@ class ECMMinerIntegrationTest {
      }
 
     /**
-     *Most Talented Musician Test cases
+     * To Validate what method will return for most talented musician when there is invalid K.
      */
     @DisplayName("Invalid k for most talented musicians would return with size 0.")
     @ParameterizedTest
@@ -322,6 +374,9 @@ class ECMMinerIntegrationTest {
         assertEquals(0, musicians.size());
     }
 
+    /**
+     * To Validate if it can pass test when positive number of Social musician is given.
+     */
     @DisplayName("Positive test for most social musicians")
     @Test
     public void positiveMostSocialMusicians()
@@ -334,6 +389,9 @@ class ECMMinerIntegrationTest {
         assertEquals(2, musicians.size());
     }
 
+    /**
+     * To Validate if it can return 0 size for most social musician when invalid k is given.
+     */
     @DisplayName("Most social musician return musician with 0 size with invalid k value")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -344,6 +402,9 @@ class ECMMinerIntegrationTest {
         assertEquals(0, musicians.size());
     }
 
+    /**
+     * To Validate if method will return most social musician when where is no one musician.
+     */
     @DisplayName("Most social musician return one when there is only one existing musician and k exceeds the total number")
     @Test
     public void shouldReturnTheSocialMusicianWhenThereIsOnlyOne()
@@ -354,6 +415,9 @@ class ECMMinerIntegrationTest {
         assertEquals(1, musicians.size());
     }
 
+    /**
+     * To Validate if it can pass test when there is null for musician and album.
+     */
     @DisplayName("Testing while there is no value in musician and album.")
     @Test
     public void whenNullIsPassedToSocialMusician() {
@@ -361,6 +425,9 @@ class ECMMinerIntegrationTest {
         assertEquals(0, musicians.size());
     }
 
+    /**
+     * To Validate if it can pass test when positive number of highest rate is given.
+     */
     @Test
     public void positiveHighestRatedAlbums() throws MalformedURLException {
         album1.setReviews(Sets.newHashSet(new Review(url1,98),new Review(url2,48)));
@@ -373,6 +440,9 @@ class ECMMinerIntegrationTest {
         assertTrue(albums.contains(album3));
     }
 
+    /**
+     * To Validate if method will return o when invalid k is given.
+     */
     @DisplayName("Highest rated album returns albums with 0 size with invalid k value.")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -385,6 +455,10 @@ class ECMMinerIntegrationTest {
         assertEquals(0, albums.size());
     }
 
+    /**
+     * To Validate if it will return highest rated album when there is only one existing album
+     * and k exceeds the total number.
+     */
     @DisplayName("Highest rated album returned when there is only one existing album and k exceeds the total number.")
     @Test
     public void shouldReturnTheHighestRatedAlbumWhenThereIsOnlyOne()
@@ -396,6 +470,9 @@ class ECMMinerIntegrationTest {
         assertTrue(albums.contains(album1));
     }
 
+    /**
+     * To Validate if method will return for highest rated album when no value is given.
+     */
     @DisplayName("Testing while there is nothing in Album.")
     @Test
     public void whenNoValueOfAlbumIsPassedToHighestRatedAlbum() {
@@ -403,6 +480,9 @@ class ECMMinerIntegrationTest {
         assertEquals(albums.size(),0);
     }
 
+    /**
+     * To Validate if it can pass test when positive number of best Selling album is given.
+     */
     @Test
     public void positiveBestSellingAlbums() throws MalformedURLException
     {
@@ -415,6 +495,9 @@ class ECMMinerIntegrationTest {
         assertEquals(1,albums.size());
     }
 
+    /**
+     * To Validate if best selling album will return 0 album when invalid K is given.
+     */
     @DisplayName("Best selling albums returns albums with 0 size with invalid k value.")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -425,6 +508,10 @@ class ECMMinerIntegrationTest {
         assertEquals(0,albums.size());
     }
 
+    /**
+     * To Validate whay method will return for highest selling ablum when
+     * there is only one ablum.
+     */
     @DisplayName("Highest selling album returned when there is only one existing album and k exceeds the total number.")
     @Test
     public void shouldReturnTheHighestSellingAlbumWhenThereIsOnlyOne()
@@ -436,6 +523,9 @@ class ECMMinerIntegrationTest {
         assertTrue(albums.contains(album1));
     }
 
+    /**
+     * To Validate if it can pass test when null value is given.
+     */
     @DisplayName("Testing while there is null value in Album.")
     @Test
     public void whenNullIsPassedToHighestSellingAlbum() {
@@ -443,6 +533,10 @@ class ECMMinerIntegrationTest {
         assertEquals(albums.size(),0);
     }
 
+    /**
+     * To Validate if it can pass test when positive number of
+     * most popular musician is given.
+     */
     @Test
     public void positiveMostPopularPerformer()
     {
@@ -457,6 +551,9 @@ class ECMMinerIntegrationTest {
         assertEquals(1,musicians.size());
     }
 
+    /**
+     * To Validate if it will return most popular musician when invalid K is given.
+     */
     @DisplayName("Most popular musicians return musicians with 0 size with invalid k value.")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -468,6 +565,9 @@ class ECMMinerIntegrationTest {
         assertEquals(0,musicians.size());
     }
 
+    /**
+     * To Validate if it can return most popular performer when there is no musician given.
+     */
     @DisplayName("Most popular performer returned when there is only one existing musician and k exceeds the total number.")
     @Test
     public void shouldReturnTheMostPopularPerformerWhenThereIsOnlyOne()

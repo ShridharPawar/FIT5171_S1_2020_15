@@ -46,6 +46,7 @@ class ECMMinerUnitTest {
     private URL url1;
     private URL url2;
 
+    // Build up testing environment with objects creation and values initialization
     @BeforeEach
     public void setUp() throws MalformedURLException {
         dao = mock(Neo4jDAO.class);
@@ -78,9 +79,8 @@ class ECMMinerUnitTest {
     }
 
     /**
-     * Most prolific musician test cases
+     * To Validate if it can pass test when positive number of prolific musician is given.
      */
-
     @Test
     public void positiveProlificMusician()
     {
@@ -90,6 +90,11 @@ class ECMMinerUnitTest {
         assertTrue(musicians.equals(Lists.newArrayList(musician1,musician2)));
     }
 
+    /**
+     * To Validate what method will return when invalid K is given.
+     * @param arg
+     * 
+     */
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
     public void mostProlificMusicianReturnEmptyWithInvalidK(int arg)
@@ -102,6 +107,9 @@ class ECMMinerUnitTest {
         assertEquals(0, musicians.size());
     }
 
+    /**
+     * To Validate what it will return for Porlific when null value is given.
+     */
     @Test
     public void nullIsPassedToProlific() {
         when(dao.loadAll(Musician.class)).thenReturn(null);
@@ -109,7 +117,10 @@ class ECMMinerUnitTest {
         assertEquals(exception.getMessage(),"Object is null.");
     }
 
-
+    /**
+     * To Validate what method will return for prolific musician when there is
+     * only one musician.
+     */
     @Test
     public void shouldReturnTheProlificMusicianWhenThereIsOnlyOne()
     {
@@ -120,6 +131,9 @@ class ECMMinerUnitTest {
         assertTrue(musicians.contains(musician1));
     }
 
+    /**
+     * To Validate if method will return empty list when Invalid Start and EndYears are given.
+     */
     @Test
     public void mostProlificMusicianReturnEmptyListWithInvalidStartAndEndYears()
     {
@@ -132,7 +146,7 @@ class ECMMinerUnitTest {
     }
 
     /**
-     * Busiest year test cases
+     * To Validate if if can pass test when the positive year is given.
      */
     @DisplayName("Positive test for busiest year")
     @Test
@@ -144,6 +158,9 @@ class ECMMinerUnitTest {
         assertEquals(years,expectedYears);
     }
 
+    /**
+     * To Validate if if can return busiest year when there is only one year.
+     */
     @DisplayName("Returned busiest year would be the number of existing albums when k over it")
     @Test
     public void shouldReturnTheBusiestYearWhenOnlyOne()
@@ -154,6 +171,9 @@ class ECMMinerUnitTest {
         assertTrue(years.contains(album1.getReleaseYear()));
     }
 
+    /**
+     * To Validate if it wlll return busiest year when null value is given.
+     */
     @DisplayName("Returned null busiest year while there is no album existing")
     @Test
     public void busiestYearWhenNullPassed()
@@ -163,6 +183,11 @@ class ECMMinerUnitTest {
         assertEquals(exception.getMessage(),"Object is null.");
     }
 
+    /**
+     * To Validate if it can pass when there is 0 or minus numbers are given.
+     * @param arg
+     *
+     */
     @DisplayName("Invalid k would return null busiest years collection")
     @ParameterizedTest
     @ValueSource(ints = {0, -100})
@@ -174,7 +199,7 @@ class ECMMinerUnitTest {
     }
 
     /**
-     *Most Talented Musician Test cases
+     * To Validate if it can pass test when positive number of Talented musician is given.
      */
     @DisplayName("positive test for most Talented musician.")
     @Test
@@ -188,6 +213,9 @@ class ECMMinerUnitTest {
         assertTrue(musicians.equals(Lists.newArrayList(musician1)));
     }
 
+    /**
+     * To Validate if will one musician when there is only one musician.
+     */
     @DisplayName("Return one musician when there is only one existing")
     @Test
     public void shouldReturnTheTalentedMusicianWhenThereIsOnlyOne()
@@ -199,6 +227,9 @@ class ECMMinerUnitTest {
         assertTrue(musicians.equals(Lists.newArrayList(musician3)));
     }
 
+    /**
+     * To Validate if will pass the test when null value is given.
+     */
     @DisplayName("Testing while there is null value in musician and musician instrument")
     @Test
     public void whenNullIsPassedToTalented()
@@ -209,6 +240,11 @@ class ECMMinerUnitTest {
         assertEquals(exception.getMessage(),"Object is null.");
     }
 
+    /**
+     * To Validate what method will return for most talented musician when
+     * there is invalid K.
+     * @param arg
+     */
     @DisplayName("Invalid k for most talented musicians would return null")
     @ParameterizedTest
     @ValueSource(ints = {0, -1, -100})
@@ -221,7 +257,7 @@ class ECMMinerUnitTest {
     }
 
     /**
-     *Most Social Musician Test cases
+     * To Validate if it can pass test when positive number of Social musician is given.
      */
     @DisplayName("Positive test for most social musicians")
     @Test
@@ -234,6 +270,11 @@ class ECMMinerUnitTest {
         assertEquals(2, musicians.size());
      }
 
+    /**
+     * To Validate if it can return 0 size for most social musician when invalid k is given.
+     * @param arg
+     *
+     */
      @DisplayName("Most social musician return musician with 0 size with invalid k value")
      @ParameterizedTest
      @ValueSource(ints = {-100, 0})
@@ -244,6 +285,9 @@ class ECMMinerUnitTest {
          assertEquals(0, musicians.size());
      }
 
+    /**
+     * To Validate if method will return most social musician when where is no one musician.
+     */
     @DisplayName("Most social musician return one when there is only one existing musician and k exceeds the total number")
     @Test
     public void shouldReturnTheSocialMusicianWhenThereIsOnlyOne()
@@ -254,6 +298,9 @@ class ECMMinerUnitTest {
         assertEquals(1, musicians.size());
     }
 
+    /**
+     * To Validate if it can pass test when there is null for musician and album.
+     */
     @DisplayName("Testing while there is null value in musician.")
     @Test
     public void whenNullIsPassedToSocialMusician() {
@@ -263,7 +310,7 @@ class ECMMinerUnitTest {
     }
 
     /**
-     *Most Similar Albums Test cases
+     * To Validate if positive number of most similar album can pass test.
      */
      @Test
      public void positiveMostSimilarAlbums()
@@ -284,6 +331,9 @@ class ECMMinerUnitTest {
          assertEquals(albums.size(),2);
       }
 
+    /**
+     * To Validate if will return 0 when there is no similar ablum.
+     */
     @DisplayName("Return 0 when albums are unique.")
     @Test
     public void shouldReturnSizeZeroWhenThereIsNoSimilarAlbum()
@@ -298,6 +348,9 @@ class ECMMinerUnitTest {
         assertEquals(albums.size(),0);
     }
 
+    /**
+     * To Validate if will return most similar when there is only one ablum.
+     */
     @DisplayName("Most similar album return one when there is only one existing musician")
     @Test
     public void shouldReturnTheMostSimilarAlbumWhenThereIsOnlyOne()
@@ -313,6 +366,9 @@ class ECMMinerUnitTest {
         assertEquals(albums.size(),1);
     }
 
+    /**
+     * To Validate if will return most similar when null value is given.
+     */
     @DisplayName("Testing while there is null value in album")
     @Test
     public void whenNullIsPassedToMostSimilarAlbums() {
@@ -324,6 +380,11 @@ class ECMMinerUnitTest {
         assertEquals(exception.getMessage(),"Object is null.");
     }
 
+    /**
+     * To Validate if what method will return when 0 or minus numbers are given.
+     * @param arg
+     *
+     */
     @DisplayName("Most similar album with invalid k value")
     @ParameterizedTest
     @ValueSource(ints = {0,-100})
@@ -339,7 +400,7 @@ class ECMMinerUnitTest {
     }
 
     /**
-     *Highest Rated Albums Test cases
+     * To Validate if it can pass test when positive number of highest rate is given.
      */
     @Test
     public void positiveHighestRatedAlbums() throws MalformedURLException
@@ -353,6 +414,10 @@ class ECMMinerUnitTest {
         assertTrue(albums.contains(album2));
     }
 
+    /**
+     * To Validate if method will return o when invalid k is given.
+     * @param arg
+     */
     @DisplayName("Highest rated album returns albums with 0 size with invalid k value.")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -364,6 +429,10 @@ class ECMMinerUnitTest {
         assertEquals(0, albums.size());
     }
 
+    /**
+     * To Validate if it will return highest rated album when there is only one existing album
+     * and k exceeds the total number.
+     */
     @DisplayName("Highest rated album returned when there is only one existing album and k exceeds the total number.")
     @Test
     public void shouldReturnTheHighestRatedAlbumWhenThereIsOnlyOne()
@@ -375,6 +444,9 @@ class ECMMinerUnitTest {
         assertTrue(albums.contains(album1));
     }
 
+    /**
+     * To Validate if method will return for highest rated album when null value is given.
+     */
     @DisplayName("Testing while there is null value in Album.")
     @Test
     public void whenNullIsPassedToHighestRatedAlbum() {
@@ -384,7 +456,7 @@ class ECMMinerUnitTest {
     }
 
     /**
-     *Best Selling Albums Test cases
+     * To Validate if it can pass test when positive number of best Selling album is given.
      */
     @Test
     public void positiveBestSellingAlbums() throws MalformedURLException
@@ -398,6 +470,11 @@ class ECMMinerUnitTest {
         assertEquals(1,albums.size());
     }
 
+    /**
+     * To Validate if best selling album will return 0 album when invalid K is given.
+     * @param arg
+     *
+     */
     @DisplayName("Best selling albums returns albums with 0 size with invalid k value.")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -408,6 +485,10 @@ class ECMMinerUnitTest {
         assertEquals(0,albums.size());
     }
 
+    /**
+     * To Validate whay method will return for highest selling ablum when
+     * there is only one ablum.
+     */
     @DisplayName("Highest selling album returned when there is only one existing album and k exceeds the total number.")
     @Test
     public void shouldReturnTheHighestSellingAlbumWhenThereIsOnlyOne()
@@ -419,6 +500,9 @@ class ECMMinerUnitTest {
         assertTrue(albums.contains(album1));
     }
 
+    /**
+     * To Validate if it can pass test when null value is given to Highest Selling Album.
+     */
     @DisplayName("Testing while there is null value in Album.")
     @Test
     public void whenNullIsPassedToHighestSellingAlbum() {
@@ -427,6 +511,10 @@ class ECMMinerUnitTest {
         assertEquals(exception.getMessage(),"Object is null.");
     }
 
+    /**
+     * To Validate if it can pass test when positive number of
+     * most popular musician is given.
+     */
     @Test
     public void positiveMostPopularPerformer()
     {
@@ -441,6 +529,11 @@ class ECMMinerUnitTest {
         assertEquals(1,musicians.size());
     }
 
+    /**
+     * To Validate if it will return most popular musician when invalid K is given.
+     * @param arg
+     *
+     */
     @DisplayName("Most popular musicians return musicians with 0 size with invalid k value.")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -453,6 +546,9 @@ class ECMMinerUnitTest {
         assertEquals(0,musicians.size());
     }
 
+    /**
+     * To Validate if it can return most popular performer when there is no musician given.
+     */
     @DisplayName("Most popular performer returned when there is only one existing musician and k exceeds the total number.")
     @Test
     public void shouldReturnTheMostPopularPerformerWhenThereIsOnlyOne()
@@ -466,6 +562,9 @@ class ECMMinerUnitTest {
         assertTrue(musicians.contains(musician1));
     }
 
+    /**
+     * To Validate if it can pass test when null value is given to Most Popular Performer.
+     */
     @DisplayName("Testing while there is null value in Musician.")
     @Test
     public void whenNullIsPassedToMostPopularPerformer() {
