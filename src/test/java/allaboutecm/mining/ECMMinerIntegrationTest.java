@@ -509,8 +509,8 @@ class ECMMinerIntegrationTest {
     }
 
     /**
-     * To Validate whay method will return for highest selling ablum when
-     * there is only one ablum.
+     * To validate method will return for highest selling album when
+     * there is only one album.
      */
     @DisplayName("Highest selling album returned when there is only one existing album and k exceeds the total number.")
     @Test

@@ -92,8 +92,6 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate what method will return when invalid K is given.
-     * @param arg
-     * 
      */
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -185,8 +183,6 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate if it can pass when there is 0 or minus numbers are given.
-     * @param arg
-     *
      */
     @DisplayName("Invalid k would return null busiest years collection")
     @ParameterizedTest
@@ -243,7 +239,6 @@ class ECMMinerUnitTest {
     /**
      * To Validate what method will return for most talented musician when
      * there is invalid K.
-     * @param arg
      */
     @DisplayName("Invalid k for most talented musicians would return null")
     @ParameterizedTest
@@ -272,8 +267,6 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate if it can return 0 size for most social musician when invalid k is given.
-     * @param arg
-     *
      */
      @DisplayName("Most social musician return musician with 0 size with invalid k value")
      @ParameterizedTest
@@ -382,8 +375,6 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate if what method will return when 0 or minus numbers are given.
-     * @param arg
-     *
      */
     @DisplayName("Most similar album with invalid k value")
     @ParameterizedTest
@@ -416,7 +407,6 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate if method will return o when invalid k is given.
-     * @param arg
      */
     @DisplayName("Highest rated album returns albums with 0 size with invalid k value.")
     @ParameterizedTest
@@ -472,8 +462,6 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate if best selling album will return 0 album when invalid K is given.
-     * @param arg
-     *
      */
     @DisplayName("Best selling albums returns albums with 0 size with invalid k value.")
     @ParameterizedTest
@@ -486,8 +474,8 @@ class ECMMinerUnitTest {
     }
 
     /**
-     * To Validate whay method will return for highest selling ablum when
-     * there is only one ablum.
+     * To validate method will return for highest selling album when
+     * there is only one album.
      */
     @DisplayName("Highest selling album returned when there is only one existing album and k exceeds the total number.")
     @Test
@@ -531,10 +519,8 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate if it will return most popular musician when invalid K is given.
-     * @param arg
-     *
      */
-    @DisplayName("Most popular musicians return musicians with 0 size with invalid k value.")
+    @DisplayName("Most popular performer return 0 size with invalid k value.")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
     public void postPopularPerformerWithInvalidK(int arg){
@@ -565,7 +551,7 @@ class ECMMinerUnitTest {
     /**
      * To Validate if it can pass test when null value is given to Most Popular Performer.
      */
-    @DisplayName("Testing while there is null value in Musician.")
+    @DisplayName("Testing while there is null value in performer.")
     @Test
     public void whenNullIsPassedToMostPopularPerformer() {
         when(dao.loadAll(Musician.class)).thenReturn(null);
