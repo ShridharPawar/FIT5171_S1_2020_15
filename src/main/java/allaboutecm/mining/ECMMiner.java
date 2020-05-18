@@ -20,7 +20,7 @@ import static allaboutecm.model.MusicalInstrument.*;
 
 /**
  * TODO: implement and test the methods in this class.
- * Note that you can extend the Neo4jDAO class to make implementing this class easier.
+ * Note that you can extend the Neo4jDAO class to make implementation of this class easier.
  */
 public class ECMMiner {
     private static Logger logger = LoggerFactory.getLogger(ECMMiner.class);
