@@ -69,6 +69,9 @@ public class Album extends Entity {
     @Property(name="sales")
     private int sales;
 
+    @Relationship(type = "featuredGroup")
+    private Set<Group> featuredGroup;
+
 
     public Album(int releaseYear, String recordNumber, String albumName) {
         notNull(recordNumber,"Record number should not be null.");
@@ -334,5 +337,22 @@ public class Album extends Entity {
             }
         }
         this.Reviews=Reviews;
+    }
+
+    public Set<Group> getFeaturedGroup() {
+        return featuredGroup;
+    }
+
+    public void setFeaturedGroup(Set<Group> featuredGroup) {
+        notNull(featuredGroup);
+        for(Group gr:featuredGroup)
+        {
+            if(gr.equals(null))
+            {
+                throw new NullPointerException("Object within the Review set should not be null.");
+            }
+        }
+        this.featuredGroup = featuredGroup;
+
     }
 }

@@ -20,10 +20,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AlbumUnitTest {
     private Album album;
+    private Set<Group> groups;
 
     @BeforeEach
     public void setUp() {
+
         album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        groups = new HashSet<>();
     }
 
     @Test
@@ -387,5 +390,32 @@ class AlbumUnitTest {
     public void positiveSales(int arg){
         album.setSales(arg);
         assertEquals(album.getSales(),arg);
+    }
+
+    @Test
+    @DisplayName("Groups should be same as Assigned")
+    public void groupsShouldBeSameAsAssigned(){
+        groups.add(new Group("Linkin Park"));
+        album.setFeaturedGroup(groups);
+        assertEquals(groups, album.getFeaturedGroup());
+    }
+
+
+    //setGroups()
+    @Test
+    @DisplayName("Groups should be correctly set")
+    public void groupsShouldBeCorrectlySet(){
+        Set<Group> newGroups = new HashSet<>();
+        newGroups.add(new Group("TestGroup"));
+        album.setFeaturedGroup(newGroups);
+        assertEquals(newGroups, album.getFeaturedGroup());
+    }
+
+    @Test
+    @DisplayName("Check if any object within the set is null.")
+    public void nullObjectInGroup(){
+        Set<Group> groups = Sets.newHashSet();
+        groups.add(null);
+        assertThrows(NullPointerException.class,()->album.setFeaturedGroup(groups));
     }
 }
