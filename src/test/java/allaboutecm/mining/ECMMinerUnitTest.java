@@ -87,7 +87,9 @@ class ECMMinerUnitTest {
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1,musician2,musician5));
         List<Musician> musicians = ecmMiner.mostProlificMusicians(2, 1974, 2017);
         assertEquals(2, musicians.size());
-        assertTrue(musicians.equals(Lists.newArrayList(musician1,musician2)));
+        //assertTrue(musicians.equals(Lists.newArrayList(musician1,musician2)));
+        assertTrue(musicians.contains(musician1));
+        assertTrue(musicians.contains(musician2));
     }
 
     /**
@@ -100,9 +102,10 @@ class ECMMinerUnitTest {
         musician1.setAlbums(Sets.newHashSet(album1));
 
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1));
-
         List<Musician> musicians = ecmMiner.mostProlificMusicians(arg, 1960, 2010);
         assertEquals(0, musicians.size());
+        //IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> ecmMiner.mostProlificMusicians(arg, 1960, 2010));
+        //assertEquals(exception.getMessage(),"k should be positive");
     }
 
     /**

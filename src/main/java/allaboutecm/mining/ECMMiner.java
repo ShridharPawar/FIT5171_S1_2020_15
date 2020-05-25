@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static allaboutecm.model.MusicalInstrument.*;
 
@@ -85,20 +86,45 @@ public class ECMMiner {
                 result.add(m);
                 k--;
             }}
-            /*if (list.size() >= k) {
-                break;
-            }
-            if (result.size() + list.size() >= k) {
-                int newAddition = k - result.size();
-                for (int i = 0; i < newAddition; i++) {
-                    result.add(list.get(i));
-                }
-            } else {
-                result.addAll(list);
-            }*/
+
         }
 
         return result;
+
+        /*if (k <= 0) {
+            throw new IllegalArgumentException("k should be positive");
+        }
+        startYear = (startYear < 0) ? 0 : startYear;
+        endYear = (endYear < 0) ? Integer.MAX_VALUE : endYear;
+
+        Collection<Musician> musicians = dao.loadAll(Musician.class);
+        if(musicians==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
+
+        Map<Musician, Integer> musicianAlbumNumMap = new HashMap<>();
+
+        for (Musician m : musicians) {
+            Set<Album> albums = m.getAlbums();
+            int numOfValidAlbum = 0;
+            for (Album album : albums) {
+                if (album.getReleaseYear() >= startYear && album.getReleaseYear() <= endYear) {
+                    numOfValidAlbum++;
+                }
+            }
+            if (numOfValidAlbum != 0) {
+                musicianAlbumNumMap.put(m, numOfValidAlbum);
+            }
+        }
+
+        List<Musician> result = musicianAlbumNumMap.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        k = Math.min(k, result.size());
+        return result.subList(0, k);*/
     }
 
     /**
