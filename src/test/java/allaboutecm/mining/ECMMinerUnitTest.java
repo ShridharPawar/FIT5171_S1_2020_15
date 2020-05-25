@@ -153,6 +153,7 @@ class ECMMinerUnitTest {
     @Test
     public void positiveBusiestYear()
     {
+
         when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3,album4,album5));
         List<Integer> years = ecmMiner.busiestYears(1);
         List<Integer> expectedYears = Lists.newArrayList(2016);
