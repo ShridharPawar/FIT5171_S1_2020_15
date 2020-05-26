@@ -390,6 +390,7 @@ class AlbumUnitTest {
     public void positiveSales(int arg){
         album.setSales(arg);
         assertEquals(album.getSales(),arg);
+
     }
 
     @Test
