@@ -382,7 +382,8 @@ class AlbumUnitTest {
     public void salesShouldBeValid(int arg){
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->album.setSales(arg));
         assertEquals(exception.getMessage(),"Sales number should be greater than or equal to 0.");
-   }
+   
+    }
 
     @ParameterizedTest
     @ValueSource(ints = {59999})
