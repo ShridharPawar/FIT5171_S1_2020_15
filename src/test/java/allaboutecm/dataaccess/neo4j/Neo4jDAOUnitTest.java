@@ -192,27 +192,6 @@ class Neo4jDAOUnitTest {
     }
 
     /**
-     * To Validate if album and their instrument are created successfully.
-     */
-    @Test
-    public void successfulCreationOfAlbumAndInstruments(){
-        assertEquals(0,dao.loadAll(MusicianInstrument.class).size());
-        assertEquals(0,dao.loadAll(Album.class).size());
-        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
-        MusicianInstrument musicianInstrument = new MusicianInstrument(new Musician("Keith Jarrett"), Sets.newHashSet(
-                new MusicalInstrument("Violin"),
-                new MusicalInstrument("Guitar")));
-        album.setInstruments(Sets.newHashSet(musicianInstrument));
-        dao.createOrUpdate(album);
-        dao.createOrUpdate(musicianInstrument);
-        Collection<Album> albums = dao.loadAll(Album.class);
-        assertEquals(1, albums.size());
-        Album loadedAlbum = albums.iterator().next();
-        assertEquals(album, loadedAlbum);
-        assertEquals(album.getInstruments(), loadedAlbum.getInstruments());
-    }
-
-    /**
      * To Validate if album and its track are created successfully.
      */
     @Test
@@ -230,47 +209,6 @@ class Neo4jDAOUnitTest {
         Album loadedAlbum = albums.iterator().next();
         assertEquals(album, loadedAlbum);
         assertEquals(album.getTracks(), loadedAlbum.getTracks());
-    }
-
-    /**
-     * To Validate if album and it review are created successfully.
-     */
-    @Test
-    public void successfulCreationOfAlbumAndReviews() throws IOException
-    {
-        assertEquals(0,dao.loadAll(Review.class).size());
-        assertEquals(0,dao.loadAll(Album.class).size());
-        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
-        URL url = new URL("https://www.sputnikmusic.com/review/48517/Linkin-Park-Meteora/");
-        Review review = new Review(url,98);
-        album.setReviews(Sets.newHashSet(review));
-        dao.createOrUpdate(album);
-        dao.createOrUpdate(review);
-        Collection<Album> albums = dao.loadAll(Album.class);
-        assertEquals(1, albums.size());
-        Album loadedAlbum = albums.iterator().next();
-        assertEquals(album, loadedAlbum);
-        assertEquals(album.getReviews(), loadedAlbum.getReviews());
-    }
-
-    /**
-     * To Validate if album and its concerts are created successfully.
-     */
-    @Test
-    public void successfulCreationOfAlbumAndConcerts() throws IOException
-    {
-        assertEquals(0,dao.loadAll(Concert.class).size());
-        assertEquals(0,dao.loadAll(Album.class).size());
-        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
-        Concert concert = new Concert("International festival","India");
-        album.setConcerts(Sets.newHashSet(concert));
-        dao.createOrUpdate(album);
-        dao.createOrUpdate(concert);
-        Collection<Album> albums = dao.loadAll(Album.class);
-        assertEquals(1, albums.size());
-        Album loadedAlbum = albums.iterator().next();
-        assertEquals(album, loadedAlbum);
-        assertEquals(album.getConcerts(), loadedAlbum.getConcerts());
     }
 
     /**
@@ -375,25 +313,6 @@ class Neo4jDAOUnitTest {
         assertEquals(1, dao.loadAll(Concert.class).size());
     }
 
-    /**
-     * To Validate if the Concert and corresponding Musician could be created and loaded to database successfully
-     */
-    @Test
-    public void successfulCreationOfConcertAndMusician() throws IOException
-    {
-        assertEquals(0,dao.loadAll(Concert.class).size());
-        assertEquals(0,dao.loadAll(Musician.class).size());
-        Musician musician = new Musician("Chester Bennington");
-        Concert concert = new Concert("International festival","India");
-        concert.setMusicians(Sets.newHashSet(musician));
-        dao.createOrUpdate(musician);
-        dao.createOrUpdate(concert);
-        Collection<Concert> concerts = dao.loadAll(Concert.class);
-        assertEquals(1, concerts.size());
-        Concert loadedConcert = concerts.iterator().next();
-        assertEquals(concert, loadedConcert);
-        assertEquals(concert.getMusicians(), loadedConcert.getMusicians());
-    }
 
     /**
      * To Validate if the musician information could be updated to database successfully
@@ -479,8 +398,6 @@ class Neo4jDAOUnitTest {
         review.setReview("This is a good song.");
 
         Review loadedReview = dao.load(Review.class, review.getId());
-
-        assertEquals(review.getUrl(), loadedReview.getUrl());
         assertEquals(review.getRating(), loadedReview.getRating());
         assertEquals(review.getReview(), loadedReview.getReview());
     }
@@ -543,22 +460,10 @@ class Neo4jDAOUnitTest {
     @Test
     public void deletingMusicianWithoutAlbum() throws IOException {
         Musician musician = new Musician("Keith Jarrett");
-        musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
-        Musician musician1 = new Musician("Mike Shinoda");
-        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
-        musician.setAlbums(Sets.newHashSet(album));
-
         dao.createOrUpdate(musician);
-        dao.createOrUpdate(musician1);
-        dao.createOrUpdate(album);
-
         assertNotNull(dao.load(Musician.class, musician.getId()));
-        assertNotNull(dao.loadAll(Album.class));
-
         dao.delete(musician);
-
         assertNull(dao.load(Musician.class, musician.getId()));
-        assertNotNull(dao.load(Album.class, album.getId()));
     }
 
     /**
@@ -822,48 +727,7 @@ class Neo4jDAOUnitTest {
         assertEquals(concert, findConcert);
     }
 
-    /**
-     * To Validate if the same musician is saved once in database.
-     */
-    @DisplayName("Same musician could only be one data in database")
-    @Test
-    public void SameMusiciansWouldSaveOnce() throws IOException
-    {
-
-        Musician mu1 = new Musician("Keith Jarrett");
-        mu1.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
-        dao.createOrUpdate(mu1);
-
-        Musician mu2 = new Musician("Keith Jarrett");
-        mu2.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
-        dao.createOrUpdate(mu2);
-
-        Collection<Musician> musicians = dao.loadAll(Musician.class);
-
-        assertEquals(1,musicians.size());
-        assertEquals(mu1.getName(), musicians.iterator().next().getName());
-    }
-
-    /**
-     * To Validate if the same Musical instrument is saved once in database.
-     */
-    @DisplayName("Same instrument can be dispalyed only once")
-    @Test
-    public void SameMusicalInstrumentWouldSaveOnce() throws IOException
-    {
-        MusicalInstrument mi1 = new MusicalInstrument("Piano");
-        dao.createOrUpdate(mi1);
-
-        MusicalInstrument mi2 = new MusicalInstrument("Piano");
-        dao.createOrUpdate(mi2);
-
-        Collection<MusicalInstrument> musicalInstruments = dao.loadAll(MusicalInstrument.class);
-
-        assertEquals(1,musicalInstruments.size());
-        assertEquals(mi1.getName(), musicalInstruments.iterator().next().getName());
-    }
-
-    /**
+/**
      * To Validate if the same album is saved once in database.
      */
     @DisplayName("Same album could be saved only once")
@@ -912,24 +776,4 @@ class Neo4jDAOUnitTest {
         }
     }
 
-    /**
-     * To Validate if multiple instruments are saved at a time.
-     */
-    @Test
-    public void saveMultipleInstrumentAtATime() {
-        HashSet<MusicalInstrument> musicalInstrumentSet = Sets.newHashSet(
-                new MusicalInstrument("Piano"),
-                new MusicalInstrument("Flute"),
-                new MusicalInstrument("Violin"),
-                new MusicalInstrument("Guitar")
-        );
-
-        for (MusicalInstrument musicalInstrument : musicalInstrumentSet){
-            dao.createOrUpdate(musicalInstrument);
-        }
-        for (MusicalInstrument musicalInstrument : musicalInstrumentSet)
-        {
-            assertTrue(musicalInstrumentSet.contains(musicalInstrument), musicalInstrument.getName());
-        }
-    }
 }

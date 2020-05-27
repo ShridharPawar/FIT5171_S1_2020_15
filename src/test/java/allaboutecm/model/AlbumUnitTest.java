@@ -385,15 +385,6 @@ class AlbumUnitTest {
 
     }
 
-    @Test
-    @DisplayName("Groups should be same as Assigned")
-    public void groupsShouldBeSameAsAssigned(){
-        groups.add(new Group("Linkin Park"));
-        album.setFeaturedGroup(groups);
-        assertEquals(groups, album.getFeaturedGroup());
-    }
-
-
     //setGroups()
     @Test
     @DisplayName("Groups should be correctly set")
