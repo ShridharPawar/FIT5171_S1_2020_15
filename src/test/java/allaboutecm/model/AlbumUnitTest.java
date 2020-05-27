@@ -189,14 +189,14 @@ class AlbumUnitTest {
         assertThrows(NullPointerException.class,()->album.setAlbumURL(null));
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @ValueSource(strings = {"https://www.testfakewebsiteecm.com"})
     @DisplayName("URL should atleast contain 'ecm' and it should not be fake.")
     public void invalidURL(String arg) throws MalformedURLException {
         if(!arg.contains("https://")){arg="https://google.com";}
         java.net.URL url = new java.net.URL(arg);
         assertThrows(UnknownHostException.class,()->album.setAlbumURL(url));
-    }
+    }*/
 
     @ParameterizedTest
     @DisplayName("Positive test case for URL.")

@@ -257,29 +257,6 @@ class ECMMinerUnitTest {
         assertEquals("k should be positive", e.getMessage());
     }
 
-    @Test
-    public void shouldReturnRightMusiciansWithMostMusicalSocial(){
-        Album albumA = new Album(1979, "ECM 1134", "PATH");
-        Album albumB = new Album(1982, "ECM 1223", "PATHS, PRINTS");
-        Album albumC = new Album(1979, "ECM 1135", "PHOTO WITH ...");
-
-        Musician musicianA = new Musician("Keith Jarrett");
-        Musician musicianB = new Musician("Old Man");
-        Musician musicianC = new Musician("Charlie Haden");
-        Musician musicianD = new Musician("Gary Peacock");
-
-        albumA.setFeaturedMusicians(Lists.newArrayList(musicianA,musicianB));
-        albumB.setFeaturedMusicians(Lists.newArrayList(musicianA,musicianC,musicianD));
-        albumC.setFeaturedMusicians(Lists.newArrayList(musicianB,musicianD));
-        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(albumA,albumB,albumC));
-
-        List<Musician> musicians = ecmMiner.mostSocialMusicians(3);
-        assertEquals(3, musicians.size());
-        assertTrue(musicians.contains(musicianA));
-        assertTrue(musicians.contains(musicianB));
-        assertTrue(musicians.contains(musicianD));
-    }
-
     /**
      * To Validate if positive number of most similar album can pass test.
      */

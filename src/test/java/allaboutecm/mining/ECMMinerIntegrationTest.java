@@ -171,24 +171,6 @@ class ECMMinerIntegrationTest {
     }
 
     /**
-     * To Validate if will return most similar when there is only one ablum.
-     */
-    @DisplayName("Most similar album return one when there is only one existing musician")
-    @Test
-    public void shouldReturnTheMostSimilarAlbumWhenThereIsOnlyOne()
-    {
-        Album albumToBeChecked = new Album(2014,"ECM 1064/68", "Shadow");
-        album3.setInstruments(Sets.newHashSet(new MusicianInstrument(musician1,Sets.newHashSet(new MusicalInstrument("Guitar"))),new MusicianInstrument(musician3,Sets.newHashSet(new MusicalInstrument("Drums")))));
-        albumToBeChecked.setInstruments(Sets.newHashSet(new MusicianInstrument(musician1,Sets.newHashSet(new MusicalInstrument("Guitar"))),new MusicianInstrument(musician3,Sets.newHashSet(new MusicalInstrument("Drums")))));
-        album3.setGenre("Rock");
-        albumToBeChecked.setGenre("Rock");
-        dao.createOrUpdate(album3);
-        List<Album> albums = ecmMiner.mostSimilarAlbums(999,albumToBeChecked);
-        assertTrue(albums.contains(album3));
-        assertEquals(albums.size(),1);
-    }
-
-    /**
      * To Validate what method will return when there is no ablum existed.
      */
     @Test
@@ -342,33 +324,6 @@ class ECMMinerIntegrationTest {
         List<Musician> musicians = ecmMiner.mostSocialMusicians(2);
         assertEquals(0, musicians.size());
     }*/
-
-    @Test
-    public void shouldReturnRightMusicianWithMostSocialMusician(){
-
-        Album albumA = new Album(1979, "ECM 1134", "PATH");
-        Album albumB = new Album(1982, "ECM 1223", "PATHS, PRINTS");
-        Album albumC = new Album(1979, "ECM 1135", "PHOTO WITH ...");
-
-        Musician musicianA = new Musician("Keith Jarrett");
-        Musician musicianB = new Musician("Old Man");
-        Musician musicianC = new Musician("Charlie Haden");
-        Musician musicianD = new Musician("Gary Peacock");
-
-        albumA.setFeaturedMusicians(Lists.newArrayList(musicianA,musicianB));
-        albumB.setFeaturedMusicians(Lists.newArrayList(musicianA,musicianC,musicianD));
-        albumC.setFeaturedMusicians(Lists.newArrayList(musicianB,musicianD));
-
-        dao.createOrUpdate(albumA);
-        dao.createOrUpdate(albumB);
-        dao.createOrUpdate(albumC);
-
-        List<Musician> musicians = ecmMiner.mostSocialMusicians(3);
-        assertEquals(3, musicians.size());
-        assertTrue(musicians.contains(musicianA));
-        assertTrue(musicians.contains(musicianB));
-        assertTrue(musicians.contains(musicianD));
-    }
 
     @Test
     public void shouldReturnTheSocialMusicianWhenThereIsOnlyTwo(){

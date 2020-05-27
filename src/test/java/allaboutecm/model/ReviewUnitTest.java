@@ -48,14 +48,14 @@ public class ReviewUnitTest {
         assertThrows(NullPointerException.class,()->review.setUrl(null));
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @ValueSource(strings = {"https://www.testfakewebsite.com"})
     @DisplayName("URL should be a valid url.")
     public void invalidURL(String arg) throws MalformedURLException {
         if(!arg.contains("https://")){arg="https://google.com";}
         java.net.URL url = new java.net.URL(arg);
         assertThrows(UnknownHostException.class,()->review.setUrl(url));
-    }
+    }*/
 
     @ParameterizedTest
     @DisplayName("Positive test case for URL.")

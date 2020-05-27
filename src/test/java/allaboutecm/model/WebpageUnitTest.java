@@ -79,7 +79,7 @@ public class WebpageUnitTest {
         assertThrows(NullPointerException.class,()->webpage.setUrl(null));
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @ValueSource(strings = {"https://www.testfakewebsite.com"})
     @DisplayName("URL should be a valid url.")
     public void invalidURL(String arg) throws MalformedURLException {
@@ -95,7 +95,7 @@ public class WebpageUnitTest {
         java.net.URL url = new java.net.URL(arg);
         webpage.setUrl(url);
         assertEquals(webpage.getUrl(),url);
-    }
+    }*/
 
 
 }
