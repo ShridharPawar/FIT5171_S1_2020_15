@@ -40,7 +40,7 @@ public class ECMMiner {
      * When startYear/endYear is negative, that means startYear/endYear is ignored.
      */
     public List<Musician> mostProlificMusicians(int k, int startYear, int endYear) {
-        Collection<Musician> musicians = dao.loadAll(Musician.class);
+        /*Collection<Musician> musicians = dao.loadAll(Musician.class);
         List<Musician> result = Lists.newArrayList();
         if(musicians==null)
         {
@@ -89,9 +89,9 @@ public class ECMMiner {
 
         }
 
-        return result;
+        return result;*/
 
-        /*if (k <= 0) {
+        if (k <= 0) {
             throw new IllegalArgumentException("k should be positive");
         }
         startYear = (startYear < 0) ? 0 : startYear;
@@ -124,7 +124,7 @@ public class ECMMiner {
                 .collect(Collectors.toList());
 
         k = Math.min(k, result.size());
-        return result.subList(0, k);*/
+        return result.subList(0, k);
     }
 
     /**
@@ -135,7 +135,7 @@ public class ECMMiner {
      */
     public List<Musician> mostTalentedMusicians(int k)
     {
-        Collection<MusicianInstrument> musicianInstruments = dao.loadAll(MusicianInstrument.class);
+        /*Collection<MusicianInstrument> musicianInstruments = dao.loadAll(MusicianInstrument.class);
         Collection<Musician> musicians = dao.loadAll(Musician.class);
         List<Musician> results = new ArrayList<>();
         if(musicianInstruments==null || musicians==null)
@@ -178,7 +178,40 @@ public class ECMMiner {
                 }
             }
         }
-        return results;
+        return results;*/
+
+        if (k <= 0) {
+            throw new IllegalArgumentException("k should be positive");
+        }
+
+
+        Collection<MusicianInstrument> musicianInstruments = dao.loadAll(MusicianInstrument.class);
+        if(musicianInstruments==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
+        Map<Musician, Integer> musicianInstrumentMap = new HashMap<>();
+
+        for(MusicianInstrument m : musicianInstruments){
+            Musician musician = m.getMusician();
+            Set<MusicalInstrument> instruments = m.getMusicalInstruments();
+            int numOfInstruments = 0;
+            for(MusicalInstrument i : instruments){
+                numOfInstruments++;
+            }
+            if (numOfInstruments != 0) {
+                musicianInstrumentMap.put(musician, numOfInstruments);
+            }
+        }
+
+        List<Musician> result = musicianInstrumentMap.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        k = Math.min(k, result.size());
+        return result.subList(0, k);
+
     }
 
     /** 
@@ -189,7 +222,7 @@ public class ECMMiner {
 
     public List<Musician> mostSocialMusicians(int k)
     {
-        int l=k;
+        /*int l=k;
         Collection<Musician> musicians = dao.loadAll(Musician.class);
         if(musicians==null)
         {
@@ -250,7 +283,39 @@ public class ECMMiner {
             }
         }
 
-          return result;
+          return result;*/
+        if (k <= 0) {
+            throw new IllegalArgumentException("k should be positive");
+        }
+
+        Collection<Album> albums = dao.loadAll(Album.class);
+        if(albums==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
+        Map<Musician, Integer> musicianMap = new HashMap<>();
+        Integer num;
+
+        for(Album a: albums){
+            List<Musician> musicians = a.getFeaturedMusicians();
+            List<Musician> musiciansList = new ArrayList<Musician>(musicians);
+            if (musiciansList.size() > 0) {
+                for (int j = 0; j < musicians.size() ; j++) {
+                    if (!musicianMap.containsKey(musiciansList.get(j)))
+                        musicianMap.put(musiciansList.get(j), 1);
+                    else {
+                        num = musicianMap.get(musiciansList.get(j));
+                        musicianMap.put(musiciansList.get(j), (num + 1));
+                    }
+                }
+            }
+        }
+        List<Musician> result = musicianMap.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        k = Math.min(k, result.size());
+        return result.subList(0, k);
     }
 
  /**
@@ -261,7 +326,7 @@ public class ECMMiner {
 
     public List<Integer> busiestYears(int k)
     {
-        Collection<Album> albums = dao.loadAll(Album.class);
+        /*Collection<Album> albums = dao.loadAll(Album.class);
         Map<Integer, Integer> multimap = new HashMap<Integer, Integer>();
         List<Integer> doneYears = new ArrayList<>();
         if(albums==null)
@@ -308,7 +373,47 @@ public class ECMMiner {
             }
         }
 
-        return results;
+        return results;*/
+        if (k <= 0)
+            throw new IllegalArgumentException("Number of Years cannot be Zero or negative.");
+
+        Collection<Album> albums = dao.loadAll(Album.class);
+        if(albums==null)
+        {
+            throw new NullPointerException("Object is null.");
+        }
+        Map<Integer,Integer> yearMap = new HashMap<>();
+        Integer count;
+        for (Album album : albums) {
+            Integer year = album.getReleaseYear();
+            if (!yearMap.containsKey(year))
+                yearMap.put(year, 1);
+            else {
+                count = yearMap.get(year);
+                yearMap.put(year, (count + 1));
+            }
+        }
+
+        List<Map.Entry<Integer, Integer>> sortList = new ArrayList<>(yearMap.entrySet());
+        sortList.sort(Map.Entry.comparingByValue());
+        Collections.reverse(sortList);
+
+        for (int i = 0; i < sortList.size() -1 ; i++) {
+            for(int j = 0;j < sortList.size() - i - 1; j++ ){
+                if(sortList.get(j).getValue().equals(sortList.get(j + 1).getValue())
+                        && sortList.get(j).getKey() < sortList.get(j+1).getKey() )
+                    Collections.swap(sortList, j, j+1);
+            }
+        }
+
+        if (k > sortList.size())
+            k = sortList.size();
+
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < k; i++) {
+            result.add(sortList.get(i).getKey());
+        }
+        return result;
     }
 
     /**
@@ -458,7 +563,7 @@ public class ECMMiner {
      * To return the musician who held the largest number of concerts.
      *
      * @Param k the number of musicians to be returned.
-     */
+
     public List<Musician> mostPopularPerformer(int k)
     {
         Collection<Concert> concerts = dao.loadAll(Concert.class);
@@ -508,5 +613,5 @@ public class ECMMiner {
         }
 
         return results;
-    }
+    }*/
 }

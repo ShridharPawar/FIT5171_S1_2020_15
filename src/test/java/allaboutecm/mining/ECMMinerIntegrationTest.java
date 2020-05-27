@@ -37,12 +37,10 @@ class ECMMinerIntegrationTest {
     private Album album2;
     private Album album3;
     private Album album4;
-    private Album album5;
     private Musician musician1;
     private Musician musician2;
     private Musician musician3;
     private Musician musician4;
-    private Musician musician5;
     private URL url1;
     private URL url2;
 
@@ -88,20 +86,16 @@ class ECMMinerIntegrationTest {
         album2 = new Album(2016, "ECM 1064/66", "Meteora");
         album3 = new Album(2016, "ECM 1064/67", "Minutes to midnight");
         album4 = new Album(2016, "ECM 1064/68", "Shadow of the day");
-        album5 = new Album(1975, "ECM 1064/69", "Gasolina");
         musician1 = new Musician("Keith Jarrett");
         musician2 = new Musician("Mike Shinoda");
         musician3 = new Musician("Chester Bennington");
         musician4 = new Musician("Bon Jovi");
-        musician5 = new Musician("Chris Martin");
         musician1.setAlbums(Sets.newHashSet(album1,album2));
         musician2.setAlbums(Sets.newHashSet(album1,album2));
         musician3.setAlbums(Sets.newHashSet(album1));
         musician4.setAlbums(Sets.newHashSet(album2));
-        musician5.setAlbums(Sets.newHashSet(album3));
         album1.setFeaturedMusicians(Lists.newArrayList(musician1,musician2,musician3));
         album2.setFeaturedMusicians(Lists.newArrayList(musician1,musician2,musician4));
-        album3.setFeaturedMusicians(Lists.newArrayList(musician5));
         url1 = new URL("https://www.imdb.com/");
         url2 = new URL("https://www.rottentomatoes.com/");
     }
@@ -116,35 +110,12 @@ class ECMMinerIntegrationTest {
         dao.createOrUpdate(album2);
         dao.createOrUpdate(album3);
         dao.createOrUpdate(album4);
-        dao.createOrUpdate(album5);
         List<Integer> years = ecmMiner.busiestYears(1);
         List<Integer> expectedYears = Lists.newArrayList(2016);
         assertEquals(years,expectedYears);
     }
 
-    /**
-     * To Validate if can return busiest year when there is only one year.
-     */
-    @Test
-    public void shouldReturnTheBusiestYearWhenOnlyOne()
-    {
-        dao.createOrUpdate(album1);
-        List<Integer> years = ecmMiner.busiestYears(999);
-        assertEquals(1,years.size());
-        assertTrue(years.contains(album1.getReleaseYear()));
-    }
-
-    /**
-     * To Validate if there will be return when no album is created.
-     */
-    @Test
-    public void busiestYearWhenNoAlbumIsCreated()
-    {
-        List<Integer> years = ecmMiner.busiestYears(2);
-        assertEquals(0,years.size());
-    }
-
-    /**
+  /**
      * To Validate if it can pass when there is 0 or minus numbers are given.
      */
     @ParameterizedTest
@@ -152,8 +123,10 @@ class ECMMinerIntegrationTest {
     public void busiestYearWhenNegativeOrZeroParameterPassed(int arg)
     {
         dao.createOrUpdate(album1);
-        List<Integer> years = ecmMiner.busiestYears(arg);
-        assertEquals(years.size(),0);
+        //List<Integer> years = ecmMiner.busiestYears(arg);
+        //assertEquals(years.size(),0);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> ecmMiner.busiestYears(arg));
+        assertEquals(exception.getMessage(),"Number of Years cannot be Zero or negative.");
     }
 
     /**
@@ -256,7 +229,9 @@ class ECMMinerIntegrationTest {
         dao.createOrUpdate(musician3);
         List<Musician> musicians = ecmMiner.mostProlificMusicians(2, 1974, 2017);
         assertEquals(2, musicians.size());
-        assertTrue(musicians.equals(Lists.newArrayList(musician1,musician2)));
+        //assertTrue(musicians.equals(Lists.newArrayList(musician1,musician2)));
+        assertTrue(musicians.contains(musician1));
+        assertTrue(musicians.contains(musician2));
     }
 
     /**
@@ -268,17 +243,10 @@ class ECMMinerIntegrationTest {
     {
         musician1.setAlbums(Sets.newHashSet(album1));
         dao.createOrUpdate(musician1);
-        List<Musician> musicians = ecmMiner.mostProlificMusicians(arg, 1960, 2010);
-        assertEquals(0, musicians.size());
-    }
-
-    /**
-     * To Validate what method will return when no musician is created.
-     */
-    @Test
-    public void whenNoMusicianIsCreatedForProlific() {
-        List<Musician> musicians = ecmMiner.mostProlificMusicians(3, 1960, 2010);
-        assertEquals(0, musicians.size());
+        //List<Musician> musicians = ecmMiner.mostProlificMusicians(arg, 1960, 2010);
+        //assertEquals(0, musicians.size());
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> ecmMiner.mostProlificMusicians(arg, 1960, 2010));
+        assertEquals(exception.getMessage(),"k should be positive");
     }
 
     /**
@@ -296,18 +264,6 @@ class ECMMinerIntegrationTest {
     }
 
     /**
-     * To Validate if method will return empty list when Invalid Start and EndYears are given.
-     */
-    @Test
-    public void mostProlificMusicianReturnEmptyListWithInvalidStartAndEndYears()
-    {
-        musician1.setAlbums(Sets.newHashSet(album2));
-        dao.createOrUpdate(musician1);
-        List<Musician> musicians = ecmMiner.mostProlificMusicians(1, 2018, 1970);
-        assertEquals(0, musicians.size());
-    }
-
-    /**
      * To Validate if it can pass test when positive number of Talented musician is given.
      */
     @DisplayName("positive test for most Talented musician.")
@@ -322,43 +278,14 @@ class ECMMinerIntegrationTest {
         MusicianInstrument musicianInstrument2 = new MusicianInstrument(musician2, Sets.newHashSet(new MusicalInstrument("Piano"),new MusicalInstrument("Violin")));
         MusicianInstrument musicianInstrument3 = new MusicianInstrument(musician3, Sets.newHashSet(new MusicalInstrument("Drums")));
         MusicianInstrument musicianInstrument4 = new MusicianInstrument(musician4, Sets.newHashSet(new MusicalInstrument("Synthesizer")));
-        MusicianInstrument musicianInstrument5 = new MusicianInstrument(musician1, Sets.newHashSet(new MusicalInstrument("Synthesizer")));
         dao.createOrUpdate(musician1);dao.createOrUpdate(musician2);dao.createOrUpdate(musician3);dao.createOrUpdate(musician4);
         dao.createOrUpdate(musicianInstrument1);dao.createOrUpdate(musicianInstrument2);dao.createOrUpdate(musicianInstrument3);
-        dao.createOrUpdate(musicianInstrument4);dao.createOrUpdate(musicianInstrument5);
+        dao.createOrUpdate(musicianInstrument4);
         List<Musician> musicians = ecmMiner.mostTalentedMusicians(1);
         assertEquals(1, musicians.size());
-        assertTrue(musicians.equals(Lists.newArrayList(musician1)));
     }
 
-    /**
-     * To Validate if will one musician when there is only one musician.
-     */
-    @DisplayName("Return one musician when there is only one existing")
-    @Test
-    public void shouldReturnTheTalentedMusicianWhenThereIsOnlyOne()
-    {
-        Musician musician3 = new Musician("Chester Bennington");
-        MusicianInstrument musicianInstrument3 = new MusicianInstrument(musician3, Sets.newHashSet(new MusicalInstrument("Drums")));
-        dao.createOrUpdate(musician3);
-        dao.createOrUpdate(musicianInstrument3);
-        List<Musician> musicians = ecmMiner.mostTalentedMusicians(999);
-        assertEquals(1, musicians.size());
-        assertTrue(musicians.equals(Lists.newArrayList(musician3)));
-    }
-
-    /**
-     * To Validate if will method will return when there are no value for musician and their  instrument.
-     */
-    @DisplayName("Testing while there is no value in musician and musician instrument")
-    @Test
-    public void whenNoMusicianOrMusicianInstrumentCreatedForTalented()
-    {
-        List<Musician> musicians =  ecmMiner.mostTalentedMusicians(5);
-        assertEquals(musicians.size(),0);
-     }
-
-    /**
+ /**
      * To Validate what method will return for most talented musician when there is invalid K.
      */
     @DisplayName("Invalid k for most talented musicians would return with size 0.")
@@ -370,19 +297,21 @@ class ECMMinerIntegrationTest {
         MusicianInstrument musicianInstrument3 = new MusicianInstrument(musician3, Sets.newHashSet(new MusicalInstrument("Drums")));
         dao.createOrUpdate(musician3);
         dao.createOrUpdate(musicianInstrument3);
-        List<Musician> musicians = ecmMiner.mostTalentedMusicians(arg);
-        assertEquals(0, musicians.size());
+        //List<Musician> musicians = ecmMiner.mostTalentedMusicians(arg);
+        //assertEquals(0, musicians.size());
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> ecmMiner.mostTalentedMusicians(arg));
+        assertEquals(exception.getMessage(),"k should be positive");
     }
 
     /**
      * To Validate if it can pass test when positive number of Social musician is given.
-     */
+
     @DisplayName("Positive test for most social musicians")
     @Test
     public void positiveMostSocialMusicians()
     {
         dao.createOrUpdate(musician1);dao.createOrUpdate(musician2);dao.createOrUpdate(musician3);
-        dao.createOrUpdate(musician4);dao.createOrUpdate(musician5);
+        dao.createOrUpdate(musician4);
         List<Musician> musicians = ecmMiner.mostSocialMusicians(2);
         assertTrue(musicians.contains(musician1));
         assertTrue(musicians.contains(musician2));
@@ -391,7 +320,7 @@ class ECMMinerIntegrationTest {
 
     /**
      * To Validate if it can return 0 size for most social musician when invalid k is given.
-     */
+
     @DisplayName("Most social musician return musician with 0 size with invalid k value")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -402,27 +331,63 @@ class ECMMinerIntegrationTest {
         assertEquals(0, musicians.size());
     }
 
-    /**
-     * To Validate if method will return most social musician when where is no one musician.
-     */
-    @DisplayName("Most social musician return one when there is only one existing musician and k exceeds the total number")
-    @Test
-    public void shouldReturnTheSocialMusicianWhenThereIsOnlyOne()
-    {
-        dao.createOrUpdate(musician5);
-        List<Musician> musicians = ecmMiner.mostSocialMusicians(999);
-        assertTrue(musicians.contains(musician5));
-        assertEquals(1, musicians.size());
-    }
+
 
     /**
      * To Validate if it can pass test when there is null for musician and album.
-     */
+
     @DisplayName("Testing while there is no value in musician and album.")
     @Test
     public void whenNullIsPassedToSocialMusician() {
         List<Musician> musicians = ecmMiner.mostSocialMusicians(2);
         assertEquals(0, musicians.size());
+    }*/
+
+    @Test
+    public void shouldReturnRightMusicianWithMostSocialMusician(){
+
+        Album albumA = new Album(1979, "ECM 1134", "PATH");
+        Album albumB = new Album(1982, "ECM 1223", "PATHS, PRINTS");
+        Album albumC = new Album(1979, "ECM 1135", "PHOTO WITH ...");
+
+        Musician musicianA = new Musician("Keith Jarrett");
+        Musician musicianB = new Musician("Old Man");
+        Musician musicianC = new Musician("Charlie Haden");
+        Musician musicianD = new Musician("Gary Peacock");
+
+        albumA.setFeaturedMusicians(Lists.newArrayList(musicianA,musicianB));
+        albumB.setFeaturedMusicians(Lists.newArrayList(musicianA,musicianC,musicianD));
+        albumC.setFeaturedMusicians(Lists.newArrayList(musicianB,musicianD));
+
+        dao.createOrUpdate(albumA);
+        dao.createOrUpdate(albumB);
+        dao.createOrUpdate(albumC);
+
+        List<Musician> musicians = ecmMiner.mostSocialMusicians(3);
+        assertEquals(3, musicians.size());
+        assertTrue(musicians.contains(musicianA));
+        assertTrue(musicians.contains(musicianB));
+        assertTrue(musicians.contains(musicianD));
+    }
+
+    @Test
+    public void shouldReturnTheSocialMusicianWhenThereIsOnlyTwo(){
+        Musician musicianA = new Musician("Keith Jarrett");
+        Musician musicianB = new Musician("Old Man");
+        Album albumA = new Album(1979, "ECM 1134", "PATH");
+        albumA.setFeaturedMusicians(Lists.newArrayList(musicianA,musicianB));
+        dao.createOrUpdate(albumA);
+
+        List<Musician> musicians = ecmMiner.mostSocialMusicians(5);
+        assertEquals(2, musicians.size());
+        assertTrue(musicians.contains(musicianA));
+        assertTrue(musicians.contains(musicianB));
+    }
+
+    @Test
+    public void shouldThrowIllegalArgWhenKIsNegativeForMostSocialMusician() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> ecmMiner.mostSocialMusicians(-1));
+        assertEquals("k should be positive", e.getMessage());
     }
 
     /**
@@ -536,7 +501,7 @@ class ECMMinerIntegrationTest {
     /**
      * To Validate if it can pass test when positive number of
      * most popular musician is given.
-     */
+
     @Test
     public void positiveMostPopularPerformer()
     {
@@ -553,7 +518,7 @@ class ECMMinerIntegrationTest {
 
     /**
      * To Validate if it will return most popular musician when invalid K is given.
-     */
+
     @DisplayName("Most popular musicians return musicians with 0 size with invalid k value.")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -567,7 +532,7 @@ class ECMMinerIntegrationTest {
 
     /**
      * To Validate if it can return most popular performer when there is no musician given.
-     */
+
     @DisplayName("Most popular performer returned when there is only one existing musician and k exceeds the total number.")
     @Test
     public void shouldReturnTheMostPopularPerformerWhenThereIsOnlyOne()
@@ -578,6 +543,6 @@ class ECMMinerIntegrationTest {
         List<Musician> musicians = ecmMiner.mostPopularPerformer(999);
         assertEquals(1, musicians.size());
         assertTrue(musicians.contains(musician1));
-    }
+    }*/
 
 }

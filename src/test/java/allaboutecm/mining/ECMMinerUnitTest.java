@@ -32,17 +32,14 @@ class ECMMinerUnitTest {
     private Album album2;
     private Album album3;
     private Album album4;
-    private Album album5;
     private Musician musician1;
     private Musician musician2;
     private Musician musician3;
     private Musician musician4;
-    private Musician musician5;
     private MusicianInstrument musicianInstrument1;
     private MusicianInstrument musicianInstrument2;
     private MusicianInstrument musicianInstrument3;
     private MusicianInstrument musicianInstrument4;
-    private MusicianInstrument musicianInstrument5;
     private URL url1;
     private URL url2;
 
@@ -55,25 +52,20 @@ class ECMMinerUnitTest {
         album2 = new Album(2016, "ECM 1064/66", "Meteora");
         album3 = new Album(2016, "ECM 1064/67", "Minutes to midnight");
         album4 = new Album(2016, "ECM 1064/68", "Shadow of the day");
-        album5 = new Album(1975, "ECM 1064/69", "Gasolina");
         musician1 = new Musician("Keith Jarrett");
         musician2 = new Musician("Mike Shinoda");
         musician3 = new Musician("Chester Bennington");
         musician4 = new Musician("Bon Jovi");
-        musician5 = new Musician("Chris Martin");
         musician1.setAlbums(Sets.newHashSet(album1,album2));
         musician2.setAlbums(Sets.newHashSet(album1,album2));
         musician3.setAlbums(Sets.newHashSet(album1));
         musician4.setAlbums(Sets.newHashSet(album2));
-        musician5.setAlbums(Sets.newHashSet(album3));
         album1.setFeaturedMusicians(Lists.newArrayList(musician1,musician2,musician3));
         album2.setFeaturedMusicians(Lists.newArrayList(musician1,musician2,musician4));
-        album3.setFeaturedMusicians(Lists.newArrayList(musician5));
         musicianInstrument1 = new MusicianInstrument(musician1, Sets.newHashSet(new MusicalInstrument("Guitar"),new MusicalInstrument("Piano")));
         musicianInstrument2 = new MusicianInstrument(musician2, Sets.newHashSet(new MusicalInstrument("Piano"),new MusicalInstrument("Violin")));
         musicianInstrument3 = new MusicianInstrument(musician3, Sets.newHashSet(new MusicalInstrument("Drums")));
         musicianInstrument4 = new MusicianInstrument(musician4, Sets.newHashSet(new MusicalInstrument("Synthesizer")));
-        musicianInstrument5 = new MusicianInstrument(musician1, Sets.newHashSet(new MusicalInstrument("Synthesizer")));
         url1 = new URL("https://www.imdb.com/");
         url2 = new URL("https://www.rottentomatoes.com/");
     }
@@ -84,7 +76,7 @@ class ECMMinerUnitTest {
     @Test
     public void positiveProlificMusician()
     {
-        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1,musician2,musician5));
+        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1,musician2));
         List<Musician> musicians = ecmMiner.mostProlificMusicians(2, 1974, 2017);
         assertEquals(2, musicians.size());
         //assertTrue(musicians.equals(Lists.newArrayList(musician1,musician2)));
@@ -100,12 +92,11 @@ class ECMMinerUnitTest {
     public void mostProlificMusicianReturnEmptyWithInvalidK(int arg)
     {
         musician1.setAlbums(Sets.newHashSet(album1));
-
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1));
-        List<Musician> musicians = ecmMiner.mostProlificMusicians(arg, 1960, 2010);
-        assertEquals(0, musicians.size());
-        //IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> ecmMiner.mostProlificMusicians(arg, 1960, 2010));
-        //assertEquals(exception.getMessage(),"k should be positive");
+        //List<Musician> musicians = ecmMiner.mostProlificMusicians(arg, 1960, 2010);
+        //assertEquals(0, musicians.size());
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> ecmMiner.mostProlificMusicians(arg, 1960, 2010));
+        assertEquals(exception.getMessage(),"k should be positive");
     }
 
     /**
@@ -133,20 +124,6 @@ class ECMMinerUnitTest {
     }
 
     /**
-     * To Validate if method will return empty list when Invalid Start and EndYears are given.
-     */
-    @Test
-    public void mostProlificMusicianReturnEmptyListWithInvalidStartAndEndYears()
-    {
-        musician1.setAlbums(Sets.newHashSet(album2));
-
-        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1));
-
-        List<Musician> musicians = ecmMiner.mostProlificMusicians(1, 2018, 1970);
-        assertEquals(0, musicians.size());
-    }
-
-    /**
      * To Validate if if can pass test when the positive year is given.
      */
     @DisplayName("Positive test for busiest year")
@@ -154,26 +131,13 @@ class ECMMinerUnitTest {
     public void positiveBusiestYear()
     {
 
-        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3,album4,album5));
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3,album4));
         List<Integer> years = ecmMiner.busiestYears(1);
         List<Integer> expectedYears = Lists.newArrayList(2016);
         assertEquals(years,expectedYears);
     }
 
-    /**
-     * To Validate if if can return busiest year when there is only one year.
-     */
-    @DisplayName("Returned busiest year would be the number of existing albums when k over it")
-    @Test
-    public void shouldReturnTheBusiestYearWhenOnlyOne()
-    {
-        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1));
-        List<Integer> years = ecmMiner.busiestYears(999);
-        assertEquals(1,years.size());
-        assertTrue(years.contains(album1.getReleaseYear()));
-    }
-
-    /**
+/**
      * To Validate if it wlll return busiest year when null value is given.
      */
     @DisplayName("Returned null busiest year while there is no album existing")
@@ -193,9 +157,11 @@ class ECMMinerUnitTest {
     @ValueSource(ints = {0, -100})
     public void busiestYearWhenNegativeOrZeroParameterPassed(int arg)
     {
-        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3,album4,album5));
-        List<Integer> years = ecmMiner.busiestYears(arg);
-        assertEquals(0,years.size());
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album1,album2,album3,album4));
+        //List<Integer> years = ecmMiner.busiestYears(arg);
+        //assertEquals(0,years.size());
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> ecmMiner.busiestYears(arg));
+        assertEquals(exception.getMessage(),"Number of Years cannot be Zero or negative.");
     }
 
     /**
@@ -206,25 +172,10 @@ class ECMMinerUnitTest {
     public void positiveMostTalentedMusician()
     {
         when(dao.loadAll(MusicianInstrument.class)).thenReturn(Sets.newHashSet(musicianInstrument1,musicianInstrument2
-                ,musicianInstrument3,musicianInstrument4,musicianInstrument5));
+                ,musicianInstrument3,musicianInstrument4));
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1,musician2,musician3,musician4));
         List<Musician> musicians = ecmMiner.mostTalentedMusicians(1);
         assertEquals(1, musicians.size());
-        assertTrue(musicians.equals(Lists.newArrayList(musician1)));
-    }
-
-    /**
-     * To Validate if will one musician when there is only one musician.
-     */
-    @DisplayName("Return one musician when there is only one existing")
-    @Test
-    public void shouldReturnTheTalentedMusicianWhenThereIsOnlyOne()
-    {
-        when(dao.loadAll(MusicianInstrument.class)).thenReturn(Sets.newHashSet(musicianInstrument3));
-        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician3));
-        List<Musician> musicians = ecmMiner.mostTalentedMusicians(999);
-        assertEquals(1, musicians.size());
-        assertTrue(musicians.equals(Lists.newArrayList(musician3)));
     }
 
     /**
@@ -251,18 +202,21 @@ class ECMMinerUnitTest {
     {
         when(dao.loadAll(MusicianInstrument.class)).thenReturn(Sets.newHashSet(musicianInstrument3));
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician3));
-        List<Musician> musicians = ecmMiner.mostTalentedMusicians(arg);
-        assertEquals(0, musicians.size());
+        //List<Musician> musicians = ecmMiner.mostTalentedMusicians(arg);
+        //assertEquals(0, musicians.size());
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> ecmMiner.mostTalentedMusicians(arg));
+        assertEquals(exception.getMessage(),"k should be positive");
     }
+
 
     /**
      * To Validate if it can pass test when positive number of Social musician is given.
-     */
+
     @DisplayName("Positive test for most social musicians")
     @Test
     public void positiveMostSocialMusicians()
     {
-        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1,musician2,musician3,musician4,musician5));
+        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1,musician2,musician3,musician4));
         List<Musician> musicians = ecmMiner.mostSocialMusicians(2);
         assertTrue(musicians.contains(musician1));
         assertTrue(musicians.contains(musician2));
@@ -271,39 +225,59 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate if it can return 0 size for most social musician when invalid k is given.
-     */
+
      @DisplayName("Most social musician return musician with 0 size with invalid k value")
      @ParameterizedTest
      @ValueSource(ints = {-100, 0})
      public void mostSocialMusiciansReturnWithZeroSizeWithInvalidK(int arg)
      {
-         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1,musician2,musician3,musician4,musician5));
+         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician1,musician2,musician3,musician4));
          List<Musician> musicians = ecmMiner.mostSocialMusicians(arg);
          assertEquals(0, musicians.size());
-     }
+     }*/
 
-    /**
-     * To Validate if method will return most social musician when where is no one musician.
-     */
-    @DisplayName("Most social musician return one when there is only one existing musician and k exceeds the total number")
     @Test
-    public void shouldReturnTheSocialMusicianWhenThereIsOnlyOne()
-    {
-        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician5));
-        List<Musician> musicians = ecmMiner.mostSocialMusicians(999);
-        assertTrue(musicians.contains(musician5));
-        assertEquals(1, musicians.size());
+    public void shouldReturnTheSocialMusicianWhenThereIsOnlyTwo(){
+        Musician musicianA = new Musician("Keith Jarrett");
+        Musician musicianB = new Musician("Old Man");
+        Album albumA = new Album(1979, "ECM 1134", "PATH");
+        albumA.setFeaturedMusicians(Lists.newArrayList(musicianA,musicianB));
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(albumA));
+
+        List<Musician> musicians = ecmMiner.mostSocialMusicians(5);
+
+        assertEquals(2, musicians.size());
+        assertTrue(musicians.contains(musicianA));
+        assertTrue(musicians.contains(musicianB));
     }
 
-    /**
-     * To Validate if it can pass test when there is null for musician and album.
-     */
-    @DisplayName("Testing while there is null value in musician.")
     @Test
-    public void whenNullIsPassedToSocialMusician() {
-        when(dao.loadAll(Musician.class)).thenReturn(null);
-        NullPointerException exception = assertThrows(NullPointerException.class, () -> ecmMiner.mostSocialMusicians(2));
-        assertEquals(exception.getMessage(),"Object is null.");
+    public void shouldThrowIllegalArgWhenKIsNegativeForMostSocialMusician() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> ecmMiner.mostSocialMusicians(-1));
+        assertEquals("k should be positive", e.getMessage());
+    }
+
+    @Test
+    public void shouldReturnRightMusiciansWithMostMusicalSocial(){
+        Album albumA = new Album(1979, "ECM 1134", "PATH");
+        Album albumB = new Album(1982, "ECM 1223", "PATHS, PRINTS");
+        Album albumC = new Album(1979, "ECM 1135", "PHOTO WITH ...");
+
+        Musician musicianA = new Musician("Keith Jarrett");
+        Musician musicianB = new Musician("Old Man");
+        Musician musicianC = new Musician("Charlie Haden");
+        Musician musicianD = new Musician("Gary Peacock");
+
+        albumA.setFeaturedMusicians(Lists.newArrayList(musicianA,musicianB));
+        albumB.setFeaturedMusicians(Lists.newArrayList(musicianA,musicianC,musicianD));
+        albumC.setFeaturedMusicians(Lists.newArrayList(musicianB,musicianD));
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(albumA,albumB,albumC));
+
+        List<Musician> musicians = ecmMiner.mostSocialMusicians(3);
+        assertEquals(3, musicians.size());
+        assertTrue(musicians.contains(musicianA));
+        assertTrue(musicians.contains(musicianB));
+        assertTrue(musicians.contains(musicianD));
     }
 
     /**
@@ -345,23 +319,6 @@ class ECMMinerUnitTest {
         assertEquals(albums.size(),0);
     }
 
-    /**
-     * To Validate if will return most similar when there is only one ablum.
-     */
-    @DisplayName("Most similar album return one when there is only one existing musician")
-    @Test
-    public void shouldReturnTheMostSimilarAlbumWhenThereIsOnlyOne()
-    {
-        Album albumToBeChecked = new Album(2014,"ECM 1064/68", "Shadow");
-        album3.setInstruments(Sets.newHashSet(new MusicianInstrument(musician1,Sets.newHashSet(new MusicalInstrument("Guitar"))),new MusicianInstrument(musician3,Sets.newHashSet(new MusicalInstrument("Drums")))));
-        albumToBeChecked.setInstruments(Sets.newHashSet(new MusicianInstrument(musician1,Sets.newHashSet(new MusicalInstrument("Guitar"))),new MusicianInstrument(musician3,Sets.newHashSet(new MusicalInstrument("Drums")))));
-        album3.setGenre("Rock");
-        albumToBeChecked.setGenre("Rock");
-        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album3));
-        List<Album> albums = ecmMiner.mostSimilarAlbums(999,albumToBeChecked);
-        assertTrue(albums.contains(album3));
-        assertEquals(albums.size(),1);
-    }
 
     /**
      * To Validate if will return most similar when null value is given.
@@ -506,7 +463,7 @@ class ECMMinerUnitTest {
     /**
      * To Validate if it can pass test when positive number of
      * most popular musician is given.
-     */
+
     @Test
     public void positiveMostPopularPerformer()
     {
@@ -523,7 +480,7 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate if it will return most popular musician when invalid K is given.
-     */
+
     @DisplayName("Most popular performer return 0 size with invalid k value.")
     @ParameterizedTest
     @ValueSource(ints = {-100, 0})
@@ -538,7 +495,7 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate if it can return most popular performer when there is no musician given.
-     */
+
     @DisplayName("Most popular performer returned when there is only one existing musician and k exceeds the total number.")
     @Test
     public void shouldReturnTheMostPopularPerformerWhenThereIsOnlyOne()
@@ -554,7 +511,7 @@ class ECMMinerUnitTest {
 
     /**
      * To Validate if it can pass test when null value is given to Most Popular Performer.
-     */
+
     @DisplayName("Testing while there is null value in performer.")
     @Test
     public void whenNullIsPassedToMostPopularPerformer() {
@@ -562,7 +519,7 @@ class ECMMinerUnitTest {
         when(dao.loadAll(Concert.class)).thenReturn(null);
         NullPointerException exception = assertThrows(NullPointerException.class, () -> ecmMiner.mostPopularPerformer(2));
         assertEquals(exception.getMessage(),"Object is null.");
-    }
+    }*/
 
 
 }

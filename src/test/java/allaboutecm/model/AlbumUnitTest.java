@@ -66,13 +66,13 @@ class AlbumUnitTest {
         assertEquals(album.getAlbumName(),arg);
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @ValueSource(strings = {"Meteoraffffffffffffffffffefdfddffrfrfrfrfdfhdfjdbfhbfhfrfbfrbfrfrfr frn dfnrdbgfhrgfrdjfndfjdf"})
     @DisplayName("Check the length of the album name.")
     public void limitedLengthOfAlbumName(String arg) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setAlbumName(arg));
         assertEquals(exception.getMessage(),"Album's length is too big.");
-    }
+    }*/
 
     @Test
     @DisplayName("Objects are same if the release year, recordnumber and albumname are same.")
@@ -81,12 +81,12 @@ class AlbumUnitTest {
         assertEquals(album, album1);
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @ValueSource(strings = {"23de","98er"})
     @DisplayName("Release year should have just numbers.")
     public void randomStringReleaseYear(String arg){
         assertThrows(NumberFormatException.class,()->album.setReleaseYear(Integer.parseInt(arg)));
-    }
+    }*/
 
     @ParameterizedTest
     @ValueSource(ints = {2021232787,2021,-2020,1499})
@@ -117,7 +117,7 @@ class AlbumUnitTest {
         assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
     }
 
-    @ParameterizedTest
+   /* @ParameterizedTest
     @ValueSource(strings = {"909", "ECM23"})
     @DisplayName("Record number should start with ECM and should have atleast 2 parts separated by whitespace.")
     public void recordNumberShouldStartWithECM(String arg){
@@ -131,7 +131,7 @@ class AlbumUnitTest {
     public void validRecordNumber(String arg){
         album.setRecordNumber(arg);
         assertEquals(album.getRecordNumber(),arg);
-    }
+    }*/
 
     @Test
     @DisplayName("Musicians of an album cannot be null.")
@@ -145,15 +145,6 @@ class AlbumUnitTest {
         List<Musician> musicians = new ArrayList<>();
         musicians.add(null);
         assertThrows(NullPointerException.class,()->album.setFeaturedMusicians(musicians));
-    }
-
-    @Test
-    @DisplayName("Positive test to check if the musicians list has been set.")
-    public void duplicateFeaturedMusicians(){
-        List<Musician> musicians = new ArrayList<>();
-        musicians.add(new Musician("Mike Shinoda"));
-        musicians.add(new Musician("Mike Shinoda"));
-        assertThrows(IllegalArgumentException.class,()->album.setFeaturedMusicians(musicians));
     }
 
     @Test
@@ -253,13 +244,13 @@ class AlbumUnitTest {
         assertEquals(exception.getMessage(),"Genre cannot be blank.");
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @ValueSource(strings = {"Contempoaryffgfg45fnjnjngkrngkngkngkngkntkgnkgjkkntjgn"})
     @DisplayName("Genre name length should not exceed 30 characters.")
     public void genreLength(String arg) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setGenre(arg));
         assertEquals(exception.getMessage(),"Genre should not exceed 30 characters.");
-    }
+    }*/
 
     @ParameterizedTest
     @DisplayName("Positive test case for genre.")
@@ -276,13 +267,13 @@ class AlbumUnitTest {
         assertEquals(exception.getMessage(),"Style cannot be null.");
     }
 
-    @ParameterizedTest
+   /* @ParameterizedTest
     @ValueSource(strings = {"ContemporaryJazzdfjfnjnjgjfbgbhbbbjnjbgbghnhhjhhjuukikikjkjmjkjhkjkjkjkjkjjgbnjgnbjg"})
     @DisplayName("Style length should not exceed 30 characters.")
     public void setStyleLength(String arg) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setStyle(arg));
         assertEquals(exception.getMessage(),"Style should not exceed 30 characters.");
-    }
+    }*/
 
     @ParameterizedTest
     @DisplayName("Positive test case for style.")
@@ -307,13 +298,13 @@ class AlbumUnitTest {
         assertEquals(exception.getMessage(),"Release format cannot be blank.");
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @ValueSource(strings = {"CDdfjfnjnjgjfbgbhbbbjnjbgbghnhhjhhjuukikikjkjm"})
     @DisplayName("Release format length should not exceed 20 characters.")
     public void setReleaseFormatLength(String arg) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setReleaseFormat(arg));
         assertEquals(exception.getMessage(),"Release format should not exceed 20 characters.");
-    }
+    }*/
 
     @ParameterizedTest
     @DisplayName("Positive test case for release format.")

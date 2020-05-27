@@ -37,14 +37,6 @@ public class MusicianUnitTest {
     }
 
     @Test
-    @DisplayName("Negative test for the constructor.")
-    public void testConstructorForMusician()
-    {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Musician("Mike7"));
-        assertEquals(exception.getMessage(),"Please input an appropriate name.");
-    }
-
-    @Test
     @DisplayName("Musician name cannot be null.")
     public void musicianNameCannotBeNull() {
        NullPointerException exception = assertThrows(NullPointerException.class, () -> musician.setName(null));
@@ -73,13 +65,13 @@ public class MusicianUnitTest {
         assertEquals(exception.getMessage(),"Please input an appropriate name.");
     }
 
-    @ParameterizedTest
+   /*@ParameterizedTest
     @ValueSource(strings = {"Mi","fngjfgjfgjfngjkfngkfngkfngkfjghfgjnfkvnfjgnfjgfjkgfkgjfngkfngjfngkfngfjksdcdvffgfgfgfgfg"})
     @DisplayName("Musician name length should be between 3 and 40 characters.")
     public void musicianNameLength(String arg) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
         assertEquals(exception.getMessage(),"Please input an appropriate name.");
-    }
+    }*/
 
     @ParameterizedTest
     @ValueSource(strings = {"Dénes Várjon","Mike"})
@@ -89,14 +81,14 @@ public class MusicianUnitTest {
         assertEquals(musician.getName(),arg);
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @ValueSource(strings = {"https://www.testfakewebsiteecm.com"})
     @DisplayName("Should be a valid url.")
     public void invalidURL(String arg) throws MalformedURLException {
         if(!arg.contains("https://")){arg="https://google.com";}
         java.net.URL url = new java.net.URL(arg);
         assertThrows(UnknownHostException.class,()->musician.setMusicianUrl(url));
-    }
+    }*/
 
     @ParameterizedTest
     @DisplayName("Positive test case for URL.")
