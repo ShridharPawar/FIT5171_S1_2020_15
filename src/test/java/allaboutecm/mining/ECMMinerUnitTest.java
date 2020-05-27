@@ -46,6 +46,7 @@ class ECMMinerUnitTest {
     // Build up testing environment with objects creation and values initialization
     @BeforeEach
     public void setUp() throws MalformedURLException {
+
         dao = mock(Neo4jDAO.class);
         ecmMiner = new ECMMiner(dao);
         album1 = new Album(1975, "ECM 1064/65", "The Köln Concert");
