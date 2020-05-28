@@ -82,6 +82,7 @@ class ECMMinerUnitTest {
         assertEquals(2, musicians.size());
         //assertTrue(musicians.equals(Lists.newArrayList(musician1,musician2)));
         assertTrue(musicians.contains(musician1));
+
         assertTrue(musicians.contains(musician2));
     }
 
