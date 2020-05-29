@@ -85,7 +85,6 @@ public class Musician extends Entity {
                 break;
             }
         }
-        //if(names.length<2 || !letter)
         if(!letter || musicianName.length()<3 || musicianName.length()>40)
         {
             throw new IllegalArgumentException("Please input an appropriate name.");
@@ -102,7 +101,7 @@ public class Musician extends Entity {
         notNull(albums);
         for(Album album:albums)
         {
-            if(album.equals(null))
+            if(album==null)
             {
                 throw new NullPointerException("Object within the set should not be null");
             }
@@ -136,7 +135,7 @@ public class Musician extends Entity {
         HttpURLConnection connectionString = (HttpURLConnection) musicianUrl.openConnection();
         connectionString.setRequestMethod("GET");
         int codeInResponse = connectionString.getResponseCode();
-        if(!(codeInResponse==200))
+        if(codeInResponse!=200)
         {
             throw new UnknownHostException("Not a valid URL.");
         }
@@ -157,7 +156,7 @@ public class Musician extends Entity {
         notNull(personalWebpages);
         for(Webpage webpage:personalWebpages)
         {
-            if(webpage.equals(null))
+            if(webpage==null)
             {
                 throw new NullPointerException("Object within the set should not be null");
             }

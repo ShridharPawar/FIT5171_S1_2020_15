@@ -7,11 +7,9 @@ import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
-import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
 @NodeEntity
@@ -59,7 +57,7 @@ public class Review extends Entity{
         HttpURLConnection connectionString = (HttpURLConnection) websiteUrl.openConnection();
         connectionString.setRequestMethod("GET");
         int codeInResponse = connectionString.getResponseCode();
-        if(!(codeInResponse==200))
+        if(codeInResponse!=200)
         {
             throw new UnknownHostException("Not a valid URL.");
         }

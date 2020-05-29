@@ -1,18 +1,15 @@
 package allaboutecm.model;
 
 import allaboutecm.dataaccess.neo4j.URLConverter;
-import com.google.common.collect.Sets;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Objects;
-import java.util.Set;
 
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
@@ -64,7 +61,7 @@ public class Webpage extends Entity{
         HttpURLConnection connectionString = (HttpURLConnection) url.openConnection();
         connectionString.setRequestMethod("GET");
         int codeInResponse = connectionString.getResponseCode();
-        if(!(codeInResponse==200))
+        if(codeInResponse!=200)
         {
             throw new UnknownHostException("Not a valid URL.");
         }
