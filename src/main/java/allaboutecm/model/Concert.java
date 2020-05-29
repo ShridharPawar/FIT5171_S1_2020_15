@@ -8,6 +8,7 @@ import org.neo4j.ogm.annotation.Relationship;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 import static org.apache.commons.lang3.Validate.notBlank;
@@ -97,7 +98,7 @@ public class Concert extends Entity{
         notNull(musicians);
         for(Musician mus:musicians)
         {
-            if(mus.equals(null))
+            if(mus==null)
             {
                 throw new NullPointerException("Object within the set should not be null");
             }
@@ -113,6 +114,11 @@ public class Concert extends Entity{
         return concertName.equals(concert.concertName) &&
                 country.equals(concert.country) &&
                 concertDate.equals(concert.concertDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(concertName, country, concertDate);
     }
 
 

@@ -19,14 +19,13 @@ import java.util.stream.Collectors;
 
 import static allaboutecm.model.MusicalInstrument.*;
 
-/**
- * TODO: implement and test the methods in this class.
- * Note that you can extend the Neo4jDAO class to make implementation of this class easier.
- */
+
 public class ECMMiner {
     private static Logger logger = LoggerFactory.getLogger(ECMMiner.class);
 
     private final DAO dao;
+    private static String exceptionMessage = "Object is null.";
+    private static String kExceptionMessage = "k should be positive";
 
     public ECMMiner(DAO dao) {
         this.dao = dao;
@@ -40,59 +39,8 @@ public class ECMMiner {
      * When startYear/endYear is negative, that means startYear/endYear is ignored.
      */
     public List<Musician> mostProlificMusicians(int k, int startYear, int endYear) {
-        /*Collection<Musician> musicians = dao.loadAll(Musician.class);
-        List<Musician> result = Lists.newArrayList();
-        if(musicians==null)
-        {
-            throw new NullPointerException("Object is null.");
-        }
-        Map<String, Musician> nameMap = Maps.newHashMap();
-
-        for (Musician m : musicians) {
-            nameMap.put(m.getName(), m);
-        }
-
-        ListMultimap<String, Album> multimap = MultimapBuilder.treeKeys().arrayListValues().build();
-        ListMultimap<Integer, Musician> countMap = MultimapBuilder.treeKeys().arrayListValues().build();
-
-        for (Musician musician : musicians) {
-            Set<Album> albums = musician.getAlbums();
-            for (Album album : albums) {
-                boolean toInclude =
-                        !((startYear > 0 && album.getReleaseYear() < startYear) ||
-                                (endYear > 0 && album.getReleaseYear() > endYear));
-
-                if (toInclude) {
-                    multimap.put(musician.getName(), album);
-                }
-            }
-        }
-
-        Map<String, Collection<Album>> albumMultimap = multimap.asMap();
-        for (String name : albumMultimap.keySet()) {
-            Collection<Album> albums = albumMultimap.get(name);
-            int size = albums.size();
-            countMap.put(size, nameMap.get(name));
-        }
-
-
-        List<Integer> sortedKeys = Lists.newArrayList(countMap.keySet());
-        sortedKeys.sort(Ordering.natural().reverse());
-        for (Integer count : sortedKeys) {
-            List<Musician> list = countMap.get(count);
-            for(Musician m:list){
-            if (!(k<=0))
-            {
-                result.add(m);
-                k--;
-            }}
-
-        }
-
-        return result;*/
-
-        if (k <= 0) {
-            throw new IllegalArgumentException("k should be positive");
+       if (k <= 0) {
+            throw new IllegalArgumentException(kExceptionMessage);
         }
         startYear = (startYear < 0) ? 0 : startYear;
         endYear = (endYear < 0) ? Integer.MAX_VALUE : endYear;
@@ -100,7 +48,7 @@ public class ECMMiner {
         Collection<Musician> musicians = dao.loadAll(Musician.class);
         if(musicians==null)
         {
-            throw new NullPointerException("Object is null.");
+            throw new NullPointerException(exceptionMessage);
         }
 
         Map<Musician, Integer> musicianAlbumNumMap = new HashMap<>();
@@ -135,60 +83,15 @@ public class ECMMiner {
      */
     public List<Musician> mostTalentedMusicians(int k)
     {
-        /*Collection<MusicianInstrument> musicianInstruments = dao.loadAll(MusicianInstrument.class);
-        Collection<Musician> musicians = dao.loadAll(Musician.class);
-        List<Musician> results = new ArrayList<>();
-        if(musicianInstruments==null || musicians==null)
-        {
-            throw new NullPointerException("Object is null.");
-        }
-        Map<String, Integer> musicianInstrumentmap = new HashMap<String, Integer>();
-        for(Musician m: musicians)
-        {
-            int count = 0;
-            boolean ifExists = false;
-            for(MusicianInstrument musins: musicianInstruments)
-            {
-                if(m.equals(musins.getMusician()))
-                {
-                    count=count+musins.getMusicalInstruments().size();
-                    ifExists = true;
-                }
-            }
-            if(ifExists){musicianInstrumentmap.put(m.getName(),count);}
-        }
-        List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(musicianInstrumentmap.entrySet());
-        Collections.sort(list, new Comparator<Entry<String, Integer>>()
-        {
-            public int compare(Entry<String, Integer> i1, Entry<String, Integer> i2)
-            {return i2.getValue().compareTo(i1.getValue());}});
-        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
-        for(Entry<String, Integer> entry : list)
-        {
-            sortedMap.put(entry.getKey(), entry.getValue());
-        }
-        for(String musicianName:sortedMap.keySet())
-        {
-            for(Musician m : musicians)
-            {
-                if (!(k<=0) && musicianName.equals(m.getName()))
-                {
-                    results.add(m);
-                    k--;
-                }
-            }
-        }
-        return results;*/
-
         if (k <= 0) {
-            throw new IllegalArgumentException("k should be positive");
+            throw new IllegalArgumentException(kExceptionMessage);
         }
 
 
         Collection<MusicianInstrument> musicianInstruments = dao.loadAll(MusicianInstrument.class);
         if(musicianInstruments==null)
         {
-            throw new NullPointerException("Object is null.");
+            throw new NullPointerException(exceptionMessage);
         }
         Map<Musician, Integer> musicianInstrumentMap = new HashMap<>();
 
@@ -222,84 +125,22 @@ public class ECMMiner {
 
     public List<Musician> mostSocialMusicians(int k)
     {
-        /*int l=k;
-        Collection<Musician> musicians = dao.loadAll(Musician.class);
-        if(musicians==null)
-        {
-            throw new NullPointerException("Object is null.");
-        }
-        ListMultimap<String, Album> multimap = MultimapBuilder.treeKeys().arrayListValues().build();
-        for (Musician musician : musicians) {
-            Set<Album> albums1 = musician.getAlbums();
-            for (Album album : albums1) {
-                multimap.put(musician.getName(), album);
-            }
-        }
-
-        Map<String, Collection<Album>> albumMultimap = multimap.asMap();
-        Map<String, Integer> countmap = new HashMap<String, Integer>();
-        for (String name : albumMultimap.keySet()) {
-            Collection<Album> albums1 = albumMultimap.get(name);
-            Set<String> musiNames = new HashSet<>();
-            for(Album a : albums1)
-            {
-                for(int i=0;i<a.getFeaturedMusicians().size();i++)
-                {
-                    musiNames.add(a.getFeaturedMusicians().get(i).getName());
-                }
-            }
-           countmap.put(name, musiNames.size()-1);
-        }
-        List<Musician> result = Lists.newArrayList();
-        List<Integer> sortedKeys = Lists.newArrayList(countmap.values());
-        sortedKeys.sort(Ordering.natural().reverse());
-        List<Integer> chosenKeys = Lists.newArrayList();
-        for(int i=0;i<k;i++){if(i<=sortedKeys.size()-1){chosenKeys.add(sortedKeys.get(i));}}
-
-        List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(countmap.entrySet());
-        Collections.sort(list, new Comparator<Entry<String, Integer>>()
-        {
-            public int compare(Entry<String, Integer> i1, Entry<String, Integer> i2)
-            {return i2.getValue().compareTo(i1.getValue());}});
-        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
-        for(Entry<String, Integer> entry : list)
-        {
-            sortedMap.put(entry.getKey(), entry.getValue());
-        }
-
-        List<String> chosenMusicians = new ArrayList<>();
-        for(String name: sortedMap.keySet())
-        {
-            Integer count = sortedMap.get(name);
-            int first = count;
-            if(chosenKeys.contains(first) && k!=0){chosenMusicians.add(name);k--;}
-        }
-
-        for(Musician m: musicians)
-        {
-            if(chosenMusicians.contains(m.getName()) && !(l<=0))
-            {
-                result.add(m);l--;
-            }
-        }
-
-          return result;*/
         if (k <= 0) {
-            throw new IllegalArgumentException("k should be positive");
+            throw new IllegalArgumentException(kExceptionMessage);
         }
 
         Collection<Album> albums = dao.loadAll(Album.class);
         if(albums==null)
         {
-            throw new NullPointerException("Object is null.");
+            throw new NullPointerException(exceptionMessage);
         }
         Map<Musician, Integer> musicianMap = new HashMap<>();
         Integer num;
 
         for(Album a: albums){
             List<Musician> musicians = a.getFeaturedMusicians();
-            List<Musician> musiciansList = new ArrayList<Musician>(musicians);
-            if (musiciansList.size() > 0) {
+            List<Musician> musiciansList = new ArrayList<>(musicians);
+            if (!(musiciansList.isEmpty())) {
                 for (int j = 0; j < musicians.size() ; j++) {
                     if (!musicianMap.containsKey(musiciansList.get(j)))
                         musicianMap.put(musiciansList.get(j), 1);
@@ -326,61 +167,13 @@ public class ECMMiner {
 
     public List<Integer> busiestYears(int k)
     {
-        /*Collection<Album> albums = dao.loadAll(Album.class);
-        Map<Integer, Integer> multimap = new HashMap<Integer, Integer>();
-        List<Integer> doneYears = new ArrayList<>();
-        if(albums==null)
-        {
-            throw new NullPointerException("Object is null.");
-        }
-        for(Album a : albums)
-        {
-            int count=0;
-            int year = a.getReleaseYear();
-
-            for(Album a1:albums)
-            {
-                if(!doneYears.contains(year))
-                {
-                    if(year==a1.getReleaseYear())
-                    {
-                        count++;
-                    }
-                }
-            }
-            if(!doneYears.contains(year)){
-              multimap.put(a.getReleaseYear(),count);}
-            doneYears.add(year);
-       }
-
-        List<Entry<Integer, Integer>> list = new LinkedList<Entry<Integer, Integer>>(multimap.entrySet());
-        Collections.sort(list, new Comparator<Entry<Integer, Integer>>()
-        {
-            public int compare(Entry<Integer, Integer> i1, Entry<Integer, Integer> i2)
-            {return i2.getValue().compareTo(i1.getValue());}});
-        Map<Integer, Integer> sortedMap = new LinkedHashMap<Integer, Integer>();
-        for(Entry<Integer, Integer> entry : list)
-        {
-            sortedMap.put(entry.getKey(), entry.getValue());
-        }
-        List<Integer> results = new ArrayList<>();
-        for(Integer year:sortedMap.keySet())
-        {
-            if(!(k<=0))
-            {
-                results.add(year);
-                k--;
-            }
-        }
-
-        return results;*/
-        if (k <= 0)
+       if (k <= 0)
             throw new IllegalArgumentException("Number of Years cannot be Zero or negative.");
 
         Collection<Album> albums = dao.loadAll(Album.class);
         if(albums==null)
         {
-            throw new NullPointerException("Object is null.");
+            throw new NullPointerException(exceptionMessage);
         }
         Map<Integer,Integer> yearMap = new HashMap<>();
         Integer count;
@@ -430,7 +223,7 @@ public class ECMMiner {
         Collection<Album> albums = dao.loadAll(Album.class);
         if(albums==null)
         {
-            throw new NullPointerException("Object is null.");
+            throw new NullPointerException(exceptionMessage);
         }
         List<Album> similarAlbums = new ArrayList<>();
         Set<String> givenAlbumInstruments = new HashSet<>();
@@ -455,7 +248,7 @@ public class ECMMiner {
                     musicalInstruments.add(i.getName());
                 }
             }
-            if(musicalInstruments.equals(givenAlbumInstruments) && a.getGenre().equals(givenAlbumGenre)&&!(k<=0))
+            if(musicalInstruments.equals(givenAlbumInstruments) && a.getGenre().equals(givenAlbumGenre)&&!(0>=k))
             {
                 similarAlbums.add(a);
                 k--;
@@ -474,9 +267,9 @@ public class ECMMiner {
         Collection<Album> albums = dao.loadAll(Album.class);
         if(albums==null)
         {
-            throw new NullPointerException("Object is null.");
+            throw new NullPointerException(exceptionMessage);
         }
-        Map<String, Double> albumMap = new HashMap<String, Double>();
+        Map<String, Double> albumMap = new HashMap<>();
         for(Album a:albums)
         {
             double count = 0;
@@ -486,7 +279,9 @@ public class ECMMiner {
                count=count+r.getRating();
                totalReviews++;
             }
-           albumMap.put(a.getAlbumName(),(count/totalReviews));
+            if(totalReviews!=0)
+            {albumMap.put(a.getAlbumName(),(count/totalReviews));}
+
          }
         List<Entry<String, Double>> list = new LinkedList<Entry<String, Double>>(albumMap.entrySet());
         Collections.sort(list, new Comparator<Entry<String, Double>>()
@@ -495,7 +290,7 @@ public class ECMMiner {
             {return i2.getValue().compareTo(i1.getValue());
             }});
 
-        Map<String, Double> sortedMap = new LinkedHashMap<String, Double>();
+        Map<String, Double> sortedMap = new LinkedHashMap<>();
         for(Entry<String, Double> entry : list)
         {
             sortedMap.put(entry.getKey(), entry.getValue());
@@ -505,7 +300,7 @@ public class ECMMiner {
         {
             for(Album a : albums)
             {
-                if(a.getAlbumName().equals(name)&& !(k<=0))
+                if(a.getAlbumName().equals(name)&& !(0>=k))
                 {
                     results.add(a);
                     k--;
@@ -526,9 +321,9 @@ public class ECMMiner {
         Collection<Album> albums = dao.loadAll(Album.class);
         if(albums==null)
         {
-            throw new NullPointerException("Object is null.");
+            throw new NullPointerException(exceptionMessage);
         }
-        Map<String, Integer> albumMap = new HashMap<String, Integer>();
+        Map<String, Integer> albumMap = new HashMap<>();
         for(Album a:albums)
         {
             albumMap.put(a.getAlbumName(),a.getSales());
@@ -562,7 +357,7 @@ public class ECMMiner {
     /**
      * To return the musician who held the largest number of concerts.
      *
-     * @Param k the number of musicians to be returned.
+     * @Param k the number of musicians to be returned.*/
 
     public List<Musician> mostPopularPerformer(int k)
     {
@@ -570,7 +365,7 @@ public class ECMMiner {
         Collection<Musician> musicians = dao.loadAll(Musician.class);
         if(concerts==null||musicians==null)
         {
-            throw new NullPointerException("Object is null.");
+            throw new NullPointerException(exceptionMessage);
         }
         Map<String, Integer> musicianMap = new HashMap<String, Integer>();
         for(Musician m:musicians)
@@ -613,5 +408,5 @@ public class ECMMiner {
         }
 
         return results;
-    }*/
+    }
 }

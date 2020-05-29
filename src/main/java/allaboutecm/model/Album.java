@@ -140,7 +140,7 @@ public class Album extends Entity {
         }
         for(Musician mus:featuredMusicians)
         {
-            if(mus.equals(null))
+            if(mus==null)
             {
                 throw new NullPointerException("Object within the set should not be null");
             }
@@ -157,7 +157,7 @@ public class Album extends Entity {
         notNull(instruments);
         for(MusicianInstrument musins:instruments)
         {
-            if(musins.equals(null))
+            if(musins==null)
             {
                 throw new NullPointerException("Object within the set should not be null");
             }
@@ -195,7 +195,7 @@ public class Album extends Entity {
         notNull(tracks,"Object should not be null.");
         for(Track track:tracks)
         {
-            if(track.equals(null))
+            if(track==null)
             {
                 throw new NullPointerException("Track should not be null.");
             }
@@ -208,7 +208,7 @@ public class Album extends Entity {
         notNull(concerts,"Object should not be null.");
         for(Concert concert:concerts)
         {
-            if(concert.equals(null))
+            if(concert==null)
             {
                 throw new NullPointerException("Object should not be null.");
             }
@@ -331,7 +331,7 @@ public class Album extends Entity {
         notNull(Reviews);
         for(Review rev:Reviews)
         {
-            if(rev.equals(null))
+            if(rev==null)
             {
                 throw new NullPointerException("Object within the Review set should not be null.");
             }
@@ -347,7 +347,7 @@ public class Album extends Entity {
         notNull(featuredGroup);
         for(Group gr:featuredGroup)
         {
-            if(gr.equals(null))
+            if(gr==null)
             {
                 throw new NullPointerException("Object within the Review set should not be null.");
             }

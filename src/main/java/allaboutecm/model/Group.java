@@ -49,7 +49,7 @@ public class Group extends Entity {
         notNull(albums);
         for(Album a:albums)
         {
-            if(a.equals(null))
+            if(a==null)
             {
                 throw new NullPointerException("Object within the Review set should not be null.");
             }
