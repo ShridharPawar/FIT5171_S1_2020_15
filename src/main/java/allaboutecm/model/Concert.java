@@ -8,7 +8,6 @@ import org.neo4j.ogm.annotation.Relationship;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Set;
 
 import static org.apache.commons.lang3.Validate.notBlank;
@@ -73,7 +72,6 @@ public class Concert extends Entity{
     {
         notNull(concertDate);
         Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         if(currentDate.compareTo(concertDate)>0)
         {
           throw new IllegalArgumentException("Concert date cannot be a past date.");

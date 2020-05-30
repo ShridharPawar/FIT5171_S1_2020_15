@@ -77,9 +77,9 @@ public class Musician extends Entity {
         notBlank(musicianName,"Name cannot be blank.");
         String[] names = musicianName.split(" ");
         boolean letter = true;
-        for(String name:names)
+        for(String name1:names)
         {
-            if(!name.toLowerCase().matches("^[a-záäâèëéàêîïôüùû,/&à]*$")) //covering the french letters as well
+            if(!name1.toLowerCase().matches("^[a-záäâèëéàêîïôüùû,/&à]*$")) //covering the french letters as well
             {
                 letter = false;
                 break;
