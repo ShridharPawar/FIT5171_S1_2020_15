@@ -74,10 +74,6 @@ public class Concert extends Entity{
         notNull(concertDate);
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-         if(!(dateFormat.format(concertDate).contains("-"))||dateFormat.format(concertDate).length()!=10)
-        {
-            throw new IllegalArgumentException("Enter a valid date.");
-        }
         if(currentDate.compareTo(concertDate)>0)
         {
           throw new IllegalArgumentException("Concert date cannot be a past date.");
@@ -105,24 +101,6 @@ public class Concert extends Entity{
         }
         this.musicians = musicians;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Concert concert = (Concert) o;
-        return concertName.equals(concert.concertName) &&
-                country.equals(concert.country) &&
-                concertDate.equals(concert.concertDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(concertName, country, concertDate);
-    }
-
-
-
 
 
 }

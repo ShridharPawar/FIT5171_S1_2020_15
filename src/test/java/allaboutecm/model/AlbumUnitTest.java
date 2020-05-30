@@ -117,22 +117,6 @@ class AlbumUnitTest {
         assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
     }
 
-   /* @ParameterizedTest
-    @ValueSource(strings = {"909", "ECM23"})
-    @DisplayName("Record number should start with ECM and should have atleast 2 parts separated by whitespace.")
-    public void recordNumberShouldStartWithECM(String arg){
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->album.setRecordNumber(arg));
-        assertEquals(exception.getMessage(),"Record number should start with ECM.");
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"ECM 2021", "ECM 435"})
-    @DisplayName("Check if it is setting the valid record number.")
-    public void validRecordNumber(String arg){
-        album.setRecordNumber(arg);
-        assertEquals(album.getRecordNumber(),arg);
-    }*/
-
     @Test
     @DisplayName("Musicians of an album cannot be null.")
     public void featuredMusiciansCannotBeNull(){
@@ -243,14 +227,6 @@ class AlbumUnitTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setGenre(arg));
         assertEquals(exception.getMessage(),"Genre cannot be blank.");
     }
-
-    /*@ParameterizedTest
-    @ValueSource(strings = {"Contempoaryffgfg45fnjnjngkrngkngkngkngkntkgnkgjkkntjgn"})
-    @DisplayName("Genre name length should not exceed 30 characters.")
-    public void genreLength(String arg) {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setGenre(arg));
-        assertEquals(exception.getMessage(),"Genre should not exceed 30 characters.");
-    }*/
 
     @ParameterizedTest
     @DisplayName("Positive test case for genre.")

@@ -63,7 +63,7 @@ public class MusicianInstrument extends Entity {
         notNull(musicalInstruments);
         for(MusicalInstrument mus:musicalInstruments)
         {
-            if(mus.equals(null))
+            if(mus==null)
             {
                 throw new NullPointerException("Object within the set should not be null");
             }

@@ -17,11 +17,8 @@ import java.util.Map.Entry;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static allaboutecm.model.MusicalInstrument.*;
-
 
 public class ECMMiner {
-    private static Logger logger = LoggerFactory.getLogger(ECMMiner.class);
 
     private final DAO dao;
     private static String exceptionMessage = "Object is null.";
@@ -283,7 +280,7 @@ public class ECMMiner {
             {albumMap.put(a.getAlbumName(),(count/totalReviews));}
 
          }
-        List<Entry<String, Double>> list = new LinkedList<Entry<String, Double>>(albumMap.entrySet());
+        List<Entry<String, Double>> list = new LinkedList<>(albumMap.entrySet());
         Collections.sort(list, new Comparator<Entry<String, Double>>()
         {
             public int compare(Entry<String, Double> i1, Entry<String, Double> i2)
@@ -328,13 +325,13 @@ public class ECMMiner {
         {
             albumMap.put(a.getAlbumName(),a.getSales());
         }
-        List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(albumMap.entrySet());
+        List<Entry<String, Integer>> list = new LinkedList<>(albumMap.entrySet());
         Collections.sort(list, new Comparator<Entry<String, Integer>>()
         {
             public int compare(Entry<String, Integer> i1, Entry<String, Integer> i2)
             {return i2.getValue().compareTo(i1.getValue());}});
 
-        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+        Map<String, Integer> sortedMap = new LinkedHashMap<>();
         for(Entry<String, Integer> entry : list)
         {
             sortedMap.put(entry.getKey(), entry.getValue());
@@ -351,62 +348,6 @@ public class ECMMiner {
                 }
             }
         }
-        return results;
-    }
-
-    /**
-     * To return the musician who held the largest number of concerts.
-     *
-     * @Param k the number of musicians to be returned.*/
-
-    public List<Musician> mostPopularPerformer(int k)
-    {
-        Collection<Concert> concerts = dao.loadAll(Concert.class);
-        Collection<Musician> musicians = dao.loadAll(Musician.class);
-        if(concerts==null||musicians==null)
-        {
-            throw new NullPointerException(exceptionMessage);
-        }
-        Map<String, Integer> musicianMap = new HashMap<String, Integer>();
-        for(Musician m:musicians)
-        {
-            int count = 0;
-            for(Concert c:concerts)
-            {
-                for(Musician m1:c.getMusicians())
-                {
-                    if(m1.equals(m))
-                    {
-                        count++;
-                    }
-                }
-            }
-            musicianMap.put(m.getName(),count);
-       }
-        List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(musicianMap.entrySet());
-        Collections.sort(list, new Comparator<Entry<String, Integer>>()
-        {
-            public int compare(Entry<String, Integer> i1, Entry<String, Integer> i2)
-            {return i2.getValue().compareTo(i1.getValue());}});
-
-        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
-        for(Entry<String, Integer> entry : list)
-        {
-            sortedMap.put(entry.getKey(), entry.getValue());
-        }
-        List<Musician> results = new ArrayList<>();
-        for(String name: sortedMap.keySet())
-        {
-            for(Musician m : musicians)
-            {
-                if(m.getName().equals(name)&& !(k<=0))
-                {
-                    results.add(m);
-                    k--;
-                }
-            }
-        }
-
         return results;
     }
 }

@@ -143,6 +143,4 @@ public class ConcertUnitTest {
         assertEquals(concert.getConcertDate(),date1);
     }
 
-
-
 }

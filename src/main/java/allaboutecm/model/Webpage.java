@@ -24,7 +24,7 @@ public class Webpage extends Entity{
       @Property(name="name")
       private String name;
 
-      public Webpage(String name,URL url) throws IOException {
+      public Webpage(String name,URL url){
           notNull(name);
           notBlank(name);
           notNull(url);
