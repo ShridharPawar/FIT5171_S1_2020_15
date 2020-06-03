@@ -88,7 +88,6 @@ public class Album extends Entity {
         {
             throw new IllegalArgumentException("Not a valid year.");
         }
-        String[] recordParts = recordNumber.split(" ");
         if(!recordNumber.startsWith("ECM"))
         {
             throw new IllegalArgumentException("Record number should start with ECM.");
@@ -115,7 +114,6 @@ public class Album extends Entity {
     public void setRecordNumber(String recordNumber) {
         notNull(recordNumber);
         notBlank(recordNumber);
-        String[] recordParts = recordNumber.split(" ");
         if(!recordNumber.startsWith("ECM"))
         {
             throw new IllegalArgumentException("Record number should start with ECM.");

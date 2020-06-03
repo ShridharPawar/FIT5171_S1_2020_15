@@ -30,11 +30,7 @@ public class Track extends Entity{
         {
             throw new NumberFormatException("Track length should be in numbers.");
         }
-        if(lengthInMinutes>100)
-        {
-            throw new IllegalArgumentException("Not a valid track length.");
-        }
-        if(lengthInMinutes<1)
+        if(lengthInMinutes>100 || lengthInMinutes<1)
         {
             throw new IllegalArgumentException("Not a valid track length.");
         }
@@ -65,11 +61,7 @@ public class Track extends Entity{
         {
             throw new NumberFormatException("Track length should be in numbers.");
         }
-        if(length>100)
-        {
-            throw new IllegalArgumentException("Not a valid track length.");
-        }
-        if(length<1)
+        if(length>100 || length<1)
         {
             throw new IllegalArgumentException("Not a valid track length.");
         }
