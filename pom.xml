@@ -44,6 +44,18 @@
                         <version>0.7</version>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <targetClasses>
+                        <param>allaboutecm.mining.*</param>
+                        <param>allaboutecm.model.Track</param>
+                        <param>allaboutecm.model.Album</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>allaboutecm.mining.*</param>
+                        <param>allaboutecm.model.TrackUnitTest</param>
+                        <param>allaboutecm.model.AlbumUnitTest</param>
+                    </targetTests>
+                </configuration>
             </plugin>
 
          </plugins>

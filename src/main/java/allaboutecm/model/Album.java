@@ -89,16 +89,11 @@ public class Album extends Entity {
             throw new IllegalArgumentException("Not a valid year.");
         }
         String[] recordParts = recordNumber.split(" ");
-        if(!recordNumber.startsWith("ECM") || recordParts.length<2)
+        if(!recordNumber.startsWith("ECM"))
         {
             throw new IllegalArgumentException("Record number should start with ECM.");
         }
-        if(albumName.length()>40)
-        {
-            throw new IllegalArgumentException("Album's length is too big.");
-        }
-
-        this.releaseYear = releaseYear;
+         this.releaseYear = releaseYear;
         this.recordNumber = recordNumber;
         this.albumName = albumName;
         this.genre = "Jazz";
@@ -121,7 +116,7 @@ public class Album extends Entity {
         notNull(recordNumber);
         notBlank(recordNumber);
         String[] recordParts = recordNumber.split(" ");
-        if(!recordNumber.startsWith("ECM") || recordParts.length<2)
+        if(!recordNumber.startsWith("ECM"))
         {
             throw new IllegalArgumentException("Record number should start with ECM.");
         }
@@ -263,10 +258,6 @@ public class Album extends Entity {
     public void setAlbumName(String albumName) {
         notNull(albumName);
         notBlank(albumName,"Album name cannot be empty.");
-        if(albumName.length()>40)
-        {
-            throw new IllegalArgumentException("Album's length is too big.");
-        }
         this.albumName = albumName;
     }
 
@@ -299,31 +290,19 @@ public class Album extends Entity {
     {
         notNull(genre,"Genre cannot be null.");
         notBlank(genre,"Genre cannot be blank.");
-        if(genre.length()>30)
-        {
-            throw new IllegalArgumentException("Genre should not exceed 30 characters.");
-        }
         this.genre=genre;
     }
 
     public void setStyle(String style)
     {
         notNull(style,"Style cannot be null.");
-        if(style.length()>30)
-        {
-            throw new IllegalArgumentException("Style should not exceed 30 characters.");
-        }
-        this.style=style;
+       this.style=style;
     }
 
     public void setReleaseFormat(String releaseFormat)
     {
         notNull(releaseFormat,"Release format cannot be null.");
         notBlank(releaseFormat,"Release format cannot be blank.");
-        if(releaseFormat.length()>20)
-        {
-            throw new IllegalArgumentException("Release format should not exceed 20 characters.");
-        }
         this.releaseFormat=releaseFormat;
     }
 

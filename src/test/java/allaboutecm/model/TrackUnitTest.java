@@ -37,8 +37,25 @@ public class TrackUnitTest {
     @DisplayName("Negative test for the constructor.")
     public void testConstructorForTrack()
     {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Track("Shadow of the day",100.1));
-        assertEquals(exception.getMessage(),"Not a valid track length.");
+        Track track1 = new Track("Shadow of the day",100);
+        assertNotNull(track1);
+     }
+
+    @Test
+    @DisplayName("Negative track length for the constructor.")
+    public void testConstructorForTrackNegative()
+    {
+        Track track1 = new Track("Shadow of the day",1);
+        assertNotNull(track1);
+    }
+
+    @Test
+    @DisplayName("Testing for constructor")
+    public void testingConstructor()
+    {
+       Track track1;
+       track1 = new Track("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",4);
+       assertNotNull(track1);
     }
 
     @Test
@@ -64,12 +81,22 @@ public class TrackUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"Shadowdffgfg45fnjnjngkrngkngkngkngkntkgnkgjkkntjgn"})
+    @ValueSource(strings = {"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqd"})
+    @DisplayName("Track name length positive test case.")
+    public void trackNameLength40(String arg1) {
+
+        track.setName(arg1);
+        assertEquals(track.getName(),arg1);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdq"})
     @DisplayName("Track name length should not exceed 40 characters.")
-    public void trackNameLength(String arg) {
+    public void trackNameLength41(String arg) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> track.setName(arg));
         assertEquals(exception.getMessage(),"Name of the track should not exceed 40 characters.");
     }
+
 
     @ParameterizedTest
     @DisplayName("Positive test case for track name.")
@@ -92,6 +119,14 @@ public class TrackUnitTest {
     public void trackLengthShouldBeValid(double arg){
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,()->track.setLength(arg));
         assertEquals(exception.getMessage(),"Not a valid track length.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {100,1})
+    @DisplayName("Invalid track length.")
+    public void trackLengthIsValid(double arg){
+        track.setLength(arg);
+        assertEquals(track.getLengthInMinutes(),arg);
     }
 
     @ParameterizedTest

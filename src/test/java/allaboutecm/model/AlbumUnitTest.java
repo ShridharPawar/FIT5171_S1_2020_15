@@ -66,13 +66,7 @@ class AlbumUnitTest {
         assertEquals(album.getAlbumName(),arg);
     }
 
-    /*@ParameterizedTest
-    @ValueSource(strings = {"Meteoraffffffffffffffffffefdfddffrfrfrfrfdfhdfjdbfhbfhfrfbfrbfrfrfr frn dfnrdbgfhrgfrdjfndfjdf"})
-    @DisplayName("Check the length of the album name.")
-    public void limitedLengthOfAlbumName(String arg) {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setAlbumName(arg));
-        assertEquals(exception.getMessage(),"Album's length is too big.");
-    }*/
+
 
     @Test
     @DisplayName("Objects are same if the release year, recordnumber and albumname are same.")
@@ -81,12 +75,7 @@ class AlbumUnitTest {
         assertEquals(album, album1);
     }
 
-    /*@ParameterizedTest
-    @ValueSource(strings = {"23de","98er"})
-    @DisplayName("Release year should have just numbers.")
-    public void randomStringReleaseYear(String arg){
-        assertThrows(NumberFormatException.class,()->album.setReleaseYear(Integer.parseInt(arg)));
-    }*/
+
 
     @ParameterizedTest
     @ValueSource(ints = {2021232787,2021,-2020,1499})
@@ -173,15 +162,6 @@ class AlbumUnitTest {
         assertThrows(NullPointerException.class,()->album.setAlbumURL(null));
     }
 
-    /*@ParameterizedTest
-    @ValueSource(strings = {"https://www.testfakewebsiteecm.com"})
-    @DisplayName("URL should atleast contain 'ecm' and it should not be fake.")
-    public void invalidURL(String arg) throws MalformedURLException {
-        if(!arg.contains("https://")){arg="https://google.com";}
-        java.net.URL url = new java.net.URL(arg);
-        assertThrows(UnknownHostException.class,()->album.setAlbumURL(url));
-    }*/
-
     @ParameterizedTest
     @DisplayName("Positive test case for URL.")
     @ValueSource(strings = {"https://www.ecmrecords.com/catalogue/143038750696/the-koln-concert-keith-jarrett"})
@@ -243,13 +223,6 @@ class AlbumUnitTest {
         assertEquals(exception.getMessage(),"Style cannot be null.");
     }
 
-   /* @ParameterizedTest
-    @ValueSource(strings = {"ContemporaryJazzdfjfnjnjgjfbgbhbbbjnjbgbghnhhjhhjuukikikjkjmjkjhkjkjkjkjkjjgbnjgnbjg"})
-    @DisplayName("Style length should not exceed 30 characters.")
-    public void setStyleLength(String arg) {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setStyle(arg));
-        assertEquals(exception.getMessage(),"Style should not exceed 30 characters.");
-    }*/
 
     @ParameterizedTest
     @DisplayName("Positive test case for style.")
@@ -273,14 +246,6 @@ class AlbumUnitTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setReleaseFormat(arg));
         assertEquals(exception.getMessage(),"Release format cannot be blank.");
     }
-
-    /*@ParameterizedTest
-    @ValueSource(strings = {"CDdfjfnjnjgjfbgbhbbbjnjbgbghnhhjhhjuukikikjkjm"})
-    @DisplayName("Release format length should not exceed 20 characters.")
-    public void setReleaseFormatLength(String arg) {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> album.setReleaseFormat(arg));
-        assertEquals(exception.getMessage(),"Release format should not exceed 20 characters.");
-    }*/
 
     @ParameterizedTest
     @DisplayName("Positive test case for release format.")
@@ -353,7 +318,7 @@ class AlbumUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {59999})
+    @ValueSource(ints = {59999,0})
     @DisplayName("Check if it is setting the valid sales number.")
     public void positiveSales(int arg){
         album.setSales(arg);

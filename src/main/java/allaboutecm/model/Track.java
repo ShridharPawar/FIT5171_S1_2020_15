@@ -30,7 +30,11 @@ public class Track extends Entity{
         {
             throw new NumberFormatException("Track length should be in numbers.");
         }
-        if(lengthInMinutes>100 || lengthInMinutes<1)
+        if(lengthInMinutes>100)
+        {
+            throw new IllegalArgumentException("Not a valid track length.");
+        }
+        if(lengthInMinutes<1)
         {
             throw new IllegalArgumentException("Not a valid track length.");
         }
@@ -46,11 +50,13 @@ public class Track extends Entity{
     {
         notNull(name,"Object is null.");
         notBlank(name,"Name cannot be blank.");
-        if(name.length()>40)
+        int a = name.length();
+        if(a>40)
         {
             throw new IllegalArgumentException("Name of the track should not exceed 40 characters.");
         }
         this.name=name;
+
     }
 
     public void setLength(double length)
@@ -59,7 +65,11 @@ public class Track extends Entity{
         {
             throw new NumberFormatException("Track length should be in numbers.");
         }
-        if(length>100 || length<1)
+        if(length>100)
+        {
+            throw new IllegalArgumentException("Not a valid track length.");
+        }
+        if(length<1)
         {
             throw new IllegalArgumentException("Not a valid track length.");
         }

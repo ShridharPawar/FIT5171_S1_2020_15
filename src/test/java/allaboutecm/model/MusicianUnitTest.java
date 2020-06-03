@@ -81,15 +81,6 @@ public class MusicianUnitTest {
         assertEquals(musician.getName(),arg);
     }
 
-    /*@ParameterizedTest
-    @ValueSource(strings = {"https://www.testfakewebsiteecm.com"})
-    @DisplayName("Should be a valid url.")
-    public void invalidURL(String arg) throws MalformedURLException {
-        if(!arg.contains("https://")){arg="https://google.com";}
-        java.net.URL url = new java.net.URL(arg);
-        assertThrows(UnknownHostException.class,()->musician.setMusicianUrl(url));
-    }*/
-
     @ParameterizedTest
     @DisplayName("Positive test case for URL.")
     @ValueSource(strings = {"https://www.ecmrecords.com/artists/1435045745"})
