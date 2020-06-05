@@ -1,6 +1,7 @@
 package allaboutecm.model;
 
 
+import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 import java.util.*;
@@ -25,10 +26,6 @@ public class Track extends Entity{
         if(name.length()>40)
         {
             throw new IllegalArgumentException("Name of the track should not exceed 40 characters.");
-        }
-        if(!Double.toString(lengthInMinutes).matches("[0-9.]+"))
-        {
-            throw new NumberFormatException("Track length should be in numbers.");
         }
         if(lengthInMinutes>100 || lengthInMinutes<1)
         {
@@ -57,10 +54,6 @@ public class Track extends Entity{
 
     public void setLength(double length)
     {
-        if(!Double.toString(length).matches("[0-9.]+"))
-        {
-            throw new NumberFormatException("Track length should be in numbers.");
-        }
         if(length>100 || length<1)
         {
             throw new IllegalArgumentException("Not a valid track length.");

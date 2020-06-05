@@ -42,8 +42,8 @@ public class TrackUnitTest {
      }
 
     @Test
-    @DisplayName("Negative track length for the constructor.")
-    public void testConstructorForTrackNegative()
+    @DisplayName("Negative track length for the constructor boundary.")
+    public void testConstructorForTrackBoundary()
     {
         Track track1 = new Track("Shadow of the day",1);
         assertNotNull(track1);
@@ -64,6 +64,14 @@ public class TrackUnitTest {
        Track track1;
        track1 = new Track("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",4);
        assertNotNull(track1);
+    }
+
+    @Test
+    @DisplayName("Negative track length for the constructor.")
+    public void constructorNegativeTrackLength()
+    {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Track("Shadow",104));
+        assertEquals(exception.getMessage(),"Not a valid track length.");
     }
 
     @Test
@@ -112,13 +120,6 @@ public class TrackUnitTest {
     public void positiveTrackName(String arg){
         track.setName(arg);
         assertEquals(track.getName(),arg);
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"26tegre","8.gggggggggg2"})
-    @DisplayName("Track length should have just numbers.")
-    public void randomStringTrackLength(String arg){
-        assertThrows(NumberFormatException.class,()->track.setLength(Double.parseDouble(arg)));
     }
 
     @ParameterizedTest
