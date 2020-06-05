@@ -50,6 +50,14 @@ public class TrackUnitTest {
     }
 
     @Test
+    @DisplayName("Negative track name length for the constructor.")
+    public void testConstructorForTrackNameNegative()
+    {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Track("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdq",4));
+        assertEquals(exception.getMessage(),"Name of the track should not exceed 40 characters.");
+    }
+
+    @Test
     @DisplayName("Testing for constructor")
     public void testingConstructor()
     {
