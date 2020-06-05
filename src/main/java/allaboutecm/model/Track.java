@@ -1,7 +1,6 @@
 package allaboutecm.model;
 
 
-import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 import java.util.*;
