@@ -71,9 +71,4 @@ public class Track extends Entity{
                 lengthInMinutes == track.lengthInMinutes;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name,lengthInMinutes);
-    }
-
 }
