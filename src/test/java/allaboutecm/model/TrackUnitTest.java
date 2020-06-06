@@ -146,38 +146,6 @@ public class TrackUnitTest {
         assertEquals(track.getLengthInMinutes(),arg);
     }
 
-    @Test
-    @DisplayName("Track equals itself")
-    public void trackIsEqualToItself()
-    {
-        assertEquals(track, track);
-    }
 
-    @Test
-    @DisplayName("Track with same name and length.")
-    public void trackCannotBeEqualToNull()
-    {
-        Track track1 = new Track("Shadow of the day",9);
-        assertNotEquals(track1, null);
-    }
-
-    @Test
-    @DisplayName("Two different tracks are not equal")
-    public void TwoDifferentTracksAreNotEqual()
-    {
-        Track track1 = new Track("Shadow of the day",9);
-        Track track2 = new Track("Shadow of the day",10);
-        assertNotEquals(track1, track2);
-    }
-
-
-    @Test
-    @DisplayName("Track cannot be equal to Concert")
-    public void trackCannotBeEqualToConcert()
-    {
-        Track track1 = new Track("Shadow of the day",9);
-        Concert concert = new Concert("Ultrasonic","India");
-        assertNotEquals(track1,concert);
-    }
 
 }
