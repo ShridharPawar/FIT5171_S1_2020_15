@@ -80,14 +80,7 @@ public class TrackUnitTest {
         NullPointerException exception = assertThrows(NullPointerException.class, () -> track.setName(null));
         assertEquals(exception.getMessage(),"Object is null.");
     }
-
-    @Test
-    @DisplayName("Objects are same if the track name and its length are same.")
-    public void sameNameAndTimeMeansSameTrack() {
-        Track track1 = new Track("Numb",4);
-        assertEquals(track, track1);
-    }
-
+    
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Track name cannot be empty or blank.")
